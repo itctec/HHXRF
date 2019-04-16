@@ -79,6 +79,8 @@ public class SettingsGroupFragment extends Fragment{
 
         if(MainActivity.commandFromLeftDrawer){
             changeFragment(MainActivity.currentSubFragmentID);
+        }else{
+            changeFragment(mSettingsGroupListData.get(0).getItem_id());
         }
 
         return rootView;

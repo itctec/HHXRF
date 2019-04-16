@@ -37,6 +37,8 @@
     <string name="format_fragment_format_two">含量+牌号</string>
     <string name="format_fragment_format_three">含量</string>
     <string name="format_fragment_format_selected_tip">（已选择结果格式）</string>
+    <string name="format_fragment_number_pick_title">次数选择</string>
+    <string name="format_fragment_number_pick_title_tip">(0~99)</string>
 
     <string name="operate_settings">操作设置</string>
     <string name="history_db">历史数据库</string>
