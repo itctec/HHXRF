@@ -1,0 +1,53 @@
+<resources>
+    <string name="app_name">HHXRF</string>
+    <string name="home_window">主窗口</string>
+    <string name="input_password_tip">请输入开机密码</string>
+    <string name="input_password_tip_sub">需要密码识别身份</string>
+    <string name="input_password_tip_sub_error">密码输入有误</string>
+
+    <string name="home_start_test_tip">扣扳机开始测试</string>
+    <string name="home_start_test_tip_detail">根据实际情况直接扣动扳机，或者通过打开镜头瞄准再扣动扳机</string>
+    <string name="home_open_camera">打开镜头</string>
+    <string name="home_last_report">上次结果</string>
+    <string name="home_last_report_column_element">元素</string>
+    <string name="home_last_report_column_percent_symble">%</string>
+    <string name="home_last_report_column_range">范围</string>
+    <string name="home_last_report_column_mean_value">均值</string>
+
+    <string name="result_settings">结果设置</string>
+    <string name="test_way">方法</string>
+    <string name="edit_report">编辑报告</string>
+    <string name="test_time">测样时间</string>
+    <string name="unit">单位</string>
+    <string name="element">元素</string>
+    <string name="compound">化合物</string>
+    <string name="format">格式</string>
+    <string name="decimal_point">小数点</string>
+    <string name="test_way_fragment_title">方法设置</string>
+    <string name="test_way_fragment_metal">金属</string>
+    <string name="test_way_fragment_ground">土壤</string>
+    <string name="test_way_fragment_item_select_tip">（已选择测试方法）</string>
+    <string name="edit_report_fragment_title">选择报告模板</string>
+    <string name="edit_report_fragment_template_one">模板一</string>
+    <string name="edit_report_fragment_template_two">模板二</string>
+    <string name="edit_report_fragment_template_three">模板三</string>
+    <string name="edit_report_fragment_template_selected_tip">（已选择模板）</string>
+    <string name="format_fragment_title">结果格式选择</string>
+    <string name="format_fragment_format_one">均值+牌号</string>
+    <string name="format_fragment_format_two">含量+牌号</string>
+    <string name="format_fragment_format_three">含量</string>
+    <string name="format_fragment_format_selected_tip">（已选择结果格式）</string>
+
+    <string name="operate_settings">操作设置</string>
+    <string name="history_db">历史数据库</string>
+    <string name="calibration">校准</string>
+    <string name="mark_db">牌号库</string>
+
+    <string name="device_settings">设备设置</string>
+    <string name="language">语言</string>
+    <string name="pull_time">扣动扳机时间</string>
+    <string name="power_off_time">自动关机时间</string>
+    <string name="safe">安全设置</string>
+    <string name="instrument_debug">仪器调试</string>
+</resources>
+

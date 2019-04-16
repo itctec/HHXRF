@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/last_Report_Item_Element_Name"
+        android:textColor="@color/home_text_black"
+        android:textSize="17sp"
+        android:gravity="center_horizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/last_Report_Item_Operation_One_Label"/>
+    <TextView
+        android:id="@+id/last_Report_Item_Operation_One_Label"
+        android:textColor="@color/home_text_gray"
+        android:textSize="17sp"
+        android:gravity="center_horizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/last_Report_Item_Element_Name"
+        app:layout_constraintRight_toLeftOf="@+id/last_Report_Item_Operation_Two_Label"/>
+    <TextView
+        android:id="@+id/last_Report_Item_Operation_Two_Label"
+        android:textColor="@color/home_text_gray"
+        android:textSize="17sp"
+        android:gravity="center_horizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/last_Report_Item_Operation_One_Label"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+</android.support.constraint.ConstraintLayout>

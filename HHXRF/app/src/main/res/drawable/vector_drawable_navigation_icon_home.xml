@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:viewportWidth="93"
+    android:viewportHeight="93" android:width="93dp" android:height="93dp">
+    <group android:name="标签栏" android:translateY="-132" android:translateX="-51">
+        <group android:name="icon_home" android:translateY="129" android:translateX="49">
+            <group android:name="Clipped" android:translateY="3" android:translateX="2">
+                <group android:name="home-a" />
+                <path android:fillColor="#FFFFFF" android:name="Rectangle-path"
+                    android:fillType="nonZero"
+                    android:pathData="M -2,-3 L 22,-3 L 22,21 L -2,21 z" />
+            </group>
+            <path android:fillColor="#FF000000" android:name="Shape"
+                android:pathData="M 0,0 L 24,0 L 24,24 L 0,24 z" />
+        </group>
+        <path android:fillColor="#FFFFFF" android:strokeWidth="1" android:fillType="evenOdd"
+            android:strokeColor="#00000000" android:pathData="M 0,0 L 450,0 L 450,378 L 0,378 z" />
+    </group>
+</vector>

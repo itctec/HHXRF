@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/activity_bg"
+    tools:context=".launching.LoginActivity">
+
+    <TextView
+        android:id="@+id/input_Password_Tip_Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="75dp"
+        android:text="@string/input_password_tip"
+        android:textColor="@color/login_password_text"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/input_Password_Tip_Sub_Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:drawableLeft="@drawable/vector_drawable_password_lock"
+        android:drawablePadding="6dp"
+        android:text="@string/input_password_tip_sub"
+        android:textColor="@color/login_password_text"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/input_Password_Tip_Text" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/password_Input_Edit_Layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="30dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/input_Password_Tip_Sub_Text">
+
+        <TextView
+            android:id="@+id/password_Input_Edit_One"
+            android:layout_width="33dp"
+            android:layout_height="45dp"
+            android:background="@drawable/password_edit_back"
+            android:cursorVisible="false"
+            android:gravity="center"
+            android:textColor="@color/login_password_text"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/password_Input_Edit_Two"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/password_Input_Edit_Two"
+            android:layout_width="33dp"
+            android:layout_height="45dp"
+            android:background="@drawable/password_edit_back"
+            android:cursorVisible="false"
+            android:gravity="center"
+            android:textColor="@color/login_password_text"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toRightOf="@id/password_Input_Edit_One"
+            app:layout_constraintRight_toLeftOf="@+id/password_Input_Edit_Three"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/password_Input_Edit_Three"
+            android:layout_width="33dp"
+            android:layout_height="45dp"
+            android:background="@drawable/password_edit_back"
+            android:cursorVisible="false"
+            android:gravity="center"
+            android:textColor="@color/login_password_text"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toRightOf="@id/password_Input_Edit_Two"
+            app:layout_constraintRight_toLeftOf="@+id/password_Input_Edit_Four"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/password_Input_Edit_Four"
+            android:layout_width="33dp"
+            android:layout_height="45dp"
+            android:background="@drawable/password_edit_back"
+            android:cursorVisible="false"
+            android:gravity="center"
+            android:textColor="@color/login_password_text"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toRightOf="@id/password_Input_Edit_Three"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/password_Keyboard_Layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="47dp"
+        android:layout_marginRight="12dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/password_Input_Edit_Layout">
+
+        <Button
+            android:id="@+id/password_Key_One"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:background="@drawable/vector_drawable_password_key_back"
+            android:text="1"
+            android:textColor="@color/login_password_text"
+            android:textSize="24sp"
+            android:onClick="onPasswordKeyClick"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/password_Key_Two"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/password_Key_Two"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:background="@drawable/vector_drawable_password_key_back"
+            android:text="2"
+            android:textColor="@color/login_password_text"
+            android:textSize="24sp"
+            android:onClick="onPasswordKeyClick"
+            app:layout_constraintLeft_toRightOf="@id/password_Key_One"
+            app:layout_constraintRight_toLeftOf="@+id/password_Key_Three"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/password_Key_Three"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:background="@drawable/vector_drawable_password_key_back"
+            android:text="3"
+            android:textColor="@color/login_password_text"
+            android:textSize="24sp"
+            android:onClick="onPasswordKeyClick"
+            app:layout_constraintLeft_toRightOf="@id/password_Key_Two"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/password_Key_Four"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginTop="11dp"
+            android:background="@drawable/vector_drawable_password_key_back"
+            android:text="4"
+            android:textColor="@color/login_password_text"
+            android:textSize="24sp"
+            android:onClick="onPasswordKeyClick"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/password_Key_Two"
+            app:layout_constraintTop_toBottomOf="@id/password_Key_One" />
+
+        <Button
+            android:id="@+id/password_Key_Five"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginTop="11dp"
+            android:background="@drawable/vector_drawable_password_key_back"
+            android:text="5"
+            android:textColor="@color/login_password_text"
+            android:textSize="24sp"
+            android:onClick="onPasswordKeyClick"
+            app:layout_constraintLeft_toRightOf="@id/password_Key_One"
+            app:layout_constraintRight_toLeftOf="@+id/password_Key_Three"
+            app:layout_constraintTop_toBottomOf="@id/password_Key_One" />
+
+        <Button
+            android:id="@+id/password_Key_Six"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginTop="11dp"
+            android:background="@drawable/vector_drawable_password_key_back"
+            android:text="6"
+            android:textColor="@color/login_password_text"
+            android:textSize="24sp"
+            android:onClick="onPasswordKeyClick"
+            app:layout_constraintLeft_toRightOf="@id/password_Key_Two"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/password_Key_One" />
+
+        <Button
+            android:id="@+id/password_Key_Seven"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginTop="11dp"
+            android:background="@drawable/vector_drawable_password_key_back"
+            android:text="7"
+            android:textColor="@color/login_password_text"
+            android:textSize="24sp"
+            android:onClick="onPasswordKeyClick"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/password_Key_Two"
+            app:layout_constraintTop_toBottomOf="@id/password_Key_Four" />
+
+        <Button
+            android:id="@+id/password_Key_Eight"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginTop="11dp"
+            android:background="@drawable/vector_drawable_password_key_back"
+            android:text="8"
+            android:textColor="@color/login_password_text"
+            android:textSize="24sp"
+            android:onClick="onPasswordKeyClick"
+            app:layout_constraintLeft_toRightOf="@id/password_Key_One"
+            app:layout_constraintRight_toLeftOf="@+id/password_Key_Three"
+            app:layout_constraintTop_toBottomOf="@id/password_Key_Four" />
+
+        <Button
+            android:id="@+id/password_Key_Nine"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginTop="11dp"
+            android:background="@drawable/vector_drawable_password_key_back"
+            android:text="9"
+            android:textColor="@color/login_password_text"
+            android:textSize="24sp"
+            android:onClick="onPasswordKeyClick"
+            app:layout_constraintLeft_toRightOf="@id/password_Key_Two"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/password_Key_Four" />
+
+        <Button
+            android:id="@+id/password_Key_Zero"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginTop="11dp"
+            android:background="@drawable/vector_drawable_password_key_back"
+            android:text="0"
+            android:textColor="@color/login_password_text"
+            android:textSize="24sp"
+            android:onClick="onPasswordKeyClick"
+            app:layout_constraintLeft_toRightOf="@id/password_Key_One"
+            app:layout_constraintRight_toLeftOf="@+id/password_Key_Three"
+            app:layout_constraintTop_toBottomOf="@id/password_Key_Seven" />
+
+        <Button
+            android:id="@+id/password_Key_Delete"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:background="@drawable/vector_drawable_password_key_delete"
+            android:onClick="onPasswordKeyClick"
+            app:layout_constraintBottom_toBottomOf="@id/password_Key_Zero"
+            app:layout_constraintLeft_toLeftOf="@id/password_Key_Nine"
+            app:layout_constraintRight_toRightOf="@id/password_Key_Nine"
+            app:layout_constraintTop_toTopOf="@id/password_Key_Zero" />
+    </android.support.constraint.ConstraintLayout>
+
+
+</android.support.constraint.ConstraintLayout>

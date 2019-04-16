@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="app_def_theme_activity_bg">#0E1933</color>
+
+    <color name="activity_bg">#2D59C3</color>
+    <color name="login_password_text">#FFFFFF</color>
+
+    <color name="home_text_white">#FFFFFF</color>
+    <color name="home_text_black">#000000</color>
+    <color name="home_text_gray">#555555</color>
+    <color name="home_last_report_item_dark">#EEEEEE</color>
+    <color name="home_last_report_item_light">#FFFFFF</color>
+
+    <color name="result_text_light">#FFFFFF</color>
+    <color name="result_text_dark">#2D59C3</color>
+    <color name="result_text_white">#FFFFFF</color>
+    <color name="result_text_black">#000000</color>
+    <color name="result_text_gray">#555555</color>
+
+    <color name="edit_report_text_white">#FFFFFF</color>
+    <color name="edit_report_text_gray">#555555</color>
+
+    <color name="app_bottom_navigation_bg">#2D59C3</color>
+
+    <color name="camera_item_bg">#50596E</color>
+    <color name="last_report_item_bg">#252C3D</color>
+
+    <color name="left_drawer_layout_bg">#000000</color>
+    <color name="left_drawer_sub_item_bg">#354C84</color>
+    <color name="left_drawer_text">#FFFFFF</color>
+
+
+</resources>
