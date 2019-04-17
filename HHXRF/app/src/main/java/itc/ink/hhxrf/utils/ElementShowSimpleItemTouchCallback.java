@@ -2,7 +2,6 @@ package itc.ink.hhxrf.utils;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -13,18 +12,20 @@ import java.util.List;
 
 import itc.ink.hhxrf.left_drawer.mode.LeftDrawerSubDataMode;
 import itc.ink.hhxrf.settings_group_fragment.adapter.SettingsGroupIndicatorDataAdapter;
+import itc.ink.hhxrf.settings_group_fragment.element_fragment.ElementShowDataAdapter;
+import itc.ink.hhxrf.settings_group_fragment.element_fragment.ElementShowDataMode;
 
 /**
  * Created by xiazdong on 16/10/6.
  */
-public class SimpleItemTouchCallback extends ItemTouchHelper.Callback {
+public class ElementShowSimpleItemTouchCallback extends ItemTouchHelper.Callback {
 
-    private SettingsGroupIndicatorDataAdapter mSettingsGroupDataAdapter;
-    private List<LeftDrawerSubDataMode> mData;
+    private ElementShowDataAdapter mElementShowDataAdapter;
+    private List<ElementShowDataMode> mData;
     private Context mContext;
-    public SimpleItemTouchCallback(Context mContext,SettingsGroupIndicatorDataAdapter adapter, List<LeftDrawerSubDataMode> data){
+    public ElementShowSimpleItemTouchCallback(Context mContext, ElementShowDataAdapter adapter, List<ElementShowDataMode> data){
         this.mContext=mContext;
-        mSettingsGroupDataAdapter = adapter;
+        mElementShowDataAdapter = adapter;
         mData = data;
     }
     /**
@@ -32,8 +33,8 @@ public class SimpleItemTouchCallback extends ItemTouchHelper.Callback {
      */
     @Override
     public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-        int dragFlag = ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
-        int swipeFlag = ItemTouchHelper.START | ItemTouchHelper.END;
+        int dragFlag = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
+        int swipeFlag = ItemTouchHelper.ACTION_STATE_IDLE;
         return makeMovementFlags(dragFlag,swipeFlag);
     }
 
@@ -43,7 +44,7 @@ public class SimpleItemTouchCallback extends ItemTouchHelper.Callback {
         int to = target.getAdapterPosition();
         Collections.swap(mData, from, to);
 
-        mSettingsGroupDataAdapter.notifyItemMoved(from, to);
+        mElementShowDataAdapter.notifyItemMoved(from, to);
 
         storeRankData();
         return true;
@@ -53,7 +54,7 @@ public class SimpleItemTouchCallback extends ItemTouchHelper.Callback {
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
         int pos = viewHolder.getAdapterPosition();
         mData.remove(pos);
-        mSettingsGroupDataAdapter.notifyItemRemoved(pos);
+        mElementShowDataAdapter.notifyItemRemoved(pos);
     }
 
 
@@ -65,10 +66,14 @@ public class SimpleItemTouchCallback extends ItemTouchHelper.Callback {
         super.onSelectedChanged(viewHolder, actionState);
         Log.i("Callback", actionState + "");
         if(actionState != ItemTouchHelper.ACTION_STATE_IDLE){
-            SettingsGroupIndicatorDataAdapter.VH holder = (SettingsGroupIndicatorDataAdapter.VH)viewHolder;
-            holder.itemView.setScaleX(1.1f);
-            holder.itemView.setScaleY(1.1f);
+            ElementShowDataAdapter.VH holder = (ElementShowDataAdapter.VH)viewHolder;
+            holder.itemView.setBackgroundColor(0xffff0000);
         }
+    }
+
+    @Override
+    public boolean isLongPressDragEnabled() {
+        return false;
     }
 
     /**
@@ -77,9 +82,8 @@ public class SimpleItemTouchCallback extends ItemTouchHelper.Callback {
     @Override
     public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
         super.clearView(recyclerView, viewHolder);
-        SettingsGroupIndicatorDataAdapter.VH holder = (SettingsGroupIndicatorDataAdapter.VH)viewHolder;
-        holder.itemView.setScaleX(1.0f);
-        holder.itemView.setScaleY(1.0f);
+        ElementShowDataAdapter.VH holder = (ElementShowDataAdapter.VH)viewHolder;
+        holder.itemView.setBackgroundColor(0xffffffff);
     }
 
     public void storeRankData(){
@@ -88,8 +92,8 @@ public class SimpleItemTouchCallback extends ItemTouchHelper.Callback {
 
         for (int i=0;i<mData.size();i++){
             ContentValues contentValues = new ContentValues();
-            contentValues.put("rank_num", (i+1)+"");
-            sqLiteDatabase.update("tb_rank_info", contentValues, "item_id=?", new String[]{mData.get(i).getItem_id()+""});
+            contentValues.put("element_rank_num", (i+1)+"");
+            sqLiteDatabase.update("tb_element_show_rank_info", contentValues, "element_id=?", new String[]{mData.get(i).getElement_id()+""});
         }
     }
 }

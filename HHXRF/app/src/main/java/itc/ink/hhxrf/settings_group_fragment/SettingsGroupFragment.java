@@ -6,16 +6,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -25,10 +23,11 @@ import itc.ink.hhxrf.R;
 import itc.ink.hhxrf.left_drawer.mode.LeftDrawerSubDataMode;
 import itc.ink.hhxrf.settings_group_fragment.adapter.SettingsGroupIndicatorDataAdapter;
 import itc.ink.hhxrf.settings_group_fragment.edit_report_fragment.EditReportFragment;
+import itc.ink.hhxrf.settings_group_fragment.element_fragment.ElementFragment;
 import itc.ink.hhxrf.settings_group_fragment.format_fragment.FormatFragment;
 import itc.ink.hhxrf.settings_group_fragment.test_way_fragment.TestWayFragment;
 import itc.ink.hhxrf.utils.SQLiteDBHelper;
-import itc.ink.hhxrf.utils.SimpleItemTouchCallback;
+import itc.ink.hhxrf.utils.FragmentIndicatorSimpleItemTouchCallback;
 
 /**
  * Created by yangwenjiang on 2018/9/19.
@@ -74,7 +73,7 @@ public class SettingsGroupFragment extends Fragment{
         settingsIndicatorRecyclerView.setAdapter(mSettingsGroupDataAdapter);
         RecyclerView.LayoutManager contentRvLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         settingsIndicatorRecyclerView.setLayoutManager(contentRvLayoutManager);
-        mHelper = new ItemTouchHelper(new SimpleItemTouchCallback(getContext(),mSettingsGroupDataAdapter, mSettingsGroupListData));
+        mHelper = new ItemTouchHelper(new FragmentIndicatorSimpleItemTouchCallback(getContext(),mSettingsGroupDataAdapter, mSettingsGroupListData));
         mHelper.attachToRecyclerView(settingsIndicatorRecyclerView);
 
         if(MainActivity.commandFromLeftDrawer){
@@ -89,7 +88,7 @@ public class SettingsGroupFragment extends Fragment{
 
     public int checkItemRank(int item_id){
         SQLiteDBHelper sqLiteDBHelper = new SQLiteDBHelper(getContext(), SQLiteDBHelper.DATABASE_FILE_NAME, SQLiteDBHelper.DATABASE_VERSION);
-        String sqlStr = "select rank_num from tb_rank_info where item_id=?";
+        String sqlStr = "select rank_num from tb_fragment_rank_info where item_id=?";
         SQLiteDatabase sqLiteDatabase = sqLiteDBHelper.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery(sqlStr, new String[]{item_id+""});
         cursor.moveToNext();
@@ -216,6 +215,8 @@ public class SettingsGroupFragment extends Fragment{
                 getChildFragmentManager().beginTransaction().replace(R.id.settings_Fragment_Container, formatFragment).commit();
                 break;
             case MainActivity.FRAGMENT_ID_ELEMENT:
+                ElementFragment elementFragment=new ElementFragment();
+                getChildFragmentManager().beginTransaction().replace(R.id.settings_Fragment_Container, elementFragment).commit();
                 break;
             case MainActivity.FRAGMENT_ID_COMPOUND:
                 break;

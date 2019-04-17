@@ -25,6 +25,11 @@
     <color name="edit_report_text_gray">#555555</color>
     <color name="edit_report_text_gray_light">#999999</color>
 
+    <color name="element_show_text_gray">#555555</color>
+    <color name="element_show_text_white">#FFFFFF</color>
+    <color name="element_show_text_blue">#2D59C3</color>
+    <color name="element_show_item_sel_bg">#FBA142</color>
+
     <color name="app_bottom_navigation_bg">#2D59C3</color>
 
     <color name="camera_item_bg">#50596E</color>

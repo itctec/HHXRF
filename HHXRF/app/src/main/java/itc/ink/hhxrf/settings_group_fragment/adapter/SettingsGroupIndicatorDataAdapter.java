@@ -86,7 +86,7 @@ public class SettingsGroupIndicatorDataAdapter extends RecyclerView.Adapter<Sett
 
     public int checkItemRank(int item_id){
         SQLiteDBHelper sqLiteDBHelper = new SQLiteDBHelper(getContext(), SQLiteDBHelper.DATABASE_FILE_NAME, SQLiteDBHelper.DATABASE_VERSION);
-        String sqlStr = "select rank_num from tb_rank_info where item_id=?";
+        String sqlStr = "select rank_num from tb_fragment_rank_info where item_id=?";
         SQLiteDatabase sqLiteDatabase = sqLiteDBHelper.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery(sqlStr, new String[]{item_id+""});
         cursor.moveToNext();

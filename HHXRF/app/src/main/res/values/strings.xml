@@ -39,6 +39,11 @@
     <string name="format_fragment_format_selected_tip">(Result format selected)</string>
     <string name="format_fragment_number_pick_title">Count Select</string>
     <string name="format_fragment_number_pick_title_tip">(0~99)</string>
+    <string name="element_fragment_title">New add element</string>
+    <string name="element_fragment_edit_btn_text">Edit</string>
+    <string name="element_fragment_cancel_edit_btn_text">Cancel Edit</string>
+    <string name="element_add_activity_multi_choice_btn_text">Multi Choice</string>
+    <string name="element_add_activity_cancel_multi_choice_btn_text">Cancel Multi Choice</string>
 
     <string name="operate_settings">Operate Settings</string>
     <string name="history_db">History DB</string>
