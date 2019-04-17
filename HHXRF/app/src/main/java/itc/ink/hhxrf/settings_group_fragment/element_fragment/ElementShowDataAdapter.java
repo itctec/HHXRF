@@ -57,16 +57,24 @@ public class ElementShowDataAdapter extends RecyclerView.Adapter<ElementShowData
     @Override
     public void onBindViewHolder(final VH holder, final int position) {
         ElementShowDataMode elementShowDataItem=mData.get(position);
-        elementShowDataItem.isEditSelected=false;
+        //elementShowDataItem.isEditSelected=false;
         holder.itemView.setBackgroundColor(Color.WHITE);
         holder.elementShowItemIcon.setText(elementShowDataItem.getElement_name());
+        holder.elementShowItemIcon.setBackgroundResource(R.drawable.vector_drawable_element_show_icon_back_dark);
         holder.elementOrdinal.setText(elementShowDataItem.getElement_ordinal());
         holder.itemView.setOnClickListener(null);
+        holder.itemView.setVisibility(View.VISIBLE);
 
         if(ElementFragment.isEditState){
+            if(elementShowDataItem.isEditSelected){
+                holder.itemView.setBackgroundColor(getContext().getColor(R.color.element_show_item_sel_bg));
+                holder.elementSelBtn.setImageResource(R.drawable.check_box_sel_icon);
+            }else{
+                holder.itemView.setBackgroundColor(Color.WHITE);
+                holder.elementSelBtn.setImageResource(R.drawable.check_box_unsel_icon);
+            }
             holder.itemView.setTag(position);
             holder.itemView.setOnClickListener(new ItemEditClickListener());
-            holder.elementSelBtn.setImageResource(R.drawable.check_box_unsel_icon);
             holder.elementSelBtn.setVisibility(View.VISIBLE);
             holder.elementShowRankBtn.setVisibility(View.GONE);
             if(position==mData.size()-1){
@@ -74,9 +82,9 @@ public class ElementShowDataAdapter extends RecyclerView.Adapter<ElementShowData
             }
         }else{
             holder.elementSelBtn.setVisibility(View.GONE);
-            holder.itemView.setVisibility(View.VISIBLE);
             if(position==mData.size()-1){
                 holder.elementShowRankBtn.setVisibility(View.GONE);
+                holder.elementShowItemIcon.setBackgroundResource(R.drawable.element_add_btn_icon);
                 holder.itemView.setOnClickListener(new AddItemClickListener());
             }else {
                 holder.elementShowRankBtn.setVisibility(View.VISIBLE);

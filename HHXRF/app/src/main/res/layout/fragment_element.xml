@@ -35,7 +35,7 @@
         app:layout_constraintBottom_toBottomOf="parent"/>
     <ImageView
         android:id="@+id/element_Fragment_Element_Show_Del_Btn"
-        android:src="@drawable/element_del_icon_red"
+        android:src="@drawable/element_del_icon"
         android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

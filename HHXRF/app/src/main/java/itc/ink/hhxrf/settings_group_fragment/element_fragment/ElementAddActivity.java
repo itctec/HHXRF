@@ -37,6 +37,8 @@ public class ElementAddActivity extends Activity {
         //StatusBar Text And Icon Style
         StatusBarUtil.setAndroidNativeLightStatusBar(this, false);
 
+        isMultiChoiceState=false;
+
         setContentView(R.layout.activity_element_add);
 
         backBtn=findViewById(R.id.element_Add_Top_Navigation_Back_Btn);
@@ -100,6 +102,10 @@ public class ElementAddActivity extends Activity {
                 multiChoiceBtn.setText(getString(R.string.element_add_activity_multi_choice_btn_text));
                 backBtn.setVisibility(View.VISIBLE);
                 addBtn.setVisibility(View.GONE);
+
+                for(int i=0;i<mElementLibListData.size();i++){
+                    mElementLibListData.get(i).isEditSelected=false;
+                }
             }
             elementLibDataAdapter.notifyDataSetChanged();
         }

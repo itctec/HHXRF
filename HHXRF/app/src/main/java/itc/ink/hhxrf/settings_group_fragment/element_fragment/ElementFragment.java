@@ -105,7 +105,7 @@ public class ElementFragment extends Fragment implements OnStartDragListener{
 
         });
 
-        ElementShowDataMode ele_Add_Btn=new ElementShowDataMode(-1,"+","添加元素",-1);
+        ElementShowDataMode ele_Add_Btn=new ElementShowDataMode(-1,"","添加元素",-1);
         elementShowItemArray.add(ele_Add_Btn);
 
         return elementShowItemArray;
@@ -126,6 +126,9 @@ public class ElementFragment extends Fragment implements OnStartDragListener{
             }else{
                 editBtn.setText(getString(R.string.element_fragment_edit_btn_text));
                 elementDelBtn.setVisibility(View.GONE);
+                for(int i=0;i<mElementShowListData.size();i++){
+                    mElementShowListData.get(i).isEditSelected=false;
+                }
             }
             elementShowDataAdapter.notifyDataSetChanged();
         }
