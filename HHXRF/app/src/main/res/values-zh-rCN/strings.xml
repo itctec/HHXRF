@@ -44,6 +44,15 @@
     <string name="element_fragment_cancel_edit_btn_text">取消编辑</string>
     <string name="element_add_activity_multi_choice_btn_text">多选</string>
     <string name="element_add_activity_cancel_multi_choice_btn_text">取消多选</string>
+    <string name="compound_fragment_title">显示化合物</string>
+    <string name="unit_fragment_title">元素含量单位选择</string>
+    <string name="unit_fragment_sel_label">(已选择单位)</string>
+    <string name="decimal_point_fragment_title">小数点位数选择</string>
+    <string name="decimal_point_fragment_sel_label">(已选择位数)</string>
+    <string name="test_time_fragment_title">选择测样时间</string>
+    <string name="test_time_fragment_label">测样时间</string>
+    <string name="test_time_fragment_label_tip">（1~1000s）</string>
+    <string name="test_time_fragment_label_tip_error">输入有误，请输入1~1000以内的数字</string>
 
     <string name="operate_settings">操作设置</string>
     <string name="history_db">历史数据库</string>

@@ -14,6 +14,7 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
     private final String TB_CREATE_FRAGMENT_RANK_INFO="create table tb_fragment_rank_info(item_id,rank_num)";
     private final String TB_CREATE_ELEMENT_LIB_INFO="create table tb_element_lib_info(element_id,element_name,element_ordinal)";
     private final String TB_CREATE_ELEMENT_SHOW_RANK_INFO="create table tb_element_show_rank_info(element_id,element_name,element_ordinal,element_rank_num)";
+    private final String TB_CREATE_COMPOUND_LIB_INFO="create table tb_compound_lib_info(compound_id,compound_element,compound_name,show_state)";
 
     public SQLiteDBHelper(Context context, String name, int version){
         super(context,name,null,version);
@@ -24,8 +25,10 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(TB_CREATE_FRAGMENT_RANK_INFO);
         sqLiteDatabase.execSQL(TB_CREATE_ELEMENT_LIB_INFO);
         sqLiteDatabase.execSQL(TB_CREATE_ELEMENT_SHOW_RANK_INFO);
+        sqLiteDatabase.execSQL(TB_CREATE_COMPOUND_LIB_INFO);
         initFragmentRankTb(sqLiteDatabase);
         initElementShowTb(sqLiteDatabase);
+        initCompoundLibTb(sqLiteDatabase);
     }
 
     @Override
@@ -85,6 +88,12 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
                 "('-1','U','-1'),('83','U','92'),('-1','V','-1'),('84','V','23'),('-1','W','-1'),('85','W','74'),('-1','X','-1'),('86','Xe','54'),('-1','Y','-1'),('87','Y','39')," +
                 "('88','Yb','70'),('-1','Z','-1'),('89','Zn','30'),('90','Zr','40')" ;
         sqLiteDatabase.execSQL(elementInsertSqlStr);
+    }
+
+    public void initCompoundLibTb(SQLiteDatabase sqLiteDatabase) {
+        String compoundInsertSqlStr = "insert into tb_compound_lib_info(compound_id,compound_element,compound_name,show_state) values " +
+                "('-1','Fe','-1','-1'),('1','Fe','Fe3O4','true'),('2','Fe','Fe2O3','false'),('-1','Al','-1','-1'),('3','Al','AL2O3','true')";
+        sqLiteDatabase.execSQL(compoundInsertSqlStr);
     }
 
 }

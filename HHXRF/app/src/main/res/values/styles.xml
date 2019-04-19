@@ -26,4 +26,10 @@
         <item name="android:activityCloseExitAnimation">@anim/activity_anim_alpha_up_out</item>
     </style>
 
+    <style name="MySwitch" parent="Theme.AppCompat.Light">
+        <item name="colorControlActivated">#FBA142</item>
+        <item name="colorSwitchThumbNormal">#999999</item>
+        <item name="android:colorForeground">#222222</item>
+    </style>
+
 </resources>

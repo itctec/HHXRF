@@ -30,6 +30,19 @@
     <color name="element_show_text_blue">#2D59C3</color>
     <color name="element_show_item_sel_bg">#FBA142</color>
 
+    <color name="compound_lib_text_white">#FFFFFF</color>
+    <color name="compound_lib_text_gray">#555555</color>
+
+    <color name="unit_text_gray">#555555</color>
+    <color name="unit_text_light">#99CCCCCC</color>
+
+    <color name="decimal_point_text_gray">#555555</color>
+    <color name="decimal_point_text_light">#99CCCCCC</color>
+
+    <color name="test_time_text_dark">#555555</color>
+    <color name="test_time_text_light">#AAAAAA</color>
+    <color name="test_time_text_blue">#2D59C3</color>
+
     <color name="app_bottom_navigation_bg">#2D59C3</color>
 
     <color name="camera_item_bg">#50596E</color>

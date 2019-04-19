@@ -22,10 +22,14 @@ import itc.ink.hhxrf.MainActivity;
 import itc.ink.hhxrf.R;
 import itc.ink.hhxrf.left_drawer.mode.LeftDrawerSubDataMode;
 import itc.ink.hhxrf.settings_group_fragment.adapter.SettingsGroupIndicatorDataAdapter;
+import itc.ink.hhxrf.settings_group_fragment.compound_fragment.CompoundFragment;
+import itc.ink.hhxrf.settings_group_fragment.decimal_point_fragment.DecimalPointFragment;
 import itc.ink.hhxrf.settings_group_fragment.edit_report_fragment.EditReportFragment;
 import itc.ink.hhxrf.settings_group_fragment.element_fragment.ElementFragment;
 import itc.ink.hhxrf.settings_group_fragment.format_fragment.FormatFragment;
+import itc.ink.hhxrf.settings_group_fragment.test_time.TestTimeFragment;
 import itc.ink.hhxrf.settings_group_fragment.test_way_fragment.TestWayFragment;
+import itc.ink.hhxrf.settings_group_fragment.unit.UnitFragment;
 import itc.ink.hhxrf.utils.SQLiteDBHelper;
 import itc.ink.hhxrf.utils.FragmentIndicatorSimpleItemTouchCallback;
 
@@ -219,12 +223,20 @@ public class SettingsGroupFragment extends Fragment{
                 getChildFragmentManager().beginTransaction().replace(R.id.settings_Fragment_Container, elementFragment).commit();
                 break;
             case MainActivity.FRAGMENT_ID_COMPOUND:
+                CompoundFragment compoundFragment=new CompoundFragment();
+                getChildFragmentManager().beginTransaction().replace(R.id.settings_Fragment_Container, compoundFragment).commit();
                 break;
             case MainActivity.FRAGMENT_ID_UNIT:
+                UnitFragment unitFragment=new UnitFragment();
+                getChildFragmentManager().beginTransaction().replace(R.id.settings_Fragment_Container, unitFragment).commit();
                 break;
             case MainActivity.FRAGMENT_ID_DECIMAL_POINT:
+                DecimalPointFragment decimalPointFragment=new DecimalPointFragment();
+                getChildFragmentManager().beginTransaction().replace(R.id.settings_Fragment_Container, decimalPointFragment).commit();
                 break;
             case MainActivity.FRAGMENT_ID_TEST_TIME:
+                TestTimeFragment testTimeFragment=new TestTimeFragment();
+                getChildFragmentManager().beginTransaction().replace(R.id.settings_Fragment_Container, testTimeFragment).commit();
                 break;
         }
     }

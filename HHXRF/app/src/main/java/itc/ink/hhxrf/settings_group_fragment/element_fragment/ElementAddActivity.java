@@ -129,4 +129,12 @@ public class ElementAddActivity extends Activity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent=new Intent();
+        ArrayList<Integer> itemAddArray=new ArrayList<>();
+        intent.putIntegerArrayListExtra("ITEM_ADD_ARRAY",itemAddArray);
+        setResult(1,intent);
+        finish();
+    }
 }

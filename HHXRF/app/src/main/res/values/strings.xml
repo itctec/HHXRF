@@ -44,6 +44,15 @@
     <string name="element_fragment_cancel_edit_btn_text">Cancel Edit</string>
     <string name="element_add_activity_multi_choice_btn_text">Multi Choice</string>
     <string name="element_add_activity_cancel_multi_choice_btn_text">Cancel Multi Choice</string>
+    <string name="compound_fragment_title">Compound Show</string>
+    <string name="unit_fragment_title">Element Content Unit Select</string>
+    <string name="unit_fragment_sel_label">(unit selected)</string>
+    <string name="decimal_point_fragment_title">Decimal Count Select</string>
+    <string name="decimal_point_fragment_sel_label">(count selected)</string>
+    <string name="test_time_fragment_title">Select test time</string>
+    <string name="test_time_fragment_label">Test time</string>
+    <string name="test_time_fragment_label_tip">(1~1000s)</string>
+    <string name="test_time_fragment_label_tip_error">input error,please input the number between 1 to 1000</string>
 
     <string name="operate_settings">Operate Settings</string>
     <string name="history_db">History DB</string>
