@@ -58,6 +58,17 @@
     <string name="history_db">History DB</string>
     <string name="calibration">Calibration</string>
     <string name="mark_db">Mark DB</string>
+    <string name="history_fragment_title">Select to open History Data</string>
+    <string name="history_fragment_edit_btn_text">Edit</string>
+    <string name="history_fragment_cancel_edit_btn_text">Cancel Edit</string>
+    <string name="history_fragment_data_compare">Data Compare</string>
+    <string name="history_fragment_column_name">Name</string>
+    <string name="history_fragment_column_datetime">Datetime</string>
+    <string name="history_fragment_column_way">Way</string>
+    <string name="compare_data_activity_data_compare">Compare Data</string>
+    <string name="compare_data_result_activity_element">Element</string>
+    <string name="compare_data_result_activity_sample_one">Sample One</string>
+    <string name="compare_data_result_activity_sample_two">Sample Two</string>
 
     <string name="device_settings">Device Settings</string>
     <string name="language">Language</string>

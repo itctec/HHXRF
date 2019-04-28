@@ -32,4 +32,10 @@
         <item name="android:colorForeground">#222222</item>
     </style>
 
+    <style name="MyActionBarSwitch" parent="Theme.AppCompat.Light">
+        <item name="colorControlActivated">#6CA754</item>
+        <item name="colorSwitchThumbNormal">#999999</item>
+        <item name="android:colorForeground">#222222</item>
+    </style>
+
 </resources>

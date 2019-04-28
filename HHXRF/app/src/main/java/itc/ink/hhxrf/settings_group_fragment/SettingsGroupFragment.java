@@ -27,6 +27,7 @@ import itc.ink.hhxrf.settings_group_fragment.decimal_point_fragment.DecimalPoint
 import itc.ink.hhxrf.settings_group_fragment.edit_report_fragment.EditReportFragment;
 import itc.ink.hhxrf.settings_group_fragment.element_fragment.ElementFragment;
 import itc.ink.hhxrf.settings_group_fragment.format_fragment.FormatFragment;
+import itc.ink.hhxrf.settings_group_fragment.history_db.HistoryFragment;
 import itc.ink.hhxrf.settings_group_fragment.test_time.TestTimeFragment;
 import itc.ink.hhxrf.settings_group_fragment.test_way_fragment.TestWayFragment;
 import itc.ink.hhxrf.settings_group_fragment.unit.UnitFragment;
@@ -100,14 +101,14 @@ public class SettingsGroupFragment extends Fragment{
     }
 
     public List<LeftDrawerSubDataMode> prepareResultSettingsData() {
-        LeftDrawerSubDataMode test_time=new LeftDrawerSubDataMode(MainActivity.FRAGMENT_ID_TEST_WAY,getResources().getString(R.string.test_way),R.drawable.sub_item_test_way_icon_sel,R.drawable.sub_item_test_way_icon_unsel,checkItemRank(11));
-        LeftDrawerSubDataMode test_way=new LeftDrawerSubDataMode(MainActivity.FRAGMENT_ID_EDIT_REPORT,getResources().getString(R.string.edit_report),R.drawable.sub_item_edit_report_icon_sel,R.drawable.sub_item_edit_report_icon_unsel,checkItemRank(12));
-        LeftDrawerSubDataMode unit=new LeftDrawerSubDataMode(MainActivity.FRAGMENT_ID_FORMAT,getResources().getString(R.string.format),R.drawable.sub_item_format_icon_sel,R.drawable.sub_item_format_icon_unsel,checkItemRank(13));
-        LeftDrawerSubDataMode edit_report=new LeftDrawerSubDataMode(MainActivity.FRAGMENT_ID_ELEMENT,getResources().getString(R.string.element),R.drawable.sub_item_element_icon_sel,R.drawable.sub_item_element_icon_unsel,checkItemRank(14));
-        LeftDrawerSubDataMode element=new LeftDrawerSubDataMode(MainActivity.FRAGMENT_ID_COMPOUND,getResources().getString(R.string.compound),R.drawable.sub_item_compound_icon_sel,R.drawable.sub_item_compound_icon_unsel,checkItemRank(15));
-        LeftDrawerSubDataMode compound=new LeftDrawerSubDataMode(MainActivity.FRAGMENT_ID_UNIT,getResources().getString(R.string.unit),R.drawable.sub_item_unit_icon_sel,R.drawable.sub_item_unit_icon_unsel,checkItemRank(16));
-        LeftDrawerSubDataMode format=new LeftDrawerSubDataMode(MainActivity.FRAGMENT_ID_DECIMAL_POINT,getResources().getString(R.string.decimal_point),R.drawable.sub_item_decimal_point_icon_sel,R.drawable.sub_item_decimal_point_icon_unsel,checkItemRank(17));
-        LeftDrawerSubDataMode decimal_point=new LeftDrawerSubDataMode(MainActivity.FRAGMENT_ID_TEST_TIME,getResources().getString(R.string.test_time),R.drawable.sub_item_test_time_icon_sel,R.drawable.sub_item_test_time_icon_unsel,checkItemRank(18));
+        LeftDrawerSubDataMode test_time=new LeftDrawerSubDataMode(MainActivity.FRAGMENT_ID_TEST_WAY,getResources().getString(R.string.test_way),R.drawable.sub_item_test_way_icon_sel,R.drawable.sub_item_test_way_icon_unsel,checkItemRank(MainActivity.FRAGMENT_ID_TEST_WAY));
+        LeftDrawerSubDataMode test_way=new LeftDrawerSubDataMode(MainActivity.FRAGMENT_ID_EDIT_REPORT,getResources().getString(R.string.edit_report),R.drawable.sub_item_edit_report_icon_sel,R.drawable.sub_item_edit_report_icon_unsel,checkItemRank(MainActivity.FRAGMENT_ID_EDIT_REPORT));
+        LeftDrawerSubDataMode unit=new LeftDrawerSubDataMode(MainActivity.FRAGMENT_ID_FORMAT,getResources().getString(R.string.format),R.drawable.sub_item_format_icon_sel,R.drawable.sub_item_format_icon_unsel,checkItemRank(MainActivity.FRAGMENT_ID_FORMAT));
+        LeftDrawerSubDataMode edit_report=new LeftDrawerSubDataMode(MainActivity.FRAGMENT_ID_ELEMENT,getResources().getString(R.string.element),R.drawable.sub_item_element_icon_sel,R.drawable.sub_item_element_icon_unsel,checkItemRank(MainActivity.FRAGMENT_ID_ELEMENT));
+        LeftDrawerSubDataMode element=new LeftDrawerSubDataMode(MainActivity.FRAGMENT_ID_COMPOUND,getResources().getString(R.string.compound),R.drawable.sub_item_compound_icon_sel,R.drawable.sub_item_compound_icon_unsel,checkItemRank(MainActivity.FRAGMENT_ID_COMPOUND));
+        LeftDrawerSubDataMode compound=new LeftDrawerSubDataMode(MainActivity.FRAGMENT_ID_UNIT,getResources().getString(R.string.unit),R.drawable.sub_item_unit_icon_sel,R.drawable.sub_item_unit_icon_unsel,checkItemRank(MainActivity.FRAGMENT_ID_UNIT));
+        LeftDrawerSubDataMode format=new LeftDrawerSubDataMode(MainActivity.FRAGMENT_ID_DECIMAL_POINT,getResources().getString(R.string.decimal_point),R.drawable.sub_item_decimal_point_icon_sel,R.drawable.sub_item_decimal_point_icon_unsel,checkItemRank(MainActivity.FRAGMENT_ID_DECIMAL_POINT));
+        LeftDrawerSubDataMode decimal_point=new LeftDrawerSubDataMode(MainActivity.FRAGMENT_ID_TEST_TIME,getResources().getString(R.string.test_time),R.drawable.sub_item_test_time_icon_sel,R.drawable.sub_item_test_time_icon_unsel,checkItemRank(MainActivity.FRAGMENT_ID_TEST_TIME));
         List<LeftDrawerSubDataMode> resultSettingSubItemArray=new ArrayList<>();
         resultSettingSubItemArray.add(test_time);
         resultSettingSubItemArray.add(test_way);
@@ -137,9 +138,9 @@ public class SettingsGroupFragment extends Fragment{
     }
 
     public List<LeftDrawerSubDataMode> prepareOperateSettingsData() {
-        LeftDrawerSubDataMode history_db=new LeftDrawerSubDataMode(21,getResources().getString(R.string.history_db),R.drawable.vector_drawable_recommend,R.drawable.vector_drawable_recommend,checkItemRank(21));
-        LeftDrawerSubDataMode calibration=new LeftDrawerSubDataMode(22,getResources().getString(R.string.calibration),R.drawable.vector_drawable_recommend,R.drawable.vector_drawable_recommend,checkItemRank(22));
-        LeftDrawerSubDataMode mark_db=new LeftDrawerSubDataMode(23,getResources().getString(R.string.mark_db),R.drawable.vector_drawable_recommend,R.drawable.vector_drawable_recommend,checkItemRank(23));
+        LeftDrawerSubDataMode history_db=new LeftDrawerSubDataMode(MainActivity.FRAGMENT_ID_HISTORY_DB,getResources().getString(R.string.history_db),R.drawable.sub_item_history_icon_sel,R.drawable.sub_item_history_icon_unsel,checkItemRank(MainActivity.FRAGMENT_ID_HISTORY_DB));
+        LeftDrawerSubDataMode calibration=new LeftDrawerSubDataMode(MainActivity.FRAGMENT_ID_CALIBRATION,getResources().getString(R.string.calibration),R.drawable.sub_item_calibration_icon_sel,R.drawable.sub_item_calibration_icon_unsel,checkItemRank(MainActivity.FRAGMENT_ID_CALIBRATION));
+        LeftDrawerSubDataMode mark_db=new LeftDrawerSubDataMode(MainActivity.FRAGMENT_ID_MARK_DB,getResources().getString(R.string.mark_db),R.drawable.sub_item_mark_icon_sel,R.drawable.sub_item_mark_icon_unsel,checkItemRank(MainActivity.FRAGMENT_ID_MARK_DB));
         List<LeftDrawerSubDataMode> operateSettingSubItemArray=new ArrayList<>();
         operateSettingSubItemArray.add(history_db);
         operateSettingSubItemArray.add(calibration);
@@ -237,6 +238,10 @@ public class SettingsGroupFragment extends Fragment{
             case MainActivity.FRAGMENT_ID_TEST_TIME:
                 TestTimeFragment testTimeFragment=new TestTimeFragment();
                 getChildFragmentManager().beginTransaction().replace(R.id.settings_Fragment_Container, testTimeFragment).commit();
+                break;
+            case MainActivity.FRAGMENT_ID_HISTORY_DB:
+                HistoryFragment historyFragment=new HistoryFragment();
+                getChildFragmentManager().beginTransaction().replace(R.id.settings_Fragment_Container, historyFragment).commit();
                 break;
         }
     }

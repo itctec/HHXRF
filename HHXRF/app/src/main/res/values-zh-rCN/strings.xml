@@ -54,10 +54,24 @@
     <string name="test_time_fragment_label_tip">（1~1000s）</string>
     <string name="test_time_fragment_label_tip_error">输入有误，请输入1~1000以内的数字</string>
 
+
+
     <string name="operate_settings">操作设置</string>
-    <string name="history_db">历史数据库</string>
+    <string name="history_db">历史数据</string>
     <string name="calibration">校准</string>
     <string name="mark_db">牌号库</string>
+    <string name="history_fragment_title">选择打开历史数据</string>
+    <string name="history_fragment_edit_btn_text">编辑</string>
+    <string name="history_fragment_cancel_edit_btn_text">取消编辑</string>
+    <string name="history_fragment_data_compare">数据对比</string>
+    <string name="history_fragment_column_name">名称</string>
+    <string name="history_fragment_column_datetime">时间</string>
+    <string name="history_fragment_column_way">方法</string>
+    <string name="compare_data_activity_data_compare">对比数据</string>
+    <string name="compare_data_result_activity_element">元素</string>
+    <string name="compare_data_result_activity_sample_one">样品一</string>
+    <string name="compare_data_result_activity_sample_two">样品二</string>
+
 
     <string name="device_settings">设备设置</string>
     <string name="language">语言</string>

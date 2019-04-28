@@ -36,6 +36,9 @@ public class MainActivity extends Activity {
     public static final int FRAGMENT_ID_UNIT=16;
     public static final int FRAGMENT_ID_DECIMAL_POINT=17;
     public static final int FRAGMENT_ID_TEST_TIME=18;
+    public static final int FRAGMENT_ID_HISTORY_DB=21;
+    public static final int FRAGMENT_ID_CALIBRATION=22;
+    public static final int FRAGMENT_ID_MARK_DB=23;
     private DrawerLayout mainDrawerLayout;
     private RecyclerView leftDrawerContentRV;
 
@@ -113,9 +116,9 @@ public class MainActivity extends Activity {
         resultSettingSubItemArray.add(decimal_point);
         LeftDrawerWrapperDataMode resultSettings=new LeftDrawerWrapperDataMode(getResources().getString(R.string.result_settings),resultSettingSubItemArray);
 
-        LeftDrawerSubDataMode history_db=new LeftDrawerSubDataMode(21,getResources().getString(R.string.history_db),R.drawable.vector_drawable_recommend,R.drawable.vector_drawable_recommend,1);
-        LeftDrawerSubDataMode calibration=new LeftDrawerSubDataMode(22,getResources().getString(R.string.calibration),R.drawable.vector_drawable_recommend,R.drawable.vector_drawable_recommend,2);
-        LeftDrawerSubDataMode mark_db=new LeftDrawerSubDataMode(23,getResources().getString(R.string.mark_db),R.drawable.vector_drawable_recommend,R.drawable.vector_drawable_recommend,3);
+        LeftDrawerSubDataMode history_db=new LeftDrawerSubDataMode(FRAGMENT_ID_HISTORY_DB,getResources().getString(R.string.history_db),R.drawable.sub_item_history_icon_sel,R.drawable.sub_item_history_icon_unsel,1);
+        LeftDrawerSubDataMode calibration=new LeftDrawerSubDataMode(FRAGMENT_ID_CALIBRATION,getResources().getString(R.string.calibration),R.drawable.sub_item_calibration_icon_sel,R.drawable.sub_item_calibration_icon_unsel,2);
+        LeftDrawerSubDataMode mark_db=new LeftDrawerSubDataMode(FRAGMENT_ID_MARK_DB,getResources().getString(R.string.mark_db),R.drawable.sub_item_mark_icon_sel,R.drawable.sub_item_mark_icon_unsel,3);
         List<LeftDrawerSubDataMode> operateSettingSubItemArray=new ArrayList<>();
         operateSettingSubItemArray.add(history_db);
         operateSettingSubItemArray.add(calibration);

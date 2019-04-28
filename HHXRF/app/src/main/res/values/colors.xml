@@ -43,6 +43,8 @@
     <color name="test_time_text_light">#AAAAAA</color>
     <color name="test_time_text_blue">#2D59C3</color>
 
+    <color name="history_item_text_dark">#555555</color>
+
     <color name="app_bottom_navigation_bg">#2D59C3</color>
 
     <color name="camera_item_bg">#50596E</color>

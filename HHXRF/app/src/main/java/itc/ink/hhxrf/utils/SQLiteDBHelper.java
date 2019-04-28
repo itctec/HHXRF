@@ -15,6 +15,8 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
     private final String TB_CREATE_ELEMENT_LIB_INFO="create table tb_element_lib_info(element_id,element_name,element_ordinal)";
     private final String TB_CREATE_ELEMENT_SHOW_RANK_INFO="create table tb_element_show_rank_info(element_id,element_name,element_ordinal,element_rank_num)";
     private final String TB_CREATE_COMPOUND_LIB_INFO="create table tb_compound_lib_info(compound_id,compound_element,compound_name,show_state)";
+    private final String TB_CREATE_HISTORY_DATA="create table tb_history_data(sample_name PRIMARY KEY,test_datetime,test_way)";
+    private final String TB_CREATE_HISTORY_DATA_CONTENT="create table tb_history_data_content(element_name,element_content,sample_name,FOREIGN KEY(sample_name) REFERENCES tb_history_data(sample_name))";
 
     public SQLiteDBHelper(Context context, String name, int version){
         super(context,name,null,version);
@@ -26,9 +28,12 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(TB_CREATE_ELEMENT_LIB_INFO);
         sqLiteDatabase.execSQL(TB_CREATE_ELEMENT_SHOW_RANK_INFO);
         sqLiteDatabase.execSQL(TB_CREATE_COMPOUND_LIB_INFO);
+        sqLiteDatabase.execSQL(TB_CREATE_HISTORY_DATA);
+        sqLiteDatabase.execSQL(TB_CREATE_HISTORY_DATA_CONTENT);
         initFragmentRankTb(sqLiteDatabase);
         initElementShowTb(sqLiteDatabase);
         initCompoundLibTb(sqLiteDatabase);
+        initHistoryTb(sqLiteDatabase);
     }
 
     @Override
@@ -36,41 +41,24 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
 
     }
 
+    @Override
+    public void onOpen(SQLiteDatabase db) {
+        super.onOpen(db);
+        if(!db.isReadOnly()) {
+            db.execSQL("PRAGMA foreign_keys=ON;");
+        }
+    }
+
     public void initFragmentRankTb(SQLiteDatabase sqLiteDatabase){
-        String resultRankSqlStr1="insert into tb_fragment_rank_info(item_id,rank_num) values ('11','1')";
-        String resultRankSqlStr2="insert into tb_fragment_rank_info(item_id,rank_num) values ('12','2')";
-        String resultRankSqlStr3="insert into tb_fragment_rank_info(item_id,rank_num) values ('13','3')";
-        String resultRankSqlStr4="insert into tb_fragment_rank_info(item_id,rank_num) values ('14','4')";
-        String resultRankSqlStr5="insert into tb_fragment_rank_info(item_id,rank_num) values ('15','5')";
-        String resultRankSqlStr6="insert into tb_fragment_rank_info(item_id,rank_num) values ('16','6')";
-        String resultRankSqlStr7="insert into tb_fragment_rank_info(item_id,rank_num) values ('17','7')";
-        String resultRankSqlStr8="insert into tb_fragment_rank_info(item_id,rank_num) values ('18','8')";
-        sqLiteDatabase.execSQL(resultRankSqlStr1);
-        sqLiteDatabase.execSQL(resultRankSqlStr2);
-        sqLiteDatabase.execSQL(resultRankSqlStr3);
-        sqLiteDatabase.execSQL(resultRankSqlStr4);
-        sqLiteDatabase.execSQL(resultRankSqlStr5);
-        sqLiteDatabase.execSQL(resultRankSqlStr6);
-        sqLiteDatabase.execSQL(resultRankSqlStr7);
-        sqLiteDatabase.execSQL(resultRankSqlStr8);
+        String resultRankSqlStr="insert into tb_fragment_rank_info(item_id,rank_num) values " +
+                "('11','1'),('12','2'),('13','3'),('14','4'),('15','5'),('16','6'),('17','7'),('18','8')";
+        sqLiteDatabase.execSQL(resultRankSqlStr);
 
-        String operateRankSqlStr1="insert into tb_fragment_rank_info(item_id,rank_num) values ('21','1')";
-        String operateRankSqlStr2="insert into tb_fragment_rank_info(item_id,rank_num) values ('22','2')";
-        String operateRankSqlStr3="insert into tb_fragment_rank_info(item_id,rank_num) values ('23','3')";
-        sqLiteDatabase.execSQL(operateRankSqlStr1);
-        sqLiteDatabase.execSQL(operateRankSqlStr2);
-        sqLiteDatabase.execSQL(operateRankSqlStr3);
+        String operateRankSqlStr="insert into tb_fragment_rank_info(item_id,rank_num) values ('21','1'),('22','2'),('23','3')";
+        sqLiteDatabase.execSQL(operateRankSqlStr);
 
-        String systemRankSqlStr1="insert into tb_fragment_rank_info(item_id,rank_num) values ('31','1')";
-        String systemRankSqlStr2="insert into tb_fragment_rank_info(item_id,rank_num) values ('32','2')";
-        String systemRankSqlStr3="insert into tb_fragment_rank_info(item_id,rank_num) values ('33','3')";
-        String systemRankSqlStr4="insert into tb_fragment_rank_info(item_id,rank_num) values ('34','4')";
-        String systemRankSqlStr5="insert into tb_fragment_rank_info(item_id,rank_num) values ('35','5')";
-        sqLiteDatabase.execSQL(systemRankSqlStr1);
-        sqLiteDatabase.execSQL(systemRankSqlStr2);
-        sqLiteDatabase.execSQL(systemRankSqlStr3);
-        sqLiteDatabase.execSQL(systemRankSqlStr4);
-        sqLiteDatabase.execSQL(systemRankSqlStr5);
+        String systemRankSqlStr="insert into tb_fragment_rank_info(item_id,rank_num) values ('31','1'),('32','2'),('33','3'),('34','4'),('35','5')";
+        sqLiteDatabase.execSQL(systemRankSqlStr);
     }
 
     public void initElementShowTb(SQLiteDatabase sqLiteDatabase) {
@@ -94,6 +82,18 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
         String compoundInsertSqlStr = "insert into tb_compound_lib_info(compound_id,compound_element,compound_name,show_state) values " +
                 "('-1','Fe','-1','-1'),('1','Fe','Fe3O4','true'),('2','Fe','Fe2O3','false'),('-1','Al','-1','-1'),('3','Al','AL2O3','true')";
         sqLiteDatabase.execSQL(compoundInsertSqlStr);
+    }
+
+    public void initHistoryTb(SQLiteDatabase sqLiteDatabase) {
+        String historyInsertSqlStr = "insert into tb_history_data(sample_name,test_datetime,test_way) values " +
+                "('Sample001','2019-02-15','金属'),('Sample002','2019-02-16','土壤'),('Sample003','2019-02-17','金属'),('Sample004','2019-02-18','金属'),('Sample005','2019-02-19','土壤')";
+        sqLiteDatabase.execSQL(historyInsertSqlStr);
+
+        String historyContentInsertSqlStr = "insert into tb_history_data_content(element_name,element_content,sample_name) values " +
+                "('Fe','56','Sample001'),('Ru','28','Sample001'),('S','28','Sample001'),('Se','12','Sample001'),('Ti','1','Sample001'),('Hg','3.5','Sample001'),"+
+                "('A','56','Sample002'),('Ru','14','Sample002'),('Si','28','Sample002'),('K','12','Sample002'),('N','1','Sample002'),('Hg','36','Sample002'),"+
+                "('Fe','56','Sample003'),('Ru','23','Sample003'),('Tb','22','Sample003'),('Se','12','Sample003'),('Ge','34','Sample003'),('La','23','Sample003')";
+        sqLiteDatabase.execSQL(historyContentInsertSqlStr);
     }
 
 }
