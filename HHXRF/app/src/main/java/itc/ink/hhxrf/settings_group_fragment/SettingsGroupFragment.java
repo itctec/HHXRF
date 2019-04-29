@@ -22,6 +22,7 @@ import itc.ink.hhxrf.MainActivity;
 import itc.ink.hhxrf.R;
 import itc.ink.hhxrf.left_drawer.mode.LeftDrawerSubDataMode;
 import itc.ink.hhxrf.settings_group_fragment.adapter.SettingsGroupIndicatorDataAdapter;
+import itc.ink.hhxrf.settings_group_fragment.calibration.CalibrationFragment;
 import itc.ink.hhxrf.settings_group_fragment.compound_fragment.CompoundFragment;
 import itc.ink.hhxrf.settings_group_fragment.decimal_point_fragment.DecimalPointFragment;
 import itc.ink.hhxrf.settings_group_fragment.edit_report_fragment.EditReportFragment;
@@ -242,6 +243,10 @@ public class SettingsGroupFragment extends Fragment{
             case MainActivity.FRAGMENT_ID_HISTORY_DB:
                 HistoryFragment historyFragment=new HistoryFragment();
                 getChildFragmentManager().beginTransaction().replace(R.id.settings_Fragment_Container, historyFragment).commit();
+                break;
+            case MainActivity.FRAGMENT_ID_CALIBRATION:
+                CalibrationFragment calibrationFragment=new CalibrationFragment();
+                getChildFragmentManager().beginTransaction().replace(R.id.settings_Fragment_Container, calibrationFragment).commit();
                 break;
         }
     }

@@ -71,6 +71,22 @@
     <string name="compare_data_result_activity_element">元素</string>
     <string name="compare_data_result_activity_sample_one">样品一</string>
     <string name="compare_data_result_activity_sample_two">样品二</string>
+    <string name="calibration_fragment_title">校准调配</string>
+    <string name="calibration_fragment_power_calibration">能量校准</string>
+    <string name="calibration_fragment_type_calibration">类型校准</string>
+    <string name="calibration_fragment_add_new_type">添加新类型</string>
+    <string name="calibration_fragment_add_input_name">输入名称</string>
+    <string name="calibration_fragment_add_input_name_please">请输入名称</string>
+    <string name="calibration_fragment_add_item_same_tip">数据库已存在同名校准类型，请修改校准类型名称！</string>
+    <string name="calibration_fragment_add_item_empty_tip">校准类型名称不能为空！</string>
+    <string name="calibration_fragment_add_next_step">下一步</string>
+    <string name="calibration_fragment_add_sp_two_element">元素</string>
+    <string name="calibration_fragment_add_sp_two_multiplication">乘法系数</string>
+    <string name="calibration_fragment_add_sp_two_plus">加法系数</string>
+    <string name="calibration_fragment_add_sp_two_unit">单位</string>
+    <string name="calibration_fragment_add_sp_two_sure">确认</string>
+    <string name="edit_btn_text">编辑</string>
+    <string name="cancel_edit_btn_text">取消编辑</string>
 
 
     <string name="device_settings">设备设置</string>

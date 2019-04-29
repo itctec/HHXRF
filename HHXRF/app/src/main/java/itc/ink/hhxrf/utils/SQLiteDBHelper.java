@@ -17,6 +17,8 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
     private final String TB_CREATE_COMPOUND_LIB_INFO="create table tb_compound_lib_info(compound_id,compound_element,compound_name,show_state)";
     private final String TB_CREATE_HISTORY_DATA="create table tb_history_data(sample_name PRIMARY KEY,test_datetime,test_way)";
     private final String TB_CREATE_HISTORY_DATA_CONTENT="create table tb_history_data_content(element_name,element_content,sample_name,FOREIGN KEY(sample_name) REFERENCES tb_history_data(sample_name))";
+    private final String TB_CREATE_TYPE_CALIBRATION="create table tb_type_calibration(type_name PRIMARY KEY,enable_state)";
+    private final String TB_CREATE_TYPE_CALIBRATION_CONTENT="create table tb_type_calibration_content(element_id,element_name,value_multiplication,value_plus,value_unit,type_name,FOREIGN KEY(type_name) REFERENCES tb_type_calibration(type_name))";
 
     public SQLiteDBHelper(Context context, String name, int version){
         super(context,name,null,version);
@@ -30,6 +32,8 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(TB_CREATE_COMPOUND_LIB_INFO);
         sqLiteDatabase.execSQL(TB_CREATE_HISTORY_DATA);
         sqLiteDatabase.execSQL(TB_CREATE_HISTORY_DATA_CONTENT);
+        sqLiteDatabase.execSQL(TB_CREATE_TYPE_CALIBRATION);
+        sqLiteDatabase.execSQL(TB_CREATE_TYPE_CALIBRATION_CONTENT);
         initFragmentRankTb(sqLiteDatabase);
         initElementShowTb(sqLiteDatabase);
         initCompoundLibTb(sqLiteDatabase);

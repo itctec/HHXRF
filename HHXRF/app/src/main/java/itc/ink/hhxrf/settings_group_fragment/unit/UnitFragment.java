@@ -11,12 +11,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import itc.ink.hhxrf.R;
+import itc.ink.hhxrf.utils.SharedPreferenceUtil;
 
 /**
  * Created by yangwenjiang on 2018/9/19.
  */
 
 public class UnitFragment extends Fragment {
+    public static final String KEY_UNIT="KEY_UNIT";
     private ImageView percentItemBg;
     private TextView percentTitle;
     private TextView percentSelLabel;
@@ -40,7 +42,7 @@ public class UnitFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_unit, container, false);
         percentItemBg=rootView.findViewById(R.id.unit_Fragment_Percent_Item_Btn_Back);
-        percentItemBg.setTag("percent");
+        percentItemBg.setTag("%");
         percentItemBg.setOnClickListener(new ItemBgClickListener());
         percentTitle=rootView.findViewById(R.id.unit_Fragment_Percent_Btn_Title);
         percentSelLabel=rootView.findViewById(R.id.unit_Fragment_Percent_Select_Label);
@@ -50,15 +52,17 @@ public class UnitFragment extends Fragment {
         ppmTitle=rootView.findViewById(R.id.unit_Fragment_PPM_Btn_Title);
         ppmSelLabel=rootView.findViewById(R.id.unit_Fragment_PPM_Select_Label);
         mgcmItemBg=rootView.findViewById(R.id.unit_Fragment_MGCM_Item_Btn_Back);
-        mgcmItemBg.setTag("mgcm");
+        mgcmItemBg.setTag("mg/cm2");
         mgcmItemBg.setOnClickListener(new ItemBgClickListener());
         mgcmTitle=rootView.findViewById(R.id.unit_Fragment_MGCM_Btn_Title);
         mgcmSelLabel=rootView.findViewById(R.id.unit_Fragment_MGCM_Select_Label);
         umItemBg=rootView.findViewById(R.id.unit_Fragment_UM_Item_Btn_Back);
-        umItemBg.setTag("um");
+        umItemBg.setTag("μm");
         umItemBg.setOnClickListener(new ItemBgClickListener());
         umTitle=rootView.findViewById(R.id.unit_Fragment_UM_Btn_Title);
         umSelLabel=rootView.findViewById(R.id.unit_Fragment_UM_Select_Label);
+
+        updateView(SharedPreferenceUtil.getString("KEY_UNIT"));
         return rootView;
     }
 
@@ -66,38 +70,52 @@ public class UnitFragment extends Fragment {
         @Override
         public void onClick(View view) {
             String tagStr=(String)view.getTag();
-            percentItemBg.setBackground(null);
-            percentTitle.setTextColor(getResources().getColor(R.color.unit_text_light,null));
-            percentSelLabel.setVisibility(View.GONE);
-            ppmItemBg.setBackground(null);
-            ppmTitle.setTextColor(getResources().getColor(R.color.unit_text_light,null));
-            ppmSelLabel.setVisibility(View.GONE);
-            mgcmItemBg.setBackground(null);
-            mgcmTitle.setTextColor(getResources().getColor(R.color.unit_text_light,null));
-            mgcmSelLabel.setVisibility(View.GONE);
-            umItemBg.setBackground(null);
-            umTitle.setTextColor(getResources().getColor(R.color.unit_text_light,null));
-            umSelLabel.setVisibility(View.GONE);
+            updateView(tagStr);
+        }
+    }
 
-            view.setBackgroundResource(R.drawable.unit_sel_icon);
-            switch (tagStr){
-                case "percent":
-                    percentTitle.setTextColor(getResources().getColor(R.color.unit_text_gray,null));
-                    percentSelLabel.setVisibility(View.VISIBLE);
-                    break;
-                case "ppm":
-                    ppmTitle.setTextColor(getResources().getColor(R.color.unit_text_gray,null));
-                    ppmSelLabel.setVisibility(View.VISIBLE);
-                    break;
-                case "mgcm":
-                    mgcmTitle.setTextColor(getResources().getColor(R.color.unit_text_gray,null));
-                    mgcmSelLabel.setVisibility(View.VISIBLE);
-                    break;
-                case "um":
-                    umTitle.setTextColor(getResources().getColor(R.color.unit_text_gray,null));
-                    umSelLabel.setVisibility(View.VISIBLE);
-                    break;
-            }
+    public void updateView(String unitStr){
+        if (unitStr==null||unitStr.isEmpty()){
+            unitStr="%";
+        }
+        percentItemBg.setBackground(null);
+        percentTitle.setTextColor(getResources().getColor(R.color.unit_text_light,null));
+        percentSelLabel.setVisibility(View.GONE);
+        ppmItemBg.setBackground(null);
+        ppmTitle.setTextColor(getResources().getColor(R.color.unit_text_light,null));
+        ppmSelLabel.setVisibility(View.GONE);
+        mgcmItemBg.setBackground(null);
+        mgcmTitle.setTextColor(getResources().getColor(R.color.unit_text_light,null));
+        mgcmSelLabel.setVisibility(View.GONE);
+        umItemBg.setBackground(null);
+        umTitle.setTextColor(getResources().getColor(R.color.unit_text_light,null));
+        umSelLabel.setVisibility(View.GONE);
+
+        switch (unitStr){
+            case "%":
+                SharedPreferenceUtil.putString("KEY_UNIT","%");
+                percentItemBg.setBackgroundResource(R.drawable.unit_sel_icon);
+                percentTitle.setTextColor(getResources().getColor(R.color.unit_text_gray,null));
+                percentSelLabel.setVisibility(View.VISIBLE);
+                break;
+            case "ppm":
+                SharedPreferenceUtil.putString("KEY_UNIT","ppm");
+                ppmItemBg.setBackgroundResource(R.drawable.unit_sel_icon);
+                ppmTitle.setTextColor(getResources().getColor(R.color.unit_text_gray,null));
+                ppmSelLabel.setVisibility(View.VISIBLE);
+                break;
+            case "mg/cm2":
+                SharedPreferenceUtil.putString("KEY_UNIT","mg/cm2");
+                mgcmItemBg.setBackgroundResource(R.drawable.unit_sel_icon);
+                mgcmTitle.setTextColor(getResources().getColor(R.color.unit_text_gray,null));
+                mgcmSelLabel.setVisibility(View.VISIBLE);
+                break;
+            case "μm":
+                SharedPreferenceUtil.putString("KEY_UNIT","μm");
+                umItemBg.setBackgroundResource(R.drawable.unit_sel_icon);
+                umTitle.setTextColor(getResources().getColor(R.color.unit_text_gray,null));
+                umSelLabel.setVisibility(View.VISIBLE);
+                break;
         }
     }
 

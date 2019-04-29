@@ -69,6 +69,22 @@
     <string name="compare_data_result_activity_element">Element</string>
     <string name="compare_data_result_activity_sample_one">Sample One</string>
     <string name="compare_data_result_activity_sample_two">Sample Two</string>
+    <string name="calibration_fragment_title">Calibration deployment</string>
+    <string name="calibration_fragment_power_calibration">Power Calibration</string>
+    <string name="calibration_fragment_type_calibration">Type Calibration</string>
+    <string name="calibration_fragment_add_new_type">Add new type</string>
+    <string name="calibration_fragment_add_input_name_please">Please Input Name</string>
+    <string name="calibration_fragment_add_item_same_tip">The calibration type with the same name already exists in the database. Please change the name of the calibration type!</string>
+    <string name="calibration_fragment_add_item_empty_tip">Calibration type name cannot be empty!</string>
+    <string name="calibration_fragment_add_input_name">Input Name</string>
+    <string name="calibration_fragment_add_next_step">Next Step</string>
+    <string name="calibration_fragment_add_sp_two_element">Element</string>
+    <string name="calibration_fragment_add_sp_two_multiplication">Multiplication Coefficient</string>
+    <string name="calibration_fragment_add_sp_two_plus">Plus Coefficient</string>
+    <string name="calibration_fragment_add_sp_two_unit">Unit</string>
+    <string name="calibration_fragment_add_sp_two_sure">Sure</string>
+    <string name="edit_btn_text">Edit</string>
+    <string name="cancel_edit_btn_text">Cancel Edit</string>
 
     <string name="device_settings">Device Settings</string>
     <string name="language">Language</string>

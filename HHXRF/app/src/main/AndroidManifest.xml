@@ -45,6 +45,16 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|stateUnchanged"
             android:theme="@style/DefActivityTheme"/>
+        <activity android:name=".settings_group_fragment.calibration.TypeCalibrationActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DefActivityTheme"/>
+        <activity android:name=".settings_group_fragment.calibration.TypeCalibrationAddSpOne"
+            android:screenOrientation="portrait"
+            android:theme="@style/DefActivityTheme"/>
+        <activity android:name=".settings_group_fragment.calibration.TypeCalibrationAddSpTwo"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|stateUnchanged"
+            android:theme="@style/DefActivityTheme"/>
     </application>
 
 </manifest>
