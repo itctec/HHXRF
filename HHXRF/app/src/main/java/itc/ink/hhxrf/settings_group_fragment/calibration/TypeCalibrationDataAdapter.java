@@ -2,6 +2,7 @@ package itc.ink.hhxrf.settings_group_fragment.calibration;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
@@ -67,7 +68,7 @@ public class TypeCalibrationDataAdapter extends RecyclerView.Adapter<TypeCalibra
                 holder.typeSelBtn.setImageResource(R.drawable.check_box_unsel_icon);
             }
             holder.itemView.setTag(position);
-            holder.itemView.setOnClickListener(new ItemEditClickListener());
+            holder.itemView.setOnClickListener(new ItemChoiceClickListener());
             holder.typeSelBtn.setVisibility(View.VISIBLE);
             holder.typeItemSwitchBtn.setVisibility(View.GONE);
             if(position==mData.size()-1){
@@ -81,6 +82,8 @@ public class TypeCalibrationDataAdapter extends RecyclerView.Adapter<TypeCalibra
                 holder.typeItemIcon.setBackgroundResource(R.drawable.element_add_btn_icon);
                 holder.itemView.setOnClickListener(new AddItemClickListener());
             }else {
+                holder.itemView.setTag(typeDataItem.getCalibration_type_name());
+                holder.itemView.setOnClickListener(new ItemEditClickListener());
                 holder.typeItemIcon.setVisibility(View.GONE);
                 holder.typeItemSwitchBtn.setVisibility(View.VISIBLE);
             }
@@ -97,6 +100,17 @@ public class TypeCalibrationDataAdapter extends RecyclerView.Adapter<TypeCalibra
     }
 
     class ItemEditClickListener implements View.OnClickListener{
+        @Override
+        public void onClick(View view) {
+            String typeName=(String) view.getTag();
+            Intent intent=new Intent();
+            intent.setClass(getContext(),TypeCalibrationAddSpTwo.class);
+            intent.putExtra("TYPE_NAME",typeName);
+            getContext().startActivity(intent);
+        }
+    }
+
+    class ItemChoiceClickListener implements View.OnClickListener{
         @Override
         public void onClick(View view) {
             int position=(int)view.getTag();

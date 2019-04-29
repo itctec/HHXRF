@@ -62,8 +62,15 @@ public class TypeCalibrationAddSpTwo extends Activity {
     public List<TypeCalibrationElementDataMode> initCompareResultData(String typeName,List<TypeCalibrationElementDataMode> typeCalibrationElementItemArray) {
         SQLiteDBHelper sqLiteDBHelper = new SQLiteDBHelper(this, SQLiteDBHelper.DATABASE_FILE_NAME, SQLiteDBHelper.DATABASE_VERSION);
         SQLiteDatabase sqLiteDatabase = sqLiteDBHelper.getReadableDatabase();
-        String elementSqlStr = "select * from tb_type_calibration_content where type_name=?";
-        Cursor elementListCursor = sqLiteDatabase.rawQuery(elementSqlStr, new String[]{typeName});
+        String elementSqlStr;
+        Cursor elementListCursor;
+        if(isShowChangedItem){
+            elementSqlStr = "select * from tb_type_calibration_content where type_name=? and (value_multiplication!='1' or value_plus!='0') ";
+            elementListCursor = sqLiteDatabase.rawQuery(elementSqlStr, new String[]{typeName});
+        }else{
+            elementSqlStr = "select * from tb_type_calibration_content where type_name=?";
+            elementListCursor = sqLiteDatabase.rawQuery(elementSqlStr, new String[]{typeName});
+        }
 
         while(elementListCursor.moveToNext()){
             TypeCalibrationElementDataMode typeCalibrationElementDataItem=new TypeCalibrationElementDataMode(elementListCursor.getInt(0),elementListCursor.getString(1),elementListCursor.getString(2),elementListCursor.getString(3),elementListCursor.getString(4));
@@ -98,10 +105,11 @@ public class TypeCalibrationAddSpTwo extends Activity {
                     ContentValues contentValues = new ContentValues();
                     contentValues.put("value_multiplication", elementItem.getValue_multiplication());
                     contentValues.put("value_plus", elementItem.getValue_plus());
-                    sqLiteDatabase.insert("tb_type_calibration_content","",contentValues);
                     sqLiteDatabase.update("tb_type_calibration_content",contentValues,"type_name=? and element_id=?",new String[]{TypeName,elementItem.getElement_id()+""});
                 }
             }
+
+            finish();
         }
     }
 }

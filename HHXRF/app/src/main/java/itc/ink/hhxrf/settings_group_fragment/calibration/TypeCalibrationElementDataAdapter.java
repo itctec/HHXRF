@@ -5,6 +5,8 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,11 +63,47 @@ public class TypeCalibrationElementDataAdapter extends RecyclerView.Adapter<Type
             holder.sortLabelLayout.setVisibility(View.GONE);
             holder.contentLayout.setVisibility(View.VISIBLE);
             holder.itemView.setBackgroundColor(Color.WHITE);
-            holder.multiplicationValue.setText(elementDataItem.getValue_multiplication());
-            holder.plusValue.setText(elementDataItem.getValue_plus());
+
+            if (holder.multiplicationValue.getTag() != null && holder.multiplicationValue.getTag() instanceof TextWatcher) {
+                holder.multiplicationValue.removeTextChangedListener((TextWatcher) holder.multiplicationValue.getTag());
+            }
+            holder.multiplicationValue.setText(mData.get(position).getValue_multiplication());
+            TextWatcher multiplicationEditWatcher = new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                }
+                @Override
+                public void afterTextChanged(Editable s) {
+                    mData.get(position).setValue_multiplication(s.toString());
+                }
+            };
+            holder.multiplicationValue.addTextChangedListener(multiplicationEditWatcher);
+            holder.multiplicationValue.setTag(multiplicationEditWatcher);
+
+            if (holder.plusValue.getTag() != null && holder.plusValue.getTag() instanceof TextWatcher) {
+                holder.plusValue.removeTextChangedListener((TextWatcher) holder.plusValue.getTag());
+            }
+            holder.plusValue.setText(mData.get(position).getValue_plus());
+            TextWatcher plusEditWatcher = new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                }
+                @Override
+                public void afterTextChanged(Editable s) {
+                    mData.get(position).setValue_plus(s.toString());
+                }
+            };
+            holder.plusValue.addTextChangedListener(plusEditWatcher);
+            holder.plusValue.setTag(plusEditWatcher);
+
             holder.unitValue.setText(elementDataItem.getValue_unit());
         }
-
     }
 
     @Override
