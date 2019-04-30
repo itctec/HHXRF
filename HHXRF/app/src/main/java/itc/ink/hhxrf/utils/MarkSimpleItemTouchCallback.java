@@ -10,22 +10,22 @@ import android.util.Log;
 import java.util.Collections;
 import java.util.List;
 
-import itc.ink.hhxrf.left_drawer.mode.LeftDrawerSubDataMode;
-import itc.ink.hhxrf.settings_group_fragment.adapter.SettingsGroupIndicatorDataAdapter;
 import itc.ink.hhxrf.settings_group_fragment.element_fragment.ElementShowDataAdapter;
 import itc.ink.hhxrf.settings_group_fragment.element_fragment.ElementShowDataMode;
+import itc.ink.hhxrf.settings_group_fragment.mark_db.MarkDataAdapter;
+import itc.ink.hhxrf.settings_group_fragment.mark_db.MarkDataMode;
 
 /**
  * Created by xiazdong on 16/10/6.
  */
-public class ElementShowSimpleItemTouchCallback extends ItemTouchHelper.Callback {
+public class MarkSimpleItemTouchCallback extends ItemTouchHelper.Callback {
 
-    private ElementShowDataAdapter mElementShowDataAdapter;
-    private List<ElementShowDataMode> mData;
+    private MarkDataAdapter mMarkDataAdapter;
+    private List<MarkDataMode> mData;
     private Context mContext;
-    public ElementShowSimpleItemTouchCallback(Context mContext, ElementShowDataAdapter adapter, List<ElementShowDataMode> data){
+    public MarkSimpleItemTouchCallback(Context mContext, MarkDataAdapter adapter, List<MarkDataMode> data){
         this.mContext=mContext;
-        mElementShowDataAdapter = adapter;
+        mMarkDataAdapter = adapter;
         mData = data;
     }
     /**
@@ -42,11 +42,10 @@ public class ElementShowSimpleItemTouchCallback extends ItemTouchHelper.Callback
     public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
         int from = viewHolder.getAdapterPosition();
         int to = target.getAdapterPosition();
-
         if(to<mData.size()-1){
             Collections.swap(mData, from, to);
 
-            mElementShowDataAdapter.notifyItemMoved(from, to);
+            mMarkDataAdapter.notifyItemMoved(from, to);
 
             storeRankData();
             return true;
@@ -59,7 +58,7 @@ public class ElementShowSimpleItemTouchCallback extends ItemTouchHelper.Callback
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
         int pos = viewHolder.getAdapterPosition();
         mData.remove(pos);
-        mElementShowDataAdapter.notifyItemRemoved(pos);
+        mMarkDataAdapter.notifyItemRemoved(pos);
     }
 
 
@@ -71,7 +70,7 @@ public class ElementShowSimpleItemTouchCallback extends ItemTouchHelper.Callback
         super.onSelectedChanged(viewHolder, actionState);
         Log.i("Callback", actionState + "");
         if(actionState != ItemTouchHelper.ACTION_STATE_IDLE){
-            ElementShowDataAdapter.VH holder = (ElementShowDataAdapter.VH)viewHolder;
+            MarkDataAdapter.VH holder = (MarkDataAdapter.VH)viewHolder;
             holder.itemView.setBackgroundColor(0xffff0000);
         }
     }
@@ -87,7 +86,7 @@ public class ElementShowSimpleItemTouchCallback extends ItemTouchHelper.Callback
     @Override
     public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
         super.clearView(recyclerView, viewHolder);
-        ElementShowDataAdapter.VH holder = (ElementShowDataAdapter.VH)viewHolder;
+        MarkDataAdapter.VH holder = (MarkDataAdapter.VH)viewHolder;
         holder.itemView.setBackgroundColor(0xffffffff);
     }
 
@@ -96,9 +95,8 @@ public class ElementShowSimpleItemTouchCallback extends ItemTouchHelper.Callback
         SQLiteDatabase sqLiteDatabase = sqLiteDBHelper.getReadableDatabase();
 
         for (int i=0;i<mData.size();i++){
-            ContentValues contentValues = new ContentValues();
-            contentValues.put("element_rank_num", (i+1)+"");
-            sqLiteDatabase.update("tb_element_show_rank_info", contentValues, "element_id=?", new String[]{mData.get(i).getElement_id()+""});
+            String updateStr="update tb_mark set mark_rank_num='"+(i+1)+"' where mark_id="+mData.get(i).getMark_id();
+            sqLiteDatabase.execSQL(updateStr);
         }
     }
 }

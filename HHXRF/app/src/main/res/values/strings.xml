@@ -91,6 +91,9 @@
     <string name="mark_db_fragment_add_db">Add Mark DB</string>
     <string name="mark_db_fragment_import_mark_db">Import Mark DB</string>
     <string name="mark_db_fragment_edit_mark_db">Edit Mark DB</string>
+    <string name="mark_activity_import_mark">Import Mark</string>
+    <string name="mark_activity_edit_mark">Edit Mark</string>
+    <string name="mark_activity_add_new_mark">Add New Mark</string>
 
 
     <string name="device_settings">Device Settings</string>

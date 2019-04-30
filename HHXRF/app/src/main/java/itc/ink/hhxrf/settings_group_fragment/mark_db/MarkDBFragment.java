@@ -1,6 +1,7 @@
 package itc.ink.hhxrf.settings_group_fragment.mark_db;
 
 import android.app.Fragment;
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import itc.ink.hhxrf.R;
+import itc.ink.hhxrf.settings_group_fragment.calibration.TypeCalibrationAddSpOne;
 import itc.ink.hhxrf.utils.SQLiteDBHelper;
 
 /**
@@ -70,22 +72,33 @@ public class MarkDBFragment extends Fragment {
     }
 
     public void initMarkDBData(List<MarkDBDataMode> mMarkDBDataArray) {
+        mMarkDBDataArray.clear();
         SQLiteDBHelper sqLiteDBHelper = new SQLiteDBHelper(getContext(), SQLiteDBHelper.DATABASE_FILE_NAME, SQLiteDBHelper.DATABASE_VERSION);
-        String sqlStr = "select * from tb_type_calibration";
+        String sqlStr = "select * from tb_mark_db";
         SQLiteDatabase sqLiteDatabase = sqLiteDBHelper.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery(sqlStr, null);
         while(cursor.moveToNext()){
-            MarkDBDataMode markDBDataItem=new MarkDBDataMode(cursor.getString(0),false);
+            MarkDBDataMode markDBDataItem=new MarkDBDataMode(cursor.getLong(0),cursor.getString(1),false);
             mMarkDBDataArray.add(markDBDataItem);
         }
 
-        MarkDBDataMode item_Add_Btn=new MarkDBDataMode(getString(R.string.mark_db_fragment_add_db),false);
+        MarkDBDataMode item_Add_Btn=new MarkDBDataMode(-1,getString(R.string.mark_db_fragment_add_db),false);
         mMarkDBDataArray.add(item_Add_Btn);
     }
 
     class AddItemCallBack implements MarkDBDataAdapter.AddItemCallBack{
         @Override
         public void addItem() {
+            SQLiteDBHelper sqLiteDBHelper = new SQLiteDBHelper(getContext(), SQLiteDBHelper.DATABASE_FILE_NAME, SQLiteDBHelper.DATABASE_VERSION);
+            SQLiteDatabase sqLiteDatabase = sqLiteDBHelper.getReadableDatabase();
+            ContentValues markDbValues = new ContentValues();
+            markDbValues.put("mark_db_id",System.currentTimeMillis());
+            markDbValues.put("mark_db_name", "库001");
+            sqLiteDatabase.insert("tb_mark_db","",markDbValues);
+
+            mMarkDBDataArray.clear();
+            initMarkDBData(mMarkDBDataArray);
+            mMarkDBDataAdapter.notifyDataSetChanged();
         }
     }
 
@@ -106,13 +119,39 @@ public class MarkDBFragment extends Fragment {
     class CancelEditBtnClickListener implements View.OnClickListener{
         @Override
         public void onClick(View view) {
-            menuBtn.setVisibility(View.VISIBLE);
+
+            SQLiteDBHelper sqLiteDBHelper = new SQLiteDBHelper(getContext(), SQLiteDBHelper.DATABASE_FILE_NAME, SQLiteDBHelper.DATABASE_VERSION);
+            SQLiteDatabase sqLiteDatabase = sqLiteDBHelper.getReadableDatabase();
+            /*for(MarkDBDataMode markDBItem:mMarkDBDataArray){
+                if(!markDBItem.getMark_lib_name().equals("库001")){
+                    String updateStr="update tb_mark_db set mark_db_name='"+markDBItem.getMark_lib_name()+"' where mark_db_name=库001";
+                    sqLiteDatabase.execSQL(updateStr);
+                }
+            }*/
+
+            for(MarkDBDataMode markDBItem:mMarkDBDataArray){
+                String checkOlderNameStr="select mark_db_name from tb_mark_db where mark_db_id="+markDBItem.getMark_lib_id();
+                Cursor nameCursor=sqLiteDatabase.rawQuery(checkOlderNameStr,null);
+                if(nameCursor.moveToNext()){
+                    if(!markDBItem.getMark_lib_name().equals(nameCursor.getString(0))){
+                        String updateStr="update tb_mark_db set mark_db_name='"+markDBItem.getMark_lib_name()+"' where mark_db_id="+markDBItem.getMark_lib_id();
+                        sqLiteDatabase.execSQL(updateStr);
+                    }
+                }
+            }
+
             view.setVisibility(View.GONE);
+            menuBtn.setVisibility(View.VISIBLE);
             isEditState=false;
             for (int i = 0; i < mMarkDBDataArray.size(); i++) {
                 mMarkDBDataArray.get(i).setEdit_selected(false);
             }
+            initMarkDBData(mMarkDBDataArray);
             mMarkDBDataAdapter.notifyDataSetChanged();
+
+            menuBtn.setVisibility(View.VISIBLE);
+            view.setVisibility(View.GONE);
+
         }
     }
 

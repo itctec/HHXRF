@@ -1,16 +1,21 @@
 package itc.ink.hhxrf.settings_group_fragment.mark_db;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -53,7 +58,24 @@ public class MarkDBDataAdapter extends RecyclerView.Adapter<MarkDBDataAdapter.VH
         MarkDBDataMode markDBDataItem=mData.get(position);
 
         holder.markDBIcon.setImageResource(R.drawable.mark_db_icon_normal);
-        holder.markDBNameLabel.setText(markDBDataItem.getMark_lib_name());
+        if (holder.markDBNameLabel.getTag() != null && holder.markDBNameLabel.getTag() instanceof TextWatcher) {
+            holder.markDBNameLabel.removeTextChangedListener((TextWatcher) holder.markDBNameLabel.getTag());
+        }
+        holder.markDBNameLabel.setText(mData.get(position).getMark_lib_name());
+        TextWatcher multiplicationEditWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                mData.get(position).setMark_lib_name(s.toString());
+            }
+        };
+        holder.markDBNameLabel.addTextChangedListener(multiplicationEditWatcher);
+        holder.markDBNameLabel.setTag(multiplicationEditWatcher);
 
         holder.itemView.setOnClickListener(null);
         holder.itemView.setVisibility(View.VISIBLE);
@@ -65,8 +87,8 @@ public class MarkDBDataAdapter extends RecyclerView.Adapter<MarkDBDataAdapter.VH
                 holder.markDBIcon.setImageResource(R.drawable.mark_db_edit);
             }
             holder.markDBNameLabel.setEnabled(true);
-            holder.itemView.setTag(position);
-            holder.itemView.setOnClickListener(new ItemEditClickListener());
+            holder.markDBIcon.setTag(position);
+            holder.markDBIcon.setOnClickListener(new ItemEditClickListener());
             if(position==mData.size()-1){
                 holder.itemView.setVisibility(View.GONE);
             }
@@ -74,9 +96,10 @@ public class MarkDBDataAdapter extends RecyclerView.Adapter<MarkDBDataAdapter.VH
             holder.markDBNameLabel.setEnabled(false);
             if(position==mData.size()-1){
                 holder.markDBIcon.setImageResource(R.drawable.mark_db_icon_add);
-                holder.itemView.setOnClickListener(new AddItemClickListener());
+                holder.markDBIcon.setOnClickListener(new AddItemClickListener());
             }else {
                 holder.markDBIcon.setImageResource(R.drawable.mark_db_icon_normal);
+                holder.markDBIcon.setOnClickListener(new ItemClickListener(markDBDataItem.getMark_lib_id(),markDBDataItem.getMark_lib_name()));
             }
         }
 
@@ -92,13 +115,31 @@ public class MarkDBDataAdapter extends RecyclerView.Adapter<MarkDBDataAdapter.VH
         public void onClick(View view) {
             int position=(int)view.getTag();
             mData.get(position).setEdit_selected(!mData.get(position).isEdit_selected());
-            ConstraintLayout itemView=(ConstraintLayout)view;
-            ImageView markDBIcon=itemView.findViewById(R.id.element_Show_Item_Select_Icon);
+            ImageView markDBIcon=(ImageView)view;
             if(mData.get(position).isEdit_selected()){
                 markDBIcon.setImageResource(R.drawable.mark_db_edit_selected);
             }else{
                 markDBIcon.setImageResource(R.drawable.mark_db_edit);
             }
+        }
+    }
+
+    class ItemClickListener implements View.OnClickListener{
+        private long markDBID=0;
+        private String markDBName="";
+
+        public ItemClickListener(long markDBID, String markDBName) {
+            this.markDBID = markDBID;
+            this.markDBName = markDBName;
+        }
+
+        @Override
+        public void onClick(View view) {
+            Intent intent=new Intent();
+            intent.setClass(getContext(),MarkActivity.class);
+            intent.putExtra("MARK_DB_ID",markDBID);
+            intent.putExtra("MARK_DB_NAME",markDBName);
+            getContext().startActivity(intent);
         }
     }
 
@@ -111,12 +152,12 @@ public class MarkDBDataAdapter extends RecyclerView.Adapter<MarkDBDataAdapter.VH
 
 
     public interface AddItemCallBack{
-        public void addItem();
+        void addItem();
     }
 
     public static class VH extends RecyclerView.ViewHolder {
         public ImageView markDBIcon;
-        public TextView markDBNameLabel;
+        public EditText markDBNameLabel;
 
         public VH(View view) {
             super(view);

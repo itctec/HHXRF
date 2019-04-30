@@ -19,6 +19,9 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
     private final String TB_CREATE_HISTORY_DATA_CONTENT="create table tb_history_data_content(element_name,element_content,sample_name,FOREIGN KEY(sample_name) REFERENCES tb_history_data(sample_name))";
     private final String TB_CREATE_TYPE_CALIBRATION="create table tb_type_calibration(type_name PRIMARY KEY,enable_state)";
     private final String TB_CREATE_TYPE_CALIBRATION_CONTENT="create table tb_type_calibration_content(element_id,element_name,value_multiplication,value_plus,value_unit,type_name,FOREIGN KEY(type_name) REFERENCES tb_type_calibration(type_name))";
+    private final String TB_CREATE_MARK_DB="create table tb_mark_db(mark_db_id PRIMARY KEY,mark_db_name)";
+    private final String TB_CREATE_MARK="create table tb_mark(mark_id PRIMARY KEY,mark_name,mark_num,mark_db_id,mark_rank_num,FOREIGN KEY(mark_db_id) REFERENCES tb_mark_db(mark_db_id))";
+    private final String TB_CREATE_MARK_ELEMENT="create table tb_mark_element(element_id,element_name,element_min_value,element_max_value,mark_id,FOREIGN KEY(mark_id) REFERENCES tb_mark(mark_id))";
 
     public SQLiteDBHelper(Context context, String name, int version){
         super(context,name,null,version);
@@ -34,8 +37,11 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(TB_CREATE_HISTORY_DATA_CONTENT);
         sqLiteDatabase.execSQL(TB_CREATE_TYPE_CALIBRATION);
         sqLiteDatabase.execSQL(TB_CREATE_TYPE_CALIBRATION_CONTENT);
+        sqLiteDatabase.execSQL(TB_CREATE_MARK_DB);
+        sqLiteDatabase.execSQL(TB_CREATE_MARK);
+        sqLiteDatabase.execSQL(TB_CREATE_MARK_ELEMENT);
         initFragmentRankTb(sqLiteDatabase);
-        initElementShowTb(sqLiteDatabase);
+        initElementLibTb(sqLiteDatabase);
         initCompoundLibTb(sqLiteDatabase);
         initHistoryTb(sqLiteDatabase);
     }
@@ -65,7 +71,7 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(systemRankSqlStr);
     }
 
-    public void initElementShowTb(SQLiteDatabase sqLiteDatabase) {
+    public void initElementLibTb(SQLiteDatabase sqLiteDatabase) {
         String elementInsertSqlStr = "insert into tb_element_lib_info(element_id,element_name,element_ordinal) values " +
                 "('-1','A','-1'),('1','Ac','89'),('2','Ag','47'),('3','Al','13'),('4','Ar','18'),('5','As','33'),('6','At','85'),('7','Au','79'),('-1','B','-1'),('8','B','5')," +
                 "('9','Ba','56'),('10','Be','4'),('11','Bi','83'),('12','Br','35'),('-1','C','-1'),('13','C','6'),('14','Ca','20'),('15','Cd','48'),('16','Ce','58'),('17','Cl','17')," +
