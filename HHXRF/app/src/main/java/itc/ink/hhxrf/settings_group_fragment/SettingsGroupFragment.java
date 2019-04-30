@@ -29,6 +29,7 @@ import itc.ink.hhxrf.settings_group_fragment.edit_report_fragment.EditReportFrag
 import itc.ink.hhxrf.settings_group_fragment.element_fragment.ElementFragment;
 import itc.ink.hhxrf.settings_group_fragment.format_fragment.FormatFragment;
 import itc.ink.hhxrf.settings_group_fragment.history_db.HistoryFragment;
+import itc.ink.hhxrf.settings_group_fragment.mark_db.MarkDBFragment;
 import itc.ink.hhxrf.settings_group_fragment.test_time.TestTimeFragment;
 import itc.ink.hhxrf.settings_group_fragment.test_way_fragment.TestWayFragment;
 import itc.ink.hhxrf.settings_group_fragment.unit.UnitFragment;
@@ -247,6 +248,10 @@ public class SettingsGroupFragment extends Fragment{
             case MainActivity.FRAGMENT_ID_CALIBRATION:
                 CalibrationFragment calibrationFragment=new CalibrationFragment();
                 getChildFragmentManager().beginTransaction().replace(R.id.settings_Fragment_Container, calibrationFragment).commit();
+                break;
+            case MainActivity.FRAGMENT_ID_MARK_DB:
+                MarkDBFragment markDBFragment=new MarkDBFragment();
+                getChildFragmentManager().beginTransaction().replace(R.id.settings_Fragment_Container, markDBFragment).commit();
                 break;
         }
     }

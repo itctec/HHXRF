@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">HHXRF</string>
+
+    <string name="edit_btn_text">Edit</string>
+    <string name="cancel_edit_btn_text">Cancel Edit</string>
+
     <string name="home_window">Home Window</string>
     <string name="input_password_tip">Please input the password</string>
     <string name="input_password_tip_sub">click input box start</string>
@@ -83,8 +87,11 @@
     <string name="calibration_fragment_add_sp_two_plus">Plus Coefficient</string>
     <string name="calibration_fragment_add_sp_two_unit">Unit</string>
     <string name="calibration_fragment_add_sp_two_sure">Sure</string>
-    <string name="edit_btn_text">Edit</string>
-    <string name="cancel_edit_btn_text">Cancel Edit</string>
+    <string name="mark_db_fragment_title">Edit Mark DB</string>
+    <string name="mark_db_fragment_add_db">Add Mark DB</string>
+    <string name="mark_db_fragment_import_mark_db">Import Mark DB</string>
+    <string name="mark_db_fragment_edit_mark_db">Edit Mark DB</string>
+
 
     <string name="device_settings">Device Settings</string>
     <string name="language">Language</string>

@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">HHXRF</string>
+
+    <string name="edit_btn_text">编辑</string>
+    <string name="cancel_edit_btn_text">取消编辑</string>
+
     <string name="home_window">主窗口</string>
     <string name="input_password_tip">请输入开机密码</string>
     <string name="input_password_tip_sub">需要密码识别身份</string>
@@ -85,8 +89,10 @@
     <string name="calibration_fragment_add_sp_two_plus">加法系数</string>
     <string name="calibration_fragment_add_sp_two_unit">单位</string>
     <string name="calibration_fragment_add_sp_two_sure">确认</string>
-    <string name="edit_btn_text">编辑</string>
-    <string name="cancel_edit_btn_text">取消编辑</string>
+    <string name="mark_db_fragment_title">编辑牌号库</string>
+    <string name="mark_db_fragment_add_db">添加牌号库</string>
+    <string name="mark_db_fragment_import_mark_db">导入牌号库</string>
+    <string name="mark_db_fragment_edit_mark_db">编辑牌号库</string>
 
 
     <string name="device_settings">设备设置</string>
