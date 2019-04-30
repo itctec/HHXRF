@@ -59,6 +59,10 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|stateUnchanged"
             android:theme="@style/DefActivityTheme"/>
+        <activity android:name=".settings_group_fragment.mark_db.MarkElementActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|stateUnchanged"
+            android:theme="@style/DefActivityTheme"/>
     </application>
 
 </manifest>

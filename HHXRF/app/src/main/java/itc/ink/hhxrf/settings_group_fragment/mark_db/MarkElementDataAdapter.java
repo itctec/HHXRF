@@ -2,7 +2,6 @@ package itc.ink.hhxrf.settings_group_fragment.mark_db;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
@@ -25,17 +24,15 @@ import itc.ink.hhxrf.R;
  * Created by yangwenjiang on 2018/9/14.
  */
 
-public class MarkDataAdapter extends RecyclerView.Adapter<MarkDataAdapter.VH>{
-    private final static String LOG_TAG = "MarkDataAdapter";
+public class MarkElementDataAdapter extends RecyclerView.Adapter<MarkElementDataAdapter.VH>{
+    private final static String LOG_TAG = "MarkElementDataAdapter";
     private WeakReference<Context> mWeakContextReference;
-    public List<MarkDataMode> mData;
-    private OnStartDragListener mDragListener;
+    public List<MarkElementDataMode> mData;
     private AddItemCallBack mAddItemCallBack;
 
-    public MarkDataAdapter(Context mContext, List<MarkDataMode> mData, OnStartDragListener mDragListener, AddItemCallBack mAddItemCallBack) {
+    public MarkElementDataAdapter(Context mContext, List<MarkElementDataMode> mData, AddItemCallBack mAddItemCallBack) {
         this.mWeakContextReference = new WeakReference<>(mContext);
         this.mData = mData;
-        this.mDragListener=mDragListener;
         this.mAddItemCallBack=mAddItemCallBack;
     }
 
@@ -55,14 +52,14 @@ public class MarkDataAdapter extends RecyclerView.Adapter<MarkDataAdapter.VH>{
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onBindViewHolder(final VH holder, final int position) {
-        MarkDataMode markDataItem=mData.get(position);
+        MarkElementDataMode markElementDataItem=mData.get(position);
         holder.itemView.setBackgroundColor(Color.WHITE);
-        holder.markItemNameIcon.setText(markDataItem.getMark_name());
+        holder.markItemNameIcon.setText(markElementDataItem.getElement_name());
         holder.markItemNameIcon.setBackgroundResource(R.drawable.round_line_bg_gray);
         if (holder.markNum.getTag() != null && holder.markNum.getTag() instanceof TextWatcher) {
             holder.markNum.removeTextChangedListener((TextWatcher) holder.markNum.getTag());
         }
-        holder.markNum.setText(mData.get(position).getMark_num());
+        holder.markNum.setText(mData.get(position).getElement_min_value());
         TextWatcher multiplicationEditWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -72,7 +69,7 @@ public class MarkDataAdapter extends RecyclerView.Adapter<MarkDataAdapter.VH>{
             }
             @Override
             public void afterTextChanged(Editable s) {
-                mData.get(position).setMark_num(s.toString());
+                mData.get(position).setElement_min_value(s.toString());
             }
         };
         holder.markNum.addTextChangedListener(multiplicationEditWatcher);
@@ -81,8 +78,8 @@ public class MarkDataAdapter extends RecyclerView.Adapter<MarkDataAdapter.VH>{
         holder.itemView.setOnClickListener(null);
         holder.itemView.setVisibility(View.VISIBLE);
 
-        if(MarkActivity.isEditState){
-            if(markDataItem.isEdit_selected()){
+        if(MarkElementActivity.isEditState){
+            if(markElementDataItem.isEdit_selected()){
                 holder.itemView.setBackgroundColor(getContext().getColor(R.color.element_show_item_sel_bg));
                 holder.markSelBtn.setImageResource(R.drawable.check_box_sel_icon);
             }else{
@@ -106,17 +103,8 @@ public class MarkDataAdapter extends RecyclerView.Adapter<MarkDataAdapter.VH>{
                 holder.markItemNameIcon.setBackgroundResource(R.drawable.element_add_btn_icon);
                 holder.itemView.setOnClickListener(new AddItemClickListener());
             }else {
-                holder.itemView.setOnClickListener(new ItemClickListener(markDataItem.getMark_id(),markDataItem.getMark_num()));
+                holder.itemView.setOnClickListener(new ItemClickListener());
                 holder.markDragBtn.setVisibility(View.VISIBLE);
-                holder.markDragBtn.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        if(event.getAction() == MotionEvent.ACTION_DOWN){
-                            mDragListener.startDrag(holder);
-                        }
-                        return false;
-                    }
-                });
             }
         }
     }
@@ -148,24 +136,11 @@ public class MarkDataAdapter extends RecyclerView.Adapter<MarkDataAdapter.VH>{
     }
 
     class ItemClickListener implements View.OnClickListener{
-        private long markID=0;
-        private String markNum="";
-
-        public ItemClickListener(long markID, String markNum) {
-            this.markID = markID;
-            this.markNum = markNum;
-        }
-
         @Override
         public void onClick(View view) {
-            Intent intent=new Intent();
-            intent.setClass(getContext(),MarkElementActivity.class);
-            intent.putExtra("MARK_ID",markID);
-            intent.putExtra("MARK_NUM",markNum);
-            getContext().startActivity(intent);
+
         }
     }
-
 
     class AddItemClickListener implements View.OnClickListener{
         @Override

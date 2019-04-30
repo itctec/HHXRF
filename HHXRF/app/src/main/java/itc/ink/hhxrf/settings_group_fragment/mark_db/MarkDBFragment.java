@@ -122,12 +122,6 @@ public class MarkDBFragment extends Fragment {
 
             SQLiteDBHelper sqLiteDBHelper = new SQLiteDBHelper(getContext(), SQLiteDBHelper.DATABASE_FILE_NAME, SQLiteDBHelper.DATABASE_VERSION);
             SQLiteDatabase sqLiteDatabase = sqLiteDBHelper.getReadableDatabase();
-            /*for(MarkDBDataMode markDBItem:mMarkDBDataArray){
-                if(!markDBItem.getMark_lib_name().equals("库001")){
-                    String updateStr="update tb_mark_db set mark_db_name='"+markDBItem.getMark_lib_name()+"' where mark_db_name=库001";
-                    sqLiteDatabase.execSQL(updateStr);
-                }
-            }*/
 
             for(MarkDBDataMode markDBItem:mMarkDBDataArray){
                 String checkOlderNameStr="select mark_db_name from tb_mark_db where mark_db_id="+markDBItem.getMark_lib_id();

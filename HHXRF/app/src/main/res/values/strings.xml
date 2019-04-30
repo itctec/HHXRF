@@ -94,7 +94,15 @@
     <string name="mark_activity_import_mark">Import Mark</string>
     <string name="mark_activity_edit_mark">Edit Mark</string>
     <string name="mark_activity_add_new_mark">Add New Mark</string>
+    <string name="mark_element_activity_title">Add New Element</string>
+    <string name="mark_element_activity_dialog_hint">Please input the element name</string>
+    <string name="mark_element_activity_import_element">Import Element</string>
+    <string name="mark_element_activity_edit_element">Edit Element</string>
 
+    <string name="dialog_title_tip_text">Tip</string>
+    <string name="dialog_positive_btn_text">Sure</string>
+    <string name="dialog_positive_save_btn_text">Save</string>
+    <string name="dialog_negative_btn_text">Cancel</string>
 
     <string name="device_settings">Device Settings</string>
     <string name="language">Language</string>

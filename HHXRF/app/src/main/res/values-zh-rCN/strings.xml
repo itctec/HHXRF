@@ -96,7 +96,15 @@
     <string name="mark_activity_import_mark">导入牌号</string>
     <string name="mark_activity_edit_mark">编辑牌号</string>
     <string name="mark_activity_add_new_mark">添加新牌号</string>
+    <string name="mark_element_activity_title">添加新元素</string>
+    <string name="mark_element_activity_dialog_hint">请输入元素名称</string>
+    <string name="mark_element_activity_import_element">导入元素</string>
+    <string name="mark_element_activity_edit_element">编辑元素</string>
 
+    <string name="dialog_title_tip_text">提示</string>
+    <string name="dialog_positive_btn_text">确定</string>
+    <string name="dialog_positive_save_btn_text">保存</string>
+    <string name="dialog_negative_btn_text">取消</string>
 
     <string name="device_settings">设备设置</string>
     <string name="language">语言</string>
