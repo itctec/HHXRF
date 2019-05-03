@@ -100,6 +100,7 @@ public class MarkDBDataAdapter extends RecyclerView.Adapter<MarkDBDataAdapter.VH
             }else {
                 holder.markDBIcon.setImageResource(R.drawable.mark_db_icon_normal);
                 holder.markDBIcon.setOnClickListener(new ItemClickListener(markDBDataItem.getMark_lib_id(),markDBDataItem.getMark_lib_name()));
+                holder.markDBIcon.setOnLongClickListener(new ItemLongClickListener());
             }
         }
 
@@ -140,6 +141,14 @@ public class MarkDBDataAdapter extends RecyclerView.Adapter<MarkDBDataAdapter.VH
             intent.putExtra("MARK_DB_ID",markDBID);
             intent.putExtra("MARK_DB_NAME",markDBName);
             getContext().startActivity(intent);
+        }
+    }
+
+    class ItemLongClickListener implements View.OnLongClickListener{
+        @Override
+        public boolean onLongClick(View view) {
+            System.out.println("长按");
+            return true;
         }
     }
 

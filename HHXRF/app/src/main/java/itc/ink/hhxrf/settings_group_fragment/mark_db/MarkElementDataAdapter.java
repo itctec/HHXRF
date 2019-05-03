@@ -87,7 +87,7 @@ public class MarkElementDataAdapter extends RecyclerView.Adapter<MarkElementData
             }
             @Override
             public void afterTextChanged(Editable s) {
-                mData.get(position).setElement_min_value(s.toString());
+                mData.get(position).setElement_max_value(s.toString());
             }
         };
         holder.markElementValueMax.addTextChangedListener(valueMaxEditWatcher);
@@ -106,7 +106,7 @@ public class MarkElementDataAdapter extends RecyclerView.Adapter<MarkElementData
             }
             @Override
             public void afterTextChanged(Editable s) {
-                mData.get(position).setElement_min_value(s.toString());
+                mData.get(position).setElement_tol_value(s.toString());
             }
         };
         holder.markElementValueTol.addTextChangedListener(valueTolEditWatcher);
@@ -124,6 +124,8 @@ public class MarkElementDataAdapter extends RecyclerView.Adapter<MarkElementData
                 holder.markSelBtn.setImageResource(R.drawable.check_box_unsel_icon);
             }
             holder.markElementValueMin.setEnabled(true);
+            holder.markElementValueMax.setEnabled(true);
+            holder.markElementValueTol.setEnabled(true);
 
             holder.itemView.setTag(position);
             holder.itemView.setOnClickListener(new ItemEditClickListener());
@@ -134,6 +136,8 @@ public class MarkElementDataAdapter extends RecyclerView.Adapter<MarkElementData
         }else{
             holder.markSelBtn.setVisibility(View.GONE);
             holder.markElementValueMin.setEnabled(false);
+            holder.markElementValueMax.setEnabled(false);
+            holder.markElementValueTol.setEnabled(false);
             if(position==mData.size()-1){
                 holder.markElementNameLabel.setCompoundDrawablesWithIntrinsicBounds(null,getContext().getDrawable(R.drawable.element_add_btn_icon),null,null);
                 holder.markElementValueMax.setText("");
