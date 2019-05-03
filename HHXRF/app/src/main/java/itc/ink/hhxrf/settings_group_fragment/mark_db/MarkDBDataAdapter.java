@@ -32,12 +32,12 @@ public class MarkDBDataAdapter extends RecyclerView.Adapter<MarkDBDataAdapter.VH
     private final static String LOG_TAG = "MarkDBDataAdapter";
     private WeakReference<Context> mWeakContextReference;
     private List<MarkDBDataMode> mData;
-    private AddItemCallBack mAddItemCallBack;
+    private ItemCallBack mItemCallBack;
 
-    public MarkDBDataAdapter(Context mContext, List<MarkDBDataMode> mData,AddItemCallBack mAddItemCallBack) {
+    public MarkDBDataAdapter(Context mContext, List<MarkDBDataMode> mData,ItemCallBack mItemCallBack) {
         this.mWeakContextReference = new WeakReference<>(mContext);
         this.mData = mData;
-        this.mAddItemCallBack=mAddItemCallBack;
+        this.mItemCallBack=mItemCallBack;
     }
 
     private Context getContext() {
@@ -147,7 +147,9 @@ public class MarkDBDataAdapter extends RecyclerView.Adapter<MarkDBDataAdapter.VH
     class ItemLongClickListener implements View.OnLongClickListener{
         @Override
         public boolean onLongClick(View view) {
-            System.out.println("长按");
+            int[] location=new int[2];
+            view.getLocationInWindow(location);
+            mItemCallBack.onItemLongClick(location[0],location[1]);
             return true;
         }
     }
@@ -155,13 +157,14 @@ public class MarkDBDataAdapter extends RecyclerView.Adapter<MarkDBDataAdapter.VH
     class AddItemClickListener implements View.OnClickListener{
         @Override
         public void onClick(View view) {
-            mAddItemCallBack.addItem();
+            mItemCallBack.addItem();
         }
     }
 
 
-    public interface AddItemCallBack{
+    public interface ItemCallBack{
         void addItem();
+        void onItemLongClick(int x,int y);
     }
 
     public static class VH extends RecyclerView.ViewHolder {

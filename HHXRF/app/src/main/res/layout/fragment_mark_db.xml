@@ -75,5 +75,66 @@
         android:layout_marginTop="30dp"
         app:layout_constraintTop_toBottomOf="@id/mark_db_Fragment_Title"
         app:layout_constraintBottom_toBottomOf="parent"/>
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/mark_db_Fragment_Float_Menu_Outer_Layout"
+        android:background="#99aaaaaa"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/mark_db_Fragment_Title"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/mark_db_Fragment_Float_Menu_Inner_Layout"
+            android:background="@drawable/round_rectangle_bg_light"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:elevation="5dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent">
+            <TextView
+                android:id="@+id/mark_db_Fragment_Float_Menu_Item_Copy"
+                android:text="@string/mark_db_fragment_float_menu_copy"
+                android:textColor="#222222"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:drawableRight="@drawable/vector_drawable_copy_icon"
+                android:drawablePadding="20dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/mark_db_Fragment_Float_Menu_Item_Del"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+            <TextView
+                android:id="@+id/mark_db_Fragment_Float_Menu_Item_Del"
+                android:text="@string/mark_db_fragment_float_menu_del"
+                android:textColor="#222222"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:drawableRight="@drawable/vector_drawable_del_icon"
+                android:drawablePadding="20dp"
+                app:layout_constraintTop_toBottomOf="@id/mark_db_Fragment_Float_Menu_Item_Copy"
+                app:layout_constraintBottom_toTopOf="@+id/mark_db_Fragment_Float_Menu_Item_Transport"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+            <TextView
+                android:id="@+id/mark_db_Fragment_Float_Menu_Item_Transport"
+                android:text="@string/mark_db_fragment_float_menu_transport"
+                android:textColor="#222222"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:drawableRight="@drawable/vector_drawable_transport_icon"
+                android:drawablePadding="20dp"
+                app:layout_constraintTop_toBottomOf="@id/mark_db_Fragment_Float_Menu_Item_Del"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+        </android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>

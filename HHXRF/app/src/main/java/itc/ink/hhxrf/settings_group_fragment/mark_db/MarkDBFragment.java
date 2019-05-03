@@ -36,6 +36,8 @@ public class MarkDBFragment extends Fragment {
     private RecyclerView markLibRV;
     private MarkDBDataAdapter mMarkDBDataAdapter;
     private List<MarkDBDataMode> mMarkDBDataArray=new ArrayList<>();
+    private ConstraintLayout floatMenuOuterLayout;
+    private ConstraintLayout floatMenuInnerLayout;
 
     public static boolean isEditState=false;
 
@@ -44,7 +46,7 @@ public class MarkDBFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         initMarkDBData(mMarkDBDataArray);
-        mMarkDBDataAdapter=new MarkDBDataAdapter(getContext(),mMarkDBDataArray,new AddItemCallBack());
+        mMarkDBDataAdapter=new MarkDBDataAdapter(getContext(),mMarkDBDataArray,new ItemCallBack());
     }
 
     @Nullable
@@ -68,6 +70,10 @@ public class MarkDBFragment extends Fragment {
         RecyclerView.LayoutManager contentRvLayoutManager = new GridLayoutManager(getContext(), 3);
         markLibRV.setLayoutManager(contentRvLayoutManager);
 
+        floatMenuOuterLayout=rootView.findViewById(R.id.mark_db_Fragment_Float_Menu_Outer_Layout);
+        floatMenuOuterLayout.setOnClickListener(new FloatMenuOuterLayoutClickListener());
+        floatMenuInnerLayout=rootView.findViewById(R.id.mark_db_Fragment_Float_Menu_Inner_Layout);
+
         return rootView;
     }
 
@@ -86,7 +92,7 @@ public class MarkDBFragment extends Fragment {
         mMarkDBDataArray.add(item_Add_Btn);
     }
 
-    class AddItemCallBack implements MarkDBDataAdapter.AddItemCallBack{
+    class ItemCallBack implements MarkDBDataAdapter.ItemCallBack{
         @Override
         public void addItem() {
             SQLiteDBHelper sqLiteDBHelper = new SQLiteDBHelper(getContext(), SQLiteDBHelper.DATABASE_FILE_NAME, SQLiteDBHelper.DATABASE_VERSION);
@@ -99,6 +105,27 @@ public class MarkDBFragment extends Fragment {
             mMarkDBDataArray.clear();
             initMarkDBData(mMarkDBDataArray);
             mMarkDBDataAdapter.notifyDataSetChanged();
+        }
+
+        @Override
+        public void onItemLongClick(int x, int y) {
+            floatMenuOuterLayout.setVisibility(View.VISIBLE);
+            if(x<420){
+                floatMenuInnerLayout.setTranslationX(120);
+            }else if(x<780){
+                floatMenuInnerLayout.setTranslationX(480);
+            }else{
+                floatMenuInnerLayout.setTranslationX(660);
+            }
+
+            if(y<1115){
+                floatMenuInnerLayout.setTranslationY(180);
+            }else if(y<1443){
+                floatMenuInnerLayout.setTranslationY(508);
+            }else{
+                floatMenuInnerLayout.setTranslationY(540);
+            }
+
         }
     }
 
@@ -170,7 +197,12 @@ public class MarkDBFragment extends Fragment {
         }
     }
 
-
+    class FloatMenuOuterLayoutClickListener implements View.OnClickListener{
+        @Override
+        public void onClick(View view) {
+            floatMenuOuterLayout.setVisibility(View.GONE);
+        }
+    }
 
 
 }

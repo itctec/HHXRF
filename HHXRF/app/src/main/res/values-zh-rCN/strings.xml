@@ -93,6 +93,9 @@
     <string name="mark_db_fragment_add_db">添加牌号库</string>
     <string name="mark_db_fragment_import_mark_db">导入牌号库</string>
     <string name="mark_db_fragment_edit_mark_db">编辑牌号库</string>
+    <string name="mark_db_fragment_float_menu_copy">复制</string>
+    <string name="mark_db_fragment_float_menu_del">删除</string>
+    <string name="mark_db_fragment_float_menu_transport">传输</string>
     <string name="mark_activity_import_mark">导入牌号</string>
     <string name="mark_activity_edit_mark">编辑牌号</string>
     <string name="mark_activity_add_new_mark">添加新牌号</string>
