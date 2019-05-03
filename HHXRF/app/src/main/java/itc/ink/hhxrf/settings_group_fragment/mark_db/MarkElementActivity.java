@@ -96,11 +96,11 @@ public class MarkElementActivity extends Activity{
         SQLiteDatabase sqLiteDatabase = sqLiteDBHelper.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery(sqlStr, null);
         while(cursor.moveToNext()){
-            MarkElementDataMode markElementDataItem=new MarkElementDataMode(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getLong(4),false);
+            MarkElementDataMode markElementDataItem=new MarkElementDataMode(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getString(4),cursor.getLong(5),false);
             mMarkElementDataArray.add(markElementDataItem);
         }
 
-        MarkElementDataMode item_Add_Btn=new MarkElementDataMode(-1,"",getString(R.string.mark_element_activity_title),"",-1,false);
+        MarkElementDataMode item_Add_Btn=new MarkElementDataMode(-1,"",getString(R.string.mark_element_activity_title),"","",-1,false);
         mMarkElementDataArray.add(item_Add_Btn);
     }
 
@@ -126,6 +126,7 @@ public class MarkElementActivity extends Activity{
                             markElementValues.put("element_name", contentValue);
                             markElementValues.put("element_min_value", "0");
                             markElementValues.put("element_max_value", "100");
+                            markElementValues.put("element_tol_value", "10");
                             markElementValues.put("mark_id", markID);
                             sqLiteDatabase.insert("tb_mark_element","",markElementValues);
 
@@ -144,7 +145,6 @@ public class MarkElementActivity extends Activity{
                     if (isOpen) {
                         imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                     }
-                    finish();
                 }
             }).setTitle(getString(R.string.dialog_title_tip_text))
                     .setNegativeButton(getString(R.string.dialog_negative_btn_text))
@@ -173,12 +173,11 @@ public class MarkElementActivity extends Activity{
             SQLiteDBHelper sqLiteDBHelper = new SQLiteDBHelper(MarkElementActivity.this, SQLiteDBHelper.DATABASE_FILE_NAME, SQLiteDBHelper.DATABASE_VERSION);
             SQLiteDatabase sqLiteDatabase = sqLiteDBHelper.getReadableDatabase();
             for(MarkElementDataMode markItem:mMarkElementDataArray){
-                String checkOlderValueStr="select element_min_value element_max_value from tb_mark_element where mark_id="+markItem.getMark_id()+" and element_id="+markItem.getElement_id();
-                System.out.println("查询语句->"+checkOlderValueStr);
+                String checkOlderValueStr="select element_min_value , element_max_value , element_tol_value from tb_mark_element where mark_id="+markItem.getMark_id()+" and element_id="+markItem.getElement_id();
                 Cursor olderValueCursor=sqLiteDatabase.rawQuery(checkOlderValueStr,null);
                 if(olderValueCursor.moveToNext()){
-                    if(!markItem.getElement_min_value().equals(olderValueCursor.getString(0))||!markItem.getElement_max_value().equals(olderValueCursor.getString(1))){
-                        String updateStr="update tb_mark_element set element_min_value='"+markItem.getElement_min_value()+"' , element_max_value='"+markItem.getElement_max_value()+"' where mark_id="+markItem.getMark_id()+" and element_id="+markItem.getElement_id();
+                    if(!markItem.getElement_min_value().equals(olderValueCursor.getString(0))||!markItem.getElement_max_value().equals(olderValueCursor.getString(1))||!markItem.getElement_tol_value().equals(olderValueCursor.getString(2))){
+                        String updateStr="update tb_mark_element set element_min_value='"+markItem.getElement_min_value()+"' , element_max_value='"+markItem.getElement_max_value()+"' , element_tol_value='"+markItem.getElement_tol_value()+"' where mark_id="+markItem.getMark_id()+" and element_id="+markItem.getElement_id();
                         sqLiteDatabase.execSQL(updateStr);
                     }
                 }

@@ -98,6 +98,11 @@
     <string name="mark_element_activity_dialog_hint">Please input the element name</string>
     <string name="mark_element_activity_import_element">Import Element</string>
     <string name="mark_element_activity_edit_element">Edit Element</string>
+    <string name="mark_element_activity_element_label">Element</string>
+    <string name="mark_element_activity_element_value_min_label">Min</string>
+    <string name="mark_element_activity_element_value_max_label">Max</string>
+    <string name="mark_element_activity_element_value_tol_label">Tol(%)</string>
+
 
     <string name="dialog_title_tip_text">Tip</string>
     <string name="dialog_positive_btn_text">Sure</string>

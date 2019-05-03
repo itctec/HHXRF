@@ -100,6 +100,10 @@
     <string name="mark_element_activity_dialog_hint">请输入元素名称</string>
     <string name="mark_element_activity_import_element">导入元素</string>
     <string name="mark_element_activity_edit_element">编辑元素</string>
+    <string name="mark_element_activity_element_label">元素</string>
+    <string name="mark_element_activity_element_value_min_label">Min</string>
+    <string name="mark_element_activity_element_value_max_label">Max</string>
+    <string name="mark_element_activity_element_value_tol_label">Tol(%)</string>
 
     <string name="dialog_title_tip_text">提示</string>
     <string name="dialog_positive_btn_text">确定</string>

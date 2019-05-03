@@ -5,17 +5,19 @@ public class MarkElementDataMode {
     private String element_name;
     private String element_min_value;
     private String element_max_value;
+    private String element_tol_value;
     private long mark_id;
     private boolean edit_selected=false;
 
     public MarkElementDataMode() {
     }
 
-    public MarkElementDataMode(int element_id, String element_name, String element_min_value, String element_max_value, long mark_id, boolean edit_selected) {
+    public MarkElementDataMode(int element_id, String element_name, String element_min_value, String element_max_value, String element_tol_value, long mark_id, boolean edit_selected) {
         this.element_id = element_id;
         this.element_name = element_name;
         this.element_min_value = element_min_value;
         this.element_max_value = element_max_value;
+        this.element_tol_value = element_tol_value;
         this.mark_id = mark_id;
         this.edit_selected = edit_selected;
     }
@@ -50,6 +52,14 @@ public class MarkElementDataMode {
 
     public void setElement_max_value(String element_max_value) {
         this.element_max_value = element_max_value;
+    }
+
+    public String getElement_tol_value() {
+        return element_tol_value;
+    }
+
+    public void setElement_tol_value(String element_tol_value) {
+        this.element_tol_value = element_tol_value;
     }
 
     public long getMark_id() {

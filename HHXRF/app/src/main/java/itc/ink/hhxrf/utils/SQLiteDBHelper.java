@@ -21,7 +21,7 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
     private final String TB_CREATE_TYPE_CALIBRATION_CONTENT="create table tb_type_calibration_content(element_id,element_name,value_multiplication,value_plus,value_unit,type_name,FOREIGN KEY(type_name) REFERENCES tb_type_calibration(type_name))";
     private final String TB_CREATE_MARK_DB="create table tb_mark_db(mark_db_id PRIMARY KEY,mark_db_name)";
     private final String TB_CREATE_MARK="create table tb_mark(mark_id PRIMARY KEY,mark_name,mark_num,mark_db_id,mark_rank_num,FOREIGN KEY(mark_db_id) REFERENCES tb_mark_db(mark_db_id))";
-    private final String TB_CREATE_MARK_ELEMENT="create table tb_mark_element(element_id,element_name,element_min_value,element_max_value,mark_id,FOREIGN KEY(mark_id) REFERENCES tb_mark(mark_id))";
+    private final String TB_CREATE_MARK_ELEMENT="create table tb_mark_element(element_id,element_name,element_min_value,element_max_value,element_tol_value,mark_id,FOREIGN KEY(mark_id) REFERENCES tb_mark(mark_id))";
 
     public SQLiteDBHelper(Context context, String name, int version){
         super(context,name,null,version);

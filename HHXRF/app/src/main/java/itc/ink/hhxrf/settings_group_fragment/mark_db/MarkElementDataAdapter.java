@@ -45,7 +45,7 @@ public class MarkElementDataAdapter extends RecyclerView.Adapter<MarkElementData
 
     @Override
     public VH onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_mark_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_mark_element_item, parent, false);
         return new VH(view);
     }
 
@@ -54,13 +54,12 @@ public class MarkElementDataAdapter extends RecyclerView.Adapter<MarkElementData
     public void onBindViewHolder(final VH holder, final int position) {
         MarkElementDataMode markElementDataItem=mData.get(position);
         holder.itemView.setBackgroundColor(Color.WHITE);
-        holder.markItemNameIcon.setText(markElementDataItem.getElement_name());
-        holder.markItemNameIcon.setBackgroundResource(R.drawable.round_line_bg_gray);
-        if (holder.markNum.getTag() != null && holder.markNum.getTag() instanceof TextWatcher) {
-            holder.markNum.removeTextChangedListener((TextWatcher) holder.markNum.getTag());
+        holder.markElementNameLabel.setText(markElementDataItem.getElement_name());
+        if (holder.markElementValueMin.getTag() != null && holder.markElementValueMin.getTag() instanceof TextWatcher) {
+            holder.markElementValueMin.removeTextChangedListener((TextWatcher) holder.markElementValueMin.getTag());
         }
-        holder.markNum.setText(mData.get(position).getElement_min_value());
-        TextWatcher multiplicationEditWatcher = new TextWatcher() {
+        holder.markElementValueMin.setText(mData.get(position).getElement_min_value());
+        TextWatcher valueMinEditWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -72,8 +71,46 @@ public class MarkElementDataAdapter extends RecyclerView.Adapter<MarkElementData
                 mData.get(position).setElement_min_value(s.toString());
             }
         };
-        holder.markNum.addTextChangedListener(multiplicationEditWatcher);
-        holder.markNum.setTag(multiplicationEditWatcher);
+        holder.markElementValueMin.addTextChangedListener(valueMinEditWatcher);
+        holder.markElementValueMin.setTag(valueMinEditWatcher);
+
+        if (holder.markElementValueMax.getTag() != null && holder.markElementValueMax.getTag() instanceof TextWatcher) {
+            holder.markElementValueMax.removeTextChangedListener((TextWatcher) holder.markElementValueMax.getTag());
+        }
+        holder.markElementValueMax.setText(mData.get(position).getElement_max_value());
+        TextWatcher valueMaxEditWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                mData.get(position).setElement_min_value(s.toString());
+            }
+        };
+        holder.markElementValueMax.addTextChangedListener(valueMaxEditWatcher);
+        holder.markElementValueMax.setTag(valueMaxEditWatcher);
+
+        if (holder.markElementValueTol.getTag() != null && holder.markElementValueTol.getTag() instanceof TextWatcher) {
+            holder.markElementValueTol.removeTextChangedListener((TextWatcher) holder.markElementValueTol.getTag());
+        }
+        holder.markElementValueTol.setText(mData.get(position).getElement_tol_value());
+        TextWatcher valueTolEditWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                mData.get(position).setElement_min_value(s.toString());
+            }
+        };
+        holder.markElementValueTol.addTextChangedListener(valueTolEditWatcher);
+        holder.markElementValueTol.setTag(valueTolEditWatcher);
 
         holder.itemView.setOnClickListener(null);
         holder.itemView.setVisibility(View.VISIBLE);
@@ -86,25 +123,25 @@ public class MarkElementDataAdapter extends RecyclerView.Adapter<MarkElementData
                 holder.itemView.setBackgroundColor(Color.WHITE);
                 holder.markSelBtn.setImageResource(R.drawable.check_box_unsel_icon);
             }
-            holder.markNum.setEnabled(true);
+            holder.markElementValueMin.setEnabled(true);
 
             holder.itemView.setTag(position);
             holder.itemView.setOnClickListener(new ItemEditClickListener());
             holder.markSelBtn.setVisibility(View.VISIBLE);
-            holder.markDragBtn.setVisibility(View.GONE);
             if(position==mData.size()-1){
                 holder.itemView.setVisibility(View.GONE);
             }
         }else{
             holder.markSelBtn.setVisibility(View.GONE);
-            holder.markNum.setEnabled(false);
+            holder.markElementValueMin.setEnabled(false);
             if(position==mData.size()-1){
-                holder.markDragBtn.setVisibility(View.GONE);
-                holder.markItemNameIcon.setBackgroundResource(R.drawable.element_add_btn_icon);
+                holder.markElementNameLabel.setCompoundDrawablesWithIntrinsicBounds(null,getContext().getDrawable(R.drawable.element_add_btn_icon),null,null);
+                holder.markElementValueMax.setText("");
+                holder.markElementValueTol.setText("");
                 holder.itemView.setOnClickListener(new AddItemClickListener());
             }else {
+                holder.markElementNameLabel.setCompoundDrawablesWithIntrinsicBounds(null,null,null,null);
                 holder.itemView.setOnClickListener(new ItemClickListener());
-                holder.markDragBtn.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -124,7 +161,7 @@ public class MarkElementDataAdapter extends RecyclerView.Adapter<MarkElementData
             int position=(int)view.getTag();
             mData.get(position).setEdit_selected(!mData.get(position).isEdit_selected());
             ConstraintLayout itemView=(ConstraintLayout)view;
-            ImageView itemSelIcon=itemView.findViewById(R.id.mark_Item_Select_Icon);
+            ImageView itemSelIcon=itemView.findViewById(R.id.mark_Element_Item_Select_Icon);
             if(mData.get(position).isEdit_selected()){
                 itemView.setBackgroundColor(getContext().getColor(R.color.element_show_item_sel_bg));
                 itemSelIcon.setImageResource(R.drawable.check_box_sel_icon);
@@ -151,16 +188,18 @@ public class MarkElementDataAdapter extends RecyclerView.Adapter<MarkElementData
 
     public static class VH extends RecyclerView.ViewHolder {
         public ImageView markSelBtn;
-        public TextView markItemNameIcon;
-        public EditText markNum;
-        public ImageView markDragBtn;
+        public TextView markElementNameLabel;
+        public EditText markElementValueMin;
+        public EditText markElementValueMax;
+        public EditText markElementValueTol;
 
         public VH(View view) {
             super(view);
-            markSelBtn=view.findViewById(R.id.mark_Item_Select_Icon);
-            markItemNameIcon = view.findViewById(R.id.mark_Item_Name_Icon);
-            markNum = view.findViewById(R.id.mark_Item_Num);
-            markDragBtn = view.findViewById(R.id.mark_Item_Drag_Icon);
+            markSelBtn=view.findViewById(R.id.mark_Element_Item_Select_Icon);
+            markElementNameLabel = view.findViewById(R.id.mark_Element_Item_Name_Label);
+            markElementValueMin = view.findViewById(R.id.mark_Element_Value_Min_Edit);
+            markElementValueMax = view.findViewById(R.id.mark_Element_Value_Max_Edit);
+            markElementValueTol = view.findViewById(R.id.mark_Element_Value_Tol_Edit);
         }
     }
 
