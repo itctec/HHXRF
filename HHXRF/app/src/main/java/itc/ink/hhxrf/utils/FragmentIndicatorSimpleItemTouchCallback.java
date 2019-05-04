@@ -2,7 +2,6 @@ package itc.ink.hhxrf.utils;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -12,7 +11,7 @@ import java.util.Collections;
 import java.util.List;
 
 import itc.ink.hhxrf.left_drawer.mode.LeftDrawerSubDataMode;
-import itc.ink.hhxrf.settings_group_fragment.adapter.SettingsGroupIndicatorDataAdapter;
+import itc.ink.hhxrf.settings_group_fragment.adapter_fragment.SettingsGroupIndicatorDataAdapter;
 
 /**
  * Created by xiazdong on 16/10/6.

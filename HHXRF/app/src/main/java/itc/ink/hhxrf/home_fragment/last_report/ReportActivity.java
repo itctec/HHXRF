@@ -15,11 +15,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import itc.ink.hhxrf.BaseActivity;
 import itc.ink.hhxrf.R;
-import itc.ink.hhxrf.settings_group_fragment.history_db.CompareDataActivity;
 import itc.ink.hhxrf.utils.StatusBarUtil;
 
-public class ReportActivity extends Activity {
+public class ReportActivity extends BaseActivity {
     private ImageView backBtn;
     private ImageView reportShowType;
     private ImageView reportChangeColumnBtn;

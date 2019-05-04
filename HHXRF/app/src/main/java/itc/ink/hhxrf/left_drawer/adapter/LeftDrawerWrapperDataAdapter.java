@@ -7,17 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-import itc.ink.hhxrf.MainActivity;
 import itc.ink.hhxrf.R;
 import itc.ink.hhxrf.left_drawer.mode.LeftDrawerWrapperDataMode;
-import itc.ink.hhxrf.settings_group_fragment.adapter.SettingsGroupIndicatorDataAdapter;
-import itc.ink.hhxrf.settings_group_fragment.edit_report_fragment.EditReportFragment;
-import itc.ink.hhxrf.settings_group_fragment.test_way_fragment.TestWayFragment;
 
 /**
  * Created by yangwenjiang on 2018/9/14.

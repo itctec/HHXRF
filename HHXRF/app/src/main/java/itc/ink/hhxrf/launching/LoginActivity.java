@@ -10,11 +10,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import itc.ink.hhxrf.BaseActivity;
 import itc.ink.hhxrf.MainActivity;
 import itc.ink.hhxrf.R;
 import itc.ink.hhxrf.utils.StatusBarUtil;
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends BaseActivity {
     private TextView inputPasswordTipSubText;
 
     private TextView passwordInputEditOne;

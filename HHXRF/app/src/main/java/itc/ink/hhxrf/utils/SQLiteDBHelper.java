@@ -61,13 +61,13 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
 
     public void initFragmentRankTb(SQLiteDatabase sqLiteDatabase){
         String resultRankSqlStr="insert into tb_fragment_rank_info(item_id,rank_num) values " +
-                "('11','1'),('12','2'),('13','3'),('14','4'),('15','5'),('16','6'),('17','7'),('18','8')";
+                "('11','1'),('12','2'),('13','3'),('14','4'),('15','5'),('16','6'),('17','7')";
         sqLiteDatabase.execSQL(resultRankSqlStr);
 
         String operateRankSqlStr="insert into tb_fragment_rank_info(item_id,rank_num) values ('21','1'),('22','2'),('23','3')";
         sqLiteDatabase.execSQL(operateRankSqlStr);
 
-        String systemRankSqlStr="insert into tb_fragment_rank_info(item_id,rank_num) values ('31','1'),('32','2'),('33','3'),('34','4'),('35','5')";
+        String systemRankSqlStr="insert into tb_fragment_rank_info(item_id,rank_num) values ('31','1'),('32','2'),('33','3'),('34','4'),('35','5'),('36','6')";
         sqLiteDatabase.execSQL(systemRankSqlStr);
     }
 

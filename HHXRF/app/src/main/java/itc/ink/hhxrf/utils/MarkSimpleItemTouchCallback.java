@@ -1,6 +1,5 @@
 package itc.ink.hhxrf.utils;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.widget.RecyclerView;
@@ -10,10 +9,8 @@ import android.util.Log;
 import java.util.Collections;
 import java.util.List;
 
-import itc.ink.hhxrf.settings_group_fragment.element_fragment.ElementShowDataAdapter;
-import itc.ink.hhxrf.settings_group_fragment.element_fragment.ElementShowDataMode;
-import itc.ink.hhxrf.settings_group_fragment.mark_db.MarkDataAdapter;
-import itc.ink.hhxrf.settings_group_fragment.mark_db.MarkDataMode;
+import itc.ink.hhxrf.settings_group_fragment.mark_db_fragment.MarkDataAdapter;
+import itc.ink.hhxrf.settings_group_fragment.mark_db_fragment.MarkDataMode;
 
 /**
  * Created by xiazdong on 16/10/6.

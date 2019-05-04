@@ -115,9 +115,23 @@
 
     <string name="device_settings">设备设置</string>
     <string name="language">语言</string>
-    <string name="pull_time">扣动扳机时间</string>
-    <string name="power_off_time">自动关机时间</string>
-    <string name="safe">安全设置</string>
+    <string name="language_fragment_title">语言设置</string>
+    <string name="language_fragment_chinese">中文</string>
+    <string name="language_fragment_english">英语</string>
+    <string name="language_fragment_selected_tip">（已选择语言）</string>
+    <string name="pull_time">扣扳时长</string>
+    <string name="pull_time_fragment_title">扣板时间长度</string>
+    <string name="pull_time_fragment_short_pull">短按</string>
+    <string name="pull_time_fragment_lang_pull">长按</string>
+    <string name="pull_time_fragment_selected_tip">（已选择方式）</string>
+    <string name="safe">安全</string>
+    <string name="safe_fragment_title">密码重置</string>
+    <string name="safe_fragment_input_current_password_tip">请输入当前密码</string>
+    <string name="safe_fragment_input_new_password_tip">请输入新密码</string>
+    <string name="safe_fragment_input_new_password_repeat_tip">请再次输入新密码</string>
+    <string name="safe_fragment_input_current_password_error_tip">密码输入有误，请重新输入</string>
+    <string name="safe_fragment_input_new_password_repeat_error_tip">两次密码输入不一致，请重新输入</string>
+    <string name="state">说明</string>
     <string name="instrument_debug">仪器调试</string>
 </resources>
 

@@ -10,8 +10,6 @@ import android.util.Log;
 import java.util.Collections;
 import java.util.List;
 
-import itc.ink.hhxrf.left_drawer.mode.LeftDrawerSubDataMode;
-import itc.ink.hhxrf.settings_group_fragment.adapter.SettingsGroupIndicatorDataAdapter;
 import itc.ink.hhxrf.settings_group_fragment.element_fragment.ElementShowDataAdapter;
 import itc.ink.hhxrf.settings_group_fragment.element_fragment.ElementShowDataMode;
 

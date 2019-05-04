@@ -14,11 +14,12 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import itc.ink.hhxrf.BaseActivity;
 import itc.ink.hhxrf.R;
 import itc.ink.hhxrf.utils.SQLiteDBHelper;
 import itc.ink.hhxrf.utils.StatusBarUtil;
 
-public class ElementAddActivity extends Activity {
+public class ElementAddActivity extends BaseActivity {
     private ImageView backBtn;
     private TextView multiChoiceBtn;
     private ImageView addBtn;

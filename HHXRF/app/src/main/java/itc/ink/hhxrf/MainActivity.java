@@ -24,8 +24,7 @@ import itc.ink.hhxrf.left_drawer.mode.LeftDrawerSubDataMode;
 import itc.ink.hhxrf.left_drawer.mode.LeftDrawerWrapperDataMode;
 import itc.ink.hhxrf.utils.StatusBarUtil;
 
-public class MainActivity extends Activity {
-    public static Context mainActivityContext;
+public class MainActivity extends BaseActivity {
     public static boolean commandFromLeftDrawer=false;
     public static int currentSubFragmentID=0;
     public static final int FRAGMENT_ID_TEST_WAY=11;
@@ -35,10 +34,16 @@ public class MainActivity extends Activity {
     public static final int FRAGMENT_ID_COMPOUND=15;
     public static final int FRAGMENT_ID_UNIT=16;
     public static final int FRAGMENT_ID_DECIMAL_POINT=17;
-    public static final int FRAGMENT_ID_TEST_TIME=18;
+
     public static final int FRAGMENT_ID_HISTORY_DB=21;
     public static final int FRAGMENT_ID_CALIBRATION=22;
     public static final int FRAGMENT_ID_MARK_DB=23;
+    public static final int FRAGMENT_ID_LANGUAGE=31;
+    public static final int FRAGMENT_ID_PULL_TIME=32;
+    public static final int FRAGMENT_ID_SAFE=33;
+    public static final int FRAGMENT_ID_STATE=34;
+    public static final int FRAGMENT_ID_DEBUG=35;
+    public static final int FRAGMENT_ID_TEST_TIME=36;
     private DrawerLayout mainDrawerLayout;
     private RecyclerView leftDrawerContentRV;
 
@@ -58,7 +63,6 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mainActivityContext=this;
 
         //StatusBar Style
         StatusBarUtil.setStatusBarFullTransparent(this);
@@ -104,7 +108,6 @@ public class MainActivity extends Activity {
         LeftDrawerSubDataMode element=new LeftDrawerSubDataMode(FRAGMENT_ID_COMPOUND,getResources().getString(R.string.compound),R.drawable.sub_item_compound_icon_sel,R.drawable.sub_item_compound_icon_unsel,5);
         LeftDrawerSubDataMode compound=new LeftDrawerSubDataMode(FRAGMENT_ID_UNIT,getResources().getString(R.string.unit),R.drawable.sub_item_unit_icon_sel,R.drawable.sub_item_unit_icon_unsel,6);
         LeftDrawerSubDataMode format=new LeftDrawerSubDataMode(FRAGMENT_ID_DECIMAL_POINT,getResources().getString(R.string.decimal_point),R.drawable.sub_item_decimal_point_icon_sel,R.drawable.sub_item_decimal_point_icon_unsel,7);
-        LeftDrawerSubDataMode decimal_point=new LeftDrawerSubDataMode(FRAGMENT_ID_TEST_TIME,getResources().getString(R.string.test_time),R.drawable.sub_item_test_time_icon_sel,R.drawable.sub_item_test_time_icon_unsel,8);
         List<LeftDrawerSubDataMode> resultSettingSubItemArray=new ArrayList<>();
         resultSettingSubItemArray.add(test_time);
         resultSettingSubItemArray.add(test_way);
@@ -113,7 +116,6 @@ public class MainActivity extends Activity {
         resultSettingSubItemArray.add(element);
         resultSettingSubItemArray.add(compound);
         resultSettingSubItemArray.add(format);
-        resultSettingSubItemArray.add(decimal_point);
         LeftDrawerWrapperDataMode resultSettings=new LeftDrawerWrapperDataMode(getResources().getString(R.string.result_settings),resultSettingSubItemArray);
 
         LeftDrawerSubDataMode history_db=new LeftDrawerSubDataMode(FRAGMENT_ID_HISTORY_DB,getResources().getString(R.string.history_db),R.drawable.sub_item_history_icon_sel,R.drawable.sub_item_history_icon_unsel,1);
@@ -125,17 +127,19 @@ public class MainActivity extends Activity {
         operateSettingSubItemArray.add(mark_db);
         LeftDrawerWrapperDataMode operateSettings=new LeftDrawerWrapperDataMode(getResources().getString(R.string.operate_settings),operateSettingSubItemArray);
 
-        LeftDrawerSubDataMode language=new LeftDrawerSubDataMode(31,getResources().getString(R.string.language),R.drawable.vector_drawable_recommend,R.drawable.vector_drawable_recommend,1);
-        LeftDrawerSubDataMode pull_time=new LeftDrawerSubDataMode(32,getResources().getString(R.string.pull_time),R.drawable.vector_drawable_recommend,R.drawable.vector_drawable_recommend,2);
-        LeftDrawerSubDataMode power_off_time=new LeftDrawerSubDataMode(33,getResources().getString(R.string.power_off_time),R.drawable.vector_drawable_recommend,R.drawable.vector_drawable_recommend,3);
-        LeftDrawerSubDataMode safe=new LeftDrawerSubDataMode(34,getResources().getString(R.string.safe),R.drawable.vector_drawable_recommend,R.drawable.vector_drawable_recommend,4);
-        LeftDrawerSubDataMode instrument_debug=new LeftDrawerSubDataMode(35,getResources().getString(R.string.instrument_debug),R.drawable.vector_drawable_recommend,R.drawable.vector_drawable_recommend,5);
+        LeftDrawerSubDataMode language=new LeftDrawerSubDataMode(FRAGMENT_ID_LANGUAGE,getResources().getString(R.string.language),R.drawable.sub_item_language_icon_unsel,R.drawable.sub_item_language_icon_unsel,1);
+        LeftDrawerSubDataMode pull_time=new LeftDrawerSubDataMode(FRAGMENT_ID_PULL_TIME,getResources().getString(R.string.pull_time),R.drawable.sub_item_pull_time_icon_sel,R.drawable.sub_item_pull_time_icon_unsel,2);
+        LeftDrawerSubDataMode safe=new LeftDrawerSubDataMode(FRAGMENT_ID_SAFE,getResources().getString(R.string.safe),R.drawable.sub_item_safe_icon_sel,R.drawable.sub_item_safe_icon_unsel,3);
+        LeftDrawerSubDataMode power_off_time=new LeftDrawerSubDataMode(FRAGMENT_ID_STATE,getResources().getString(R.string.state),R.drawable.sub_item_state_icon_sel,R.drawable.sub_item_safe_icon_unsel,4);
+        LeftDrawerSubDataMode instrument_debug=new LeftDrawerSubDataMode(FRAGMENT_ID_DEBUG,getResources().getString(R.string.instrument_debug),R.drawable.sub_item_debug_icon_sel,R.drawable.sub_item_debug_icon_unsel,5);
+        LeftDrawerSubDataMode decimal_point=new LeftDrawerSubDataMode(FRAGMENT_ID_TEST_TIME,getResources().getString(R.string.test_time),R.drawable.sub_item_test_time_icon_sel,R.drawable.sub_item_test_time_icon_unsel,6);
         List<LeftDrawerSubDataMode> systemSettingSubItemArray=new ArrayList<>();
         systemSettingSubItemArray.add(language);
         systemSettingSubItemArray.add(pull_time);
         systemSettingSubItemArray.add(power_off_time);
         systemSettingSubItemArray.add(safe);
         systemSettingSubItemArray.add(instrument_debug);
+        systemSettingSubItemArray.add(decimal_point);
         LeftDrawerWrapperDataMode systemSettings=new LeftDrawerWrapperDataMode(getResources().getString(R.string.device_settings),systemSettingSubItemArray);
 
         //Drawer data

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EEEEEE"
-    tools:context=".settings_group_fragment.mark_db.MarkActivity">
+    tools:context=".settings_group_fragment.mark_db_fragment.MarkActivity">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/mark_Top_Navigation"

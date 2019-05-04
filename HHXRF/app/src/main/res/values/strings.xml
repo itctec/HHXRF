@@ -114,8 +114,22 @@
 
     <string name="device_settings">Device Settings</string>
     <string name="language">Language</string>
+    <string name="language_fragment_title">Language Setting</string>
+    <string name="language_fragment_chinese">Chinese</string>
+    <string name="language_fragment_english">English</string>
+    <string name="language_fragment_selected_tip">(Selected Language)</string>
     <string name="pull_time">Pull trigger time</string>
-    <string name="power_off_time">PowerOff time</string>
-    <string name="safe">Safe Setting</string>
+    <string name="pull_time_fragment_title">Pull trigger time</string>
+    <string name="pull_time_fragment_short_pull">Short press</string>
+    <string name="pull_time_fragment_lang_pull">Long press</string>
+    <string name="pull_time_fragment_selected_tip">(Selected Method)</string>
+    <string name="safe">Safe</string>
+    <string name="safe_fragment_title">Password Reset</string>
+    <string name="safe_fragment_input_current_password_tip">Please input current password</string>
+    <string name="safe_fragment_input_new_password_tip">Please input new password</string>
+    <string name="safe_fragment_input_new_password_repeat_tip">Please input new password again</string>
+    <string name="safe_fragment_input_current_password_error_tip">Password error,please input repeat</string>
+    <string name="safe_fragment_input_new_password_repeat_error_tip">The password input second is not same as the first,please input repeat</string>
+    <string name="state">State</string>
     <string name="instrument_debug">Instrument Debug</string>
 </resources>

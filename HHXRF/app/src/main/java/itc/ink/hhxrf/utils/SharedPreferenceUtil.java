@@ -3,6 +3,7 @@ package itc.ink.hhxrf.utils;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import itc.ink.hhxrf.AppApplication;
+import itc.ink.hhxrf.BaseActivity;
 import itc.ink.hhxrf.MainActivity;
 
 /**
@@ -17,7 +18,7 @@ public class SharedPreferenceUtil {
         if (mSharedPreferences == null) {
             // mSharedPreferences = App.context.getSharedPreferences(
             // PREFERENCE_NAME, Context.MODE_PRIVATE);
-            mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.mainActivityContext);
+            mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(BaseActivity.baseActivityContext);
         }
         return mSharedPreferences;
     }

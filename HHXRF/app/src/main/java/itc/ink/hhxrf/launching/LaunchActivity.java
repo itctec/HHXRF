@@ -1,6 +1,5 @@
 package itc.ink.hhxrf.launching;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -8,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.VideoView;
 
+import itc.ink.hhxrf.BaseActivity;
 import itc.ink.hhxrf.MainActivity;
 import itc.ink.hhxrf.R;
 import itc.ink.hhxrf.utils.StatusBarUtil;
@@ -16,7 +16,7 @@ import itc.ink.hhxrf.utils.StatusBarUtil;
  * Created by yangwenjiang on 2018/9/25.
  */
 
-public class LaunchActivity extends Activity {
+public class LaunchActivity extends BaseActivity {
     private final String LOG_TAG ="LaunchActivity";
 
     private VideoView launchVideoView;

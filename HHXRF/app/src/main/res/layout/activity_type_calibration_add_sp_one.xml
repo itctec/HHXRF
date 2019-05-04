@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EEEEEE"
-    tools:context=".settings_group_fragment.calibration.TypeCalibrationAddSpOne">
+    tools:context=".settings_group_fragment.calibration_fragment.TypeCalibrationAddSpOne">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/type_Calibration_Add_Sp_One_Top_Navigation"

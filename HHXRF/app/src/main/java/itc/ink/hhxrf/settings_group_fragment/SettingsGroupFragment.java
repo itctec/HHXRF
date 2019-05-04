@@ -21,16 +21,19 @@ import java.util.List;
 import itc.ink.hhxrf.MainActivity;
 import itc.ink.hhxrf.R;
 import itc.ink.hhxrf.left_drawer.mode.LeftDrawerSubDataMode;
-import itc.ink.hhxrf.settings_group_fragment.adapter.SettingsGroupIndicatorDataAdapter;
-import itc.ink.hhxrf.settings_group_fragment.calibration.CalibrationFragment;
+import itc.ink.hhxrf.settings_group_fragment.adapter_fragment.SettingsGroupIndicatorDataAdapter;
+import itc.ink.hhxrf.settings_group_fragment.calibration_fragment.CalibrationFragment;
 import itc.ink.hhxrf.settings_group_fragment.compound_fragment.CompoundFragment;
 import itc.ink.hhxrf.settings_group_fragment.decimal_point_fragment.DecimalPointFragment;
 import itc.ink.hhxrf.settings_group_fragment.edit_report_fragment.EditReportFragment;
 import itc.ink.hhxrf.settings_group_fragment.element_fragment.ElementFragment;
 import itc.ink.hhxrf.settings_group_fragment.format_fragment.FormatFragment;
-import itc.ink.hhxrf.settings_group_fragment.history_db.HistoryFragment;
-import itc.ink.hhxrf.settings_group_fragment.mark_db.MarkDBFragment;
-import itc.ink.hhxrf.settings_group_fragment.test_time.TestTimeFragment;
+import itc.ink.hhxrf.settings_group_fragment.history_db_fragment.HistoryFragment;
+import itc.ink.hhxrf.settings_group_fragment.language_fragment.LanguageFragment;
+import itc.ink.hhxrf.settings_group_fragment.mark_db_fragment.MarkDBFragment;
+import itc.ink.hhxrf.settings_group_fragment.pull_time_fragment.PullTimeFragment;
+import itc.ink.hhxrf.settings_group_fragment.safe_fragment.SafeFragment;
+import itc.ink.hhxrf.settings_group_fragment.test_time_fragment.TestTimeFragment;
 import itc.ink.hhxrf.settings_group_fragment.test_way_fragment.TestWayFragment;
 import itc.ink.hhxrf.settings_group_fragment.unit.UnitFragment;
 import itc.ink.hhxrf.utils.SQLiteDBHelper;
@@ -110,7 +113,6 @@ public class SettingsGroupFragment extends Fragment{
         LeftDrawerSubDataMode element=new LeftDrawerSubDataMode(MainActivity.FRAGMENT_ID_COMPOUND,getResources().getString(R.string.compound),R.drawable.sub_item_compound_icon_sel,R.drawable.sub_item_compound_icon_unsel,checkItemRank(MainActivity.FRAGMENT_ID_COMPOUND));
         LeftDrawerSubDataMode compound=new LeftDrawerSubDataMode(MainActivity.FRAGMENT_ID_UNIT,getResources().getString(R.string.unit),R.drawable.sub_item_unit_icon_sel,R.drawable.sub_item_unit_icon_unsel,checkItemRank(MainActivity.FRAGMENT_ID_UNIT));
         LeftDrawerSubDataMode format=new LeftDrawerSubDataMode(MainActivity.FRAGMENT_ID_DECIMAL_POINT,getResources().getString(R.string.decimal_point),R.drawable.sub_item_decimal_point_icon_sel,R.drawable.sub_item_decimal_point_icon_unsel,checkItemRank(MainActivity.FRAGMENT_ID_DECIMAL_POINT));
-        LeftDrawerSubDataMode decimal_point=new LeftDrawerSubDataMode(MainActivity.FRAGMENT_ID_TEST_TIME,getResources().getString(R.string.test_time),R.drawable.sub_item_test_time_icon_sel,R.drawable.sub_item_test_time_icon_unsel,checkItemRank(MainActivity.FRAGMENT_ID_TEST_TIME));
         List<LeftDrawerSubDataMode> resultSettingSubItemArray=new ArrayList<>();
         resultSettingSubItemArray.add(test_time);
         resultSettingSubItemArray.add(test_way);
@@ -119,7 +121,6 @@ public class SettingsGroupFragment extends Fragment{
         resultSettingSubItemArray.add(element);
         resultSettingSubItemArray.add(compound);
         resultSettingSubItemArray.add(format);
-        resultSettingSubItemArray.add(decimal_point);
 
         Collections.sort(resultSettingSubItemArray, new Comparator<LeftDrawerSubDataMode>() {
 
@@ -167,17 +168,19 @@ public class SettingsGroupFragment extends Fragment{
     }
 
     public List<LeftDrawerSubDataMode> prepareSystemSettingsData() {
-        LeftDrawerSubDataMode language=new LeftDrawerSubDataMode(31,getResources().getString(R.string.language),R.drawable.vector_drawable_recommend,R.drawable.vector_drawable_recommend,checkItemRank(31));
-        LeftDrawerSubDataMode pull_time=new LeftDrawerSubDataMode(32,getResources().getString(R.string.pull_time),R.drawable.vector_drawable_recommend,R.drawable.vector_drawable_recommend,checkItemRank(32));
-        LeftDrawerSubDataMode power_off_time=new LeftDrawerSubDataMode(33,getResources().getString(R.string.power_off_time),R.drawable.vector_drawable_recommend,R.drawable.vector_drawable_recommend,checkItemRank(33));
-        LeftDrawerSubDataMode safe=new LeftDrawerSubDataMode(34,getResources().getString(R.string.safe),R.drawable.vector_drawable_recommend,R.drawable.vector_drawable_recommend,checkItemRank(34));
-        LeftDrawerSubDataMode instrument_debug=new LeftDrawerSubDataMode(35,getResources().getString(R.string.instrument_debug),R.drawable.vector_drawable_recommend,R.drawable.vector_drawable_recommend,checkItemRank(35));
+        LeftDrawerSubDataMode language=new LeftDrawerSubDataMode(MainActivity.FRAGMENT_ID_LANGUAGE,getResources().getString(R.string.language),R.drawable.sub_item_language_icon_unsel,R.drawable.sub_item_language_icon_unsel,checkItemRank(MainActivity.FRAGMENT_ID_LANGUAGE));
+        LeftDrawerSubDataMode pull_time=new LeftDrawerSubDataMode(MainActivity.FRAGMENT_ID_PULL_TIME,getResources().getString(R.string.pull_time),R.drawable.sub_item_pull_time_icon_sel,R.drawable.sub_item_pull_time_icon_unsel,checkItemRank(MainActivity.FRAGMENT_ID_PULL_TIME));
+        LeftDrawerSubDataMode safe=new LeftDrawerSubDataMode(MainActivity.FRAGMENT_ID_SAFE,getResources().getString(R.string.safe),R.drawable.sub_item_safe_icon_sel,R.drawable.sub_item_safe_icon_unsel,checkItemRank(MainActivity.FRAGMENT_ID_SAFE));
+        LeftDrawerSubDataMode power_off_time=new LeftDrawerSubDataMode(MainActivity.FRAGMENT_ID_STATE,getResources().getString(R.string.state),R.drawable.sub_item_state_icon_sel,R.drawable.sub_item_state_icon_unsel,checkItemRank(MainActivity.FRAGMENT_ID_STATE));
+        LeftDrawerSubDataMode instrument_debug=new LeftDrawerSubDataMode(MainActivity.FRAGMENT_ID_DEBUG,getResources().getString(R.string.instrument_debug),R.drawable.sub_item_debug_icon_sel,R.drawable.sub_item_debug_icon_unsel,checkItemRank(MainActivity.FRAGMENT_ID_DEBUG));
+        LeftDrawerSubDataMode decimal_point=new LeftDrawerSubDataMode(MainActivity.FRAGMENT_ID_TEST_TIME,getResources().getString(R.string.test_time),R.drawable.sub_item_test_time_icon_sel,R.drawable.sub_item_test_time_icon_unsel,checkItemRank(MainActivity.FRAGMENT_ID_TEST_TIME));
         List<LeftDrawerSubDataMode> systemSettingSubItemArray=new ArrayList<>();
         systemSettingSubItemArray.add(language);
         systemSettingSubItemArray.add(pull_time);
         systemSettingSubItemArray.add(power_off_time);
         systemSettingSubItemArray.add(safe);
         systemSettingSubItemArray.add(instrument_debug);
+        systemSettingSubItemArray.add(decimal_point);
 
         Collections.sort(systemSettingSubItemArray, new Comparator<LeftDrawerSubDataMode>() {
 
@@ -252,6 +255,24 @@ public class SettingsGroupFragment extends Fragment{
             case MainActivity.FRAGMENT_ID_MARK_DB:
                 MarkDBFragment markDBFragment=new MarkDBFragment();
                 getChildFragmentManager().beginTransaction().replace(R.id.settings_Fragment_Container, markDBFragment).commit();
+                break;
+            case MainActivity.FRAGMENT_ID_LANGUAGE:
+                LanguageFragment languageFragment=new LanguageFragment();
+                getChildFragmentManager().beginTransaction().replace(R.id.settings_Fragment_Container, languageFragment).commit();
+                break;
+            case MainActivity.FRAGMENT_ID_PULL_TIME:
+                PullTimeFragment pullTimeFragment=new PullTimeFragment();
+                getChildFragmentManager().beginTransaction().replace(R.id.settings_Fragment_Container, pullTimeFragment).commit();
+                break;
+            case MainActivity.FRAGMENT_ID_SAFE:
+                SafeFragment safeFragment=new SafeFragment();
+                getChildFragmentManager().beginTransaction().replace(R.id.settings_Fragment_Container, safeFragment).commit();
+                break;
+            case MainActivity.FRAGMENT_ID_STATE:
+
+                break;
+            case MainActivity.FRAGMENT_ID_DEBUG:
+
                 break;
         }
     }
