@@ -79,6 +79,7 @@ public class MarkDBDataAdapter extends RecyclerView.Adapter<MarkDBDataAdapter.VH
 
         holder.itemView.setOnClickListener(null);
         holder.itemView.setVisibility(View.VISIBLE);
+        holder.markDBIcon.setOnLongClickListener(null);
 
         if(MarkDBFragment.isEditState){
             if(markDBDataItem.isEdit_selected()){
@@ -100,7 +101,7 @@ public class MarkDBDataAdapter extends RecyclerView.Adapter<MarkDBDataAdapter.VH
             }else {
                 holder.markDBIcon.setImageResource(R.drawable.mark_db_icon_normal);
                 holder.markDBIcon.setOnClickListener(new ItemClickListener(markDBDataItem.getMark_lib_id(),markDBDataItem.getMark_lib_name()));
-                holder.markDBIcon.setOnLongClickListener(new ItemLongClickListener());
+                holder.markDBIcon.setOnLongClickListener(new ItemLongClickListener(markDBDataItem));
             }
         }
 
@@ -145,11 +146,17 @@ public class MarkDBDataAdapter extends RecyclerView.Adapter<MarkDBDataAdapter.VH
     }
 
     class ItemLongClickListener implements View.OnLongClickListener{
+        private MarkDBDataMode markDBDataItem;
+
+        public ItemLongClickListener(MarkDBDataMode markDBDataItem) {
+            this.markDBDataItem = markDBDataItem;
+        }
+
         @Override
         public boolean onLongClick(View view) {
             int[] location=new int[2];
             view.getLocationInWindow(location);
-            mItemCallBack.onItemLongClick(location[0],location[1]);
+            mItemCallBack.onItemLongClick(location[0],location[1],markDBDataItem);
             return true;
         }
     }
@@ -164,7 +171,7 @@ public class MarkDBDataAdapter extends RecyclerView.Adapter<MarkDBDataAdapter.VH
 
     public interface ItemCallBack{
         void addItem();
-        void onItemLongClick(int x,int y);
+        void onItemLongClick(int x,int y,MarkDBDataMode markDBDataItem);
     }
 
     public static class VH extends RecyclerView.ViewHolder {

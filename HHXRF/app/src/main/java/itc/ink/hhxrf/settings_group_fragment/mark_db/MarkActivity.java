@@ -126,7 +126,7 @@ public class MarkActivity extends Activity implements OnStartDragListener{
         public void addItem() {
             SQLiteDBHelper sqLiteDBHelper = new SQLiteDBHelper(MarkActivity.this, SQLiteDBHelper.DATABASE_FILE_NAME, SQLiteDBHelper.DATABASE_VERSION);
             SQLiteDatabase sqLiteDatabase = sqLiteDBHelper.getReadableDatabase();
-            String sqlStr = "select max(mark_rank_num) from tb_mark";
+            String sqlStr = "select max(mark_rank_num) from tb_mark where mark_db_id="+markDBID;
             Cursor cursor = sqLiteDatabase.rawQuery(sqlStr, null);
             int rankNum=0;
             if (cursor.moveToNext()){
@@ -228,9 +228,6 @@ public class MarkActivity extends Activity implements OnStartDragListener{
     public void deleteTypeFromDB(long markID){
         SQLiteDBHelper sqLiteDBHelper = new SQLiteDBHelper(MarkActivity.this, SQLiteDBHelper.DATABASE_FILE_NAME, SQLiteDBHelper.DATABASE_VERSION);
         SQLiteDatabase sqLiteDatabase = sqLiteDBHelper.getWritableDatabase();
-
-        String markElementDeleteSqlStr = "delete from tb_mark_element where mark_id="+markID;
-        sqLiteDatabase.execSQL(markElementDeleteSqlStr);
 
         String markDeleteSqlStr = "delete from tb_mark where mark_id="+markID;
         sqLiteDatabase.execSQL(markDeleteSqlStr);
