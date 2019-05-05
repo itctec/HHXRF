@@ -40,42 +40,65 @@ public class LeftDrawerWrapperDataAdapter extends RecyclerView.Adapter<LeftDrawe
 
     @Override
     public VH onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.left_drawer_item_group, parent, false);
-        return new VH(view);
+        if (viewType == ITEM_TYPE.BANNER.ordinal()) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.left_drawer_item_banner, parent, false);
+            return new LeftDrawerWrapperDataAdapter.VH(view, ITEM_TYPE.BANNER) {
+            };
+        }else{
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.left_drawer_item_group, parent, false);
+            return new VH(view,ITEM_TYPE.GRID);
+        }
     }
 
     @Override
     public void onBindViewHolder(VH holder, final int position) {
-        LeftDrawerWrapperDataMode drawerWrapperDataItem = mData.get(position);
+        if (position == 0) {;
+        }else{
+            LeftDrawerWrapperDataMode drawerWrapperDataItem = mData.get(position-1);
 
-        holder.drawerGroupTitleText.setText(drawerWrapperDataItem.getMain_title());
+            holder.drawerGroupTitleText.setText(drawerWrapperDataItem.getMain_title());
 
-        ItemClickCallbackIMP itemClickCallbackIMP=new ItemClickCallbackIMP();
-        LeftDrawerSubDataAdapter drawerSubDataAdapter = new LeftDrawerSubDataAdapter(getContext(), drawerWrapperDataItem.getSub_item_data_array(),itemClickCallbackIMP);
-        holder.drawerGroupRecyclerView.setAdapter(drawerSubDataAdapter);
-        RecyclerView.LayoutManager contentRvLayoutManager = new GridLayoutManager(getContext(), 3);
-        holder.drawerGroupRecyclerView.setLayoutManager(contentRvLayoutManager);
+            ItemClickCallbackIMP itemClickCallbackIMP=new ItemClickCallbackIMP();
+            LeftDrawerSubDataAdapter drawerSubDataAdapter = new LeftDrawerSubDataAdapter(getContext(), drawerWrapperDataItem.getSub_item_data_array(),itemClickCallbackIMP);
+            holder.drawerGroupRecyclerView.setAdapter(drawerSubDataAdapter);
+            RecyclerView.LayoutManager contentRvLayoutManager = new GridLayoutManager(getContext(), 3);
+            holder.drawerGroupRecyclerView.setLayoutManager(contentRvLayoutManager);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return mData.size();
+        return mData.size()+1;
     }
 
     @Override
     public int getItemViewType(int position) {
-        return position;
+        if (position == 0) {
+            return ITEM_TYPE.BANNER.ordinal();
+        } else {
+            return ITEM_TYPE.GRID.ordinal();
+        }
     }
 
 
     public class VH extends RecyclerView.ViewHolder {
+        private TextView drawerCompanyName;
+
         private TextView drawerGroupTitleText;
         private RecyclerView drawerGroupRecyclerView;
 
         public VH(View view) {
             super(view);
-            drawerGroupTitleText = view.findViewById(R.id.left_Drawer_Group_Title_Text);
-            drawerGroupRecyclerView = view.findViewById(R.id.left_Drawer_Group_RecyclerView);
+        }
+
+        public VH(View view, ITEM_TYPE item_type) {
+            this(view);
+            if (item_type == ITEM_TYPE.BANNER) {
+                drawerCompanyName = view.findViewById(R.id.left_Drawer_Company_Name_Label);
+            } else if (item_type == ITEM_TYPE.GRID) {
+                drawerGroupTitleText = view.findViewById(R.id.left_Drawer_Group_Title_Text);
+                drawerGroupRecyclerView = view.findViewById(R.id.left_Drawer_Group_RecyclerView);
+            }
         }
     }
 
@@ -88,6 +111,11 @@ public class LeftDrawerWrapperDataAdapter extends RecyclerView.Adapter<LeftDrawe
 
     public interface ItemClickCallback{
         void onItemClick(int fragmentID);
+    }
+
+    private enum ITEM_TYPE {
+        BANNER,
+        GRID
     }
 
 }

@@ -211,6 +211,7 @@ public class MainActivity extends BaseActivity {
 
 
     public void onLeftDrawerShowBtnClick(View view){
+        leftDrawerContentRV.scrollToPosition(0);
         mainDrawerLayout.openDrawer(Gravity.LEFT);
     }
 

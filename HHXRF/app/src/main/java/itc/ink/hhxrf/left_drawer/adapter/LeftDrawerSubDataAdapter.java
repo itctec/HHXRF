@@ -54,7 +54,7 @@ public class LeftDrawerSubDataAdapter extends RecyclerView.Adapter<LeftDrawerSub
 
         holder.drawerSubItemLayout.setTag(tag);
         holder.drawerSubItemLayout.setOnClickListener(drawerSubItemClickListener);
-        holder.drawerSubItemIcon.setImageResource(drawerSubDataItem.getIcon_resource_sel_id());
+        holder.drawerSubItemIcon.setImageResource(drawerSubDataItem.getIcon_resource_unsel_id());
         holder.drawerSubItemTitle.setText(drawerSubDataItem.getSub_title());
     }
 
