@@ -21,6 +21,7 @@ import java.util.List;
 import itc.ink.hhxrf.MainActivity;
 import itc.ink.hhxrf.R;
 import itc.ink.hhxrf.left_drawer.mode.LeftDrawerSubDataMode;
+import itc.ink.hhxrf.settings_group_fragment.about_fragment.AboutFragment;
 import itc.ink.hhxrf.settings_group_fragment.adapter_fragment.SettingsGroupIndicatorDataAdapter;
 import itc.ink.hhxrf.settings_group_fragment.calibration_fragment.CalibrationFragment;
 import itc.ink.hhxrf.settings_group_fragment.compound_fragment.CompoundFragment;
@@ -171,7 +172,7 @@ public class SettingsGroupFragment extends Fragment{
         LeftDrawerSubDataMode language=new LeftDrawerSubDataMode(MainActivity.FRAGMENT_ID_LANGUAGE,getResources().getString(R.string.language),R.drawable.sub_item_language_icon_unsel,R.drawable.sub_item_language_icon_unsel,checkItemRank(MainActivity.FRAGMENT_ID_LANGUAGE));
         LeftDrawerSubDataMode pull_time=new LeftDrawerSubDataMode(MainActivity.FRAGMENT_ID_PULL_TIME,getResources().getString(R.string.pull_time),R.drawable.sub_item_pull_time_icon_sel,R.drawable.sub_item_pull_time_icon_unsel,checkItemRank(MainActivity.FRAGMENT_ID_PULL_TIME));
         LeftDrawerSubDataMode safe=new LeftDrawerSubDataMode(MainActivity.FRAGMENT_ID_SAFE,getResources().getString(R.string.safe),R.drawable.sub_item_safe_icon_sel,R.drawable.sub_item_safe_icon_unsel,checkItemRank(MainActivity.FRAGMENT_ID_SAFE));
-        LeftDrawerSubDataMode power_off_time=new LeftDrawerSubDataMode(MainActivity.FRAGMENT_ID_STATE,getResources().getString(R.string.state),R.drawable.sub_item_state_icon_sel,R.drawable.sub_item_state_icon_unsel,checkItemRank(MainActivity.FRAGMENT_ID_STATE));
+        LeftDrawerSubDataMode power_off_time=new LeftDrawerSubDataMode(MainActivity.FRAGMENT_ID_ABOUT,getResources().getString(R.string.about),R.drawable.sub_item_state_icon_sel,R.drawable.sub_item_state_icon_unsel,checkItemRank(MainActivity.FRAGMENT_ID_ABOUT));
         LeftDrawerSubDataMode instrument_debug=new LeftDrawerSubDataMode(MainActivity.FRAGMENT_ID_DEBUG,getResources().getString(R.string.instrument_debug),R.drawable.sub_item_debug_icon_sel,R.drawable.sub_item_debug_icon_unsel,checkItemRank(MainActivity.FRAGMENT_ID_DEBUG));
         LeftDrawerSubDataMode decimal_point=new LeftDrawerSubDataMode(MainActivity.FRAGMENT_ID_TEST_TIME,getResources().getString(R.string.test_time),R.drawable.sub_item_test_time_icon_sel,R.drawable.sub_item_test_time_icon_unsel,checkItemRank(MainActivity.FRAGMENT_ID_TEST_TIME));
         List<LeftDrawerSubDataMode> systemSettingSubItemArray=new ArrayList<>();
@@ -268,8 +269,9 @@ public class SettingsGroupFragment extends Fragment{
                 SafeFragment safeFragment=new SafeFragment();
                 getChildFragmentManager().beginTransaction().replace(R.id.settings_Fragment_Container, safeFragment).commit();
                 break;
-            case MainActivity.FRAGMENT_ID_STATE:
-
+            case MainActivity.FRAGMENT_ID_ABOUT:
+                AboutFragment aboutFragment=new AboutFragment();
+                getChildFragmentManager().beginTransaction().replace(R.id.settings_Fragment_Container, aboutFragment).commit();
                 break;
             case MainActivity.FRAGMENT_ID_DEBUG:
 

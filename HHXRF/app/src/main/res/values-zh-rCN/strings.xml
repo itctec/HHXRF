@@ -132,7 +132,17 @@
     <string name="safe_fragment_input_current_password_error_tip">密码输入有误，请重新输入</string>
     <string name="safe_fragment_input_new_password_repeat_error_tip">两次密码输入不一致，请重新输入</string>
     <string name="safe_fragment_input_new_password_success_tip">密码设置成功！</string>
-    <string name="state">说明</string>
+    <string name="about">说明</string>
+    <string name="about_fragment_title">关于我们</string>
+    <string name="about_fragment_instruction_download_title">说明书下载</string>
+    <string name="about_fragment_instruction_download_sub_title">XX系统版本V1.0</string>
+    <string name="about_fragment_instruction_mail_title">contact@gmail.com</string>
+    <string name="about_fragment_instruction_mail_sub_title">公司邮箱</string>
+    <string name="about_fragment_instruction_tel_sub_title">公司电话</string>
+    <string name="about_fragment_instruction_tel_title">139-0293-2001</string>
+    <string name="about_fragment_instruction_title">森沙仪器</string>
+    <string name="about_fragment_instruction_sub_title">Scientia Instruments</string>
+    <string name="about_fragment_instruction_content">\t\t各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介</string>
     <string name="instrument_debug">仪器调试</string>
 </resources>
 

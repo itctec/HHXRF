@@ -131,6 +131,16 @@
     <string name="safe_fragment_input_current_password_error_tip">Password error,please input repeat</string>
     <string name="safe_fragment_input_new_password_repeat_error_tip">The password input second is not same as the first,please input repeat</string>
     <string name="safe_fragment_input_new_password_success_tip">Password reset success!</string>
-    <string name="state">State</string>
+    <string name="about">About</string>
+    <string name="about_fragment_title">About Us</string>
+    <string name="about_fragment_instruction_download_title">Instruction download</string>
+    <string name="about_fragment_instruction_download_sub_title">XX System version V1.0</string>
+    <string name="about_fragment_instruction_mail_title">contact@gmail.com</string>
+    <string name="about_fragment_instruction_mail_sub_title">Company Email</string>
+    <string name="about_fragment_instruction_tel_title">139-0293-2001</string>
+    <string name="about_fragment_instruction_tel_sub_title">Company Tail</string>
+    <string name="about_fragment_instruction_title">森沙仪器</string>
+    <string name="about_fragment_instruction_sub_title">Scientia Instruments</string>
+    <string name="about_fragment_instruction_content">\t\tCompany information Company informationCompany informationCompany informationCompany informationCompany informationCompany informationCompany informationCompany informationCompany informationCompany informationCompany informationCompany informationCompany informationCompany informationCompany information</string>
     <string name="instrument_debug">Instrument Debug</string>
 </resources>
