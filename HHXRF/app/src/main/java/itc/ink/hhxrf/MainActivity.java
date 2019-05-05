@@ -42,7 +42,7 @@ public class MainActivity extends BaseActivity {
     public static final int FRAGMENT_ID_PULL_TIME=32;
     public static final int FRAGMENT_ID_SAFE=33;
     public static final int FRAGMENT_ID_ABOUT=34;
-    public static final int FRAGMENT_ID_DEBUG=35;
+    public static final int FRAGMENT_ID_HARDWARE_TEST=35;
     public static final int FRAGMENT_ID_TEST_TIME=36;
     private DrawerLayout mainDrawerLayout;
     private RecyclerView leftDrawerContentRV;
@@ -131,7 +131,7 @@ public class MainActivity extends BaseActivity {
         LeftDrawerSubDataMode pull_time=new LeftDrawerSubDataMode(FRAGMENT_ID_PULL_TIME,getResources().getString(R.string.pull_time),R.drawable.sub_item_pull_time_icon_sel,R.drawable.sub_item_pull_time_icon_unsel,2);
         LeftDrawerSubDataMode safe=new LeftDrawerSubDataMode(FRAGMENT_ID_SAFE,getResources().getString(R.string.safe),R.drawable.sub_item_safe_icon_sel,R.drawable.sub_item_safe_icon_unsel,3);
         LeftDrawerSubDataMode power_off_time=new LeftDrawerSubDataMode(FRAGMENT_ID_ABOUT,getResources().getString(R.string.about),R.drawable.sub_item_state_icon_sel,R.drawable.sub_item_safe_icon_unsel,4);
-        LeftDrawerSubDataMode instrument_debug=new LeftDrawerSubDataMode(FRAGMENT_ID_DEBUG,getResources().getString(R.string.instrument_debug),R.drawable.sub_item_debug_icon_sel,R.drawable.sub_item_debug_icon_unsel,5);
+        LeftDrawerSubDataMode instrument_debug=new LeftDrawerSubDataMode(FRAGMENT_ID_HARDWARE_TEST,getResources().getString(R.string.instrument_test),R.drawable.sub_item_debug_icon_sel,R.drawable.sub_item_debug_icon_unsel,5);
         LeftDrawerSubDataMode decimal_point=new LeftDrawerSubDataMode(FRAGMENT_ID_TEST_TIME,getResources().getString(R.string.test_time),R.drawable.sub_item_test_time_icon_sel,R.drawable.sub_item_test_time_icon_unsel,6);
         List<LeftDrawerSubDataMode> systemSettingSubItemArray=new ArrayList<>();
         systemSettingSubItemArray.add(language);

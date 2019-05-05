@@ -142,5 +142,16 @@
     <string name="about_fragment_instruction_title">森沙仪器</string>
     <string name="about_fragment_instruction_sub_title">Scientia Instruments</string>
     <string name="about_fragment_instruction_content">\t\tCompany information Company informationCompany informationCompany informationCompany informationCompany informationCompany informationCompany informationCompany informationCompany informationCompany informationCompany informationCompany informationCompany informationCompany informationCompany information</string>
-    <string name="instrument_debug">Instrument Debug</string>
+    <string name="instrument_test">Instrument Test</string>
+    <string name="instrument_test_fragment_title">Current hardware data</string>
+    <string name="instrument_test_fragment_input_current_password_tip">Please input the password</string>
+    <string name="instrument_test_fragment_input_current_password_error_tip">Password error,please input repeat</string>
+    <string name="instrument_light_tube_voltage">Light tube voltage:</string>
+    <string name="instrument_light_tube_electricity">Light tube electricity:</string>
+    <string name="instrument_instrument_temperature">Instrument temperature:</string>
+    <string name="instrument_detector_temperature">Detector temperature:</string>
+    <string name="instrument_count_rate">Count rate：</string>
+    <string name="instrument_motherboard_temperature">Motherboard temperature:</string>
+    <string name="instrument_power_board_temperature">Power board temperature:</string>
+    <string name="instrument_drive_plate_temperature">Drive plate temperature:</string>
 </resources>

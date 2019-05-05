@@ -143,6 +143,17 @@
     <string name="about_fragment_instruction_title">森沙仪器</string>
     <string name="about_fragment_instruction_sub_title">Scientia Instruments</string>
     <string name="about_fragment_instruction_content">\t\t各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介各种公司简介</string>
-    <string name="instrument_debug">仪器调试</string>
+    <string name="instrument_test">仪器测试</string>
+    <string name="instrument_test_fragment_title">当前硬件数据</string>
+    <string name="instrument_test_fragment_input_current_password_tip">请输入密码</string>
+    <string name="instrument_test_fragment_input_current_password_error_tip">密码输入有误，请重新输入</string>
+    <string name="instrument_light_tube_voltage">光管电压：</string>
+    <string name="instrument_light_tube_electricity">光管电流：</string>
+    <string name="instrument_instrument_temperature">仪器温度：</string>
+    <string name="instrument_detector_temperature">探测器温度：</string>
+    <string name="instrument_count_rate">计数率：</string>
+    <string name="instrument_motherboard_temperature">主板温度：</string>
+    <string name="instrument_power_board_temperature">电源板温度：</string>
+    <string name="instrument_drive_plate_temperature">驱动板温度：</string>
 </resources>
 
