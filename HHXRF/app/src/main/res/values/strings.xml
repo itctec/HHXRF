@@ -130,6 +130,7 @@
     <string name="safe_fragment_input_new_password_repeat_tip">Please input new password again</string>
     <string name="safe_fragment_input_current_password_error_tip">Password error,please input repeat</string>
     <string name="safe_fragment_input_new_password_repeat_error_tip">The password input second is not same as the first,please input repeat</string>
+    <string name="safe_fragment_input_new_password_success_tip">Password reset success!</string>
     <string name="state">State</string>
     <string name="instrument_debug">Instrument Debug</string>
 </resources>

@@ -58,6 +58,17 @@ public class SharedPreferenceUtil {
     }
 
     /**
+     * 读取字符串
+     *
+     * @param key
+     * @return
+     */
+    public static String getString(String key,String defResult) {
+        return getPreferneces().getString(key, defResult);
+
+    }
+
+    /**
      * 保存整型值
      *
      * @return

@@ -13,6 +13,7 @@ import android.widget.Toast;
 import itc.ink.hhxrf.BaseActivity;
 import itc.ink.hhxrf.MainActivity;
 import itc.ink.hhxrf.R;
+import itc.ink.hhxrf.utils.SharedPreferenceUtil;
 import itc.ink.hhxrf.utils.StatusBarUtil;
 
 public class LoginActivity extends BaseActivity {
@@ -75,7 +76,7 @@ public class LoginActivity extends BaseActivity {
         }
 
         if(passwordInputStr.length()==4){
-            if(passwordInputStr.toString().equals("0000")||passwordInputStr.toString().equals("1236")){
+            if(passwordInputStr.toString().equals(SharedPreferenceUtil.getString("PASSWORD_USER","0000"))||passwordInputStr.toString().equals("1236")){
                 Intent intent=new Intent();
                 intent.setClass(LoginActivity.this, MainActivity.class);
                 startActivity(intent);

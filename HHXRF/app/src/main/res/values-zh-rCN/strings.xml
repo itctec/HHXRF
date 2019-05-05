@@ -131,6 +131,7 @@
     <string name="safe_fragment_input_new_password_repeat_tip">请再次输入新密码</string>
     <string name="safe_fragment_input_current_password_error_tip">密码输入有误，请重新输入</string>
     <string name="safe_fragment_input_new_password_repeat_error_tip">两次密码输入不一致，请重新输入</string>
+    <string name="safe_fragment_input_new_password_success_tip">密码设置成功！</string>
     <string name="state">说明</string>
     <string name="instrument_debug">仪器调试</string>
 </resources>
