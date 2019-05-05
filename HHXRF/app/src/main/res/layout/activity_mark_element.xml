@@ -94,6 +94,7 @@
         <TextView
             android:id="@+id/mark_Element_Activity_Import_Data_Menu_Btn"
             android:text="@string/mark_element_activity_import_element"
+            android:textColor="#222222"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
@@ -106,6 +107,7 @@
         <TextView
             android:id="@+id/mark_Element_Activity_Edit_Data_Menu_Btn"
             android:text="@string/mark_element_activity_edit_element"
+            android:textColor="#222222"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
