@@ -12,6 +12,7 @@
     <string name="home_start_test_tip">扣扳机开始测试</string>
     <string name="home_start_test_tip_detail">根据实际情况直接扣动扳机，或者通过打开镜头瞄准再扣动扳机</string>
     <string name="home_open_camera">打开镜头</string>
+    <string name="camera_activity_title">摄像头</string>
     <string name="home_last_report">上次结果</string>
     <string name="home_last_report_column_element">元素</string>
     <string name="home_last_report_column_percent_symble">%</string>

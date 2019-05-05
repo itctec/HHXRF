@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EEEEEE"
+    tools:context=".home_fragment.CameraActivity">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/camera_Activity_Top_Navigation"
+        android:background="@color/activity_bg"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingTop="@dimen/app_status_bar_height"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/camera_Activity_Top_Navigation_Bottom_Horizontal_Guideline"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/camera_Activity_Top_Navigation_Back_Btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:onClick="onBackBtnClick"
+            android:src="@drawable/vector_drawable_back_arrow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/camera_Activity_Top_Navigation_Activity_Title"
+            android:text="@string/camera_activity_title"
+            android:textColor="#FFFFFF"
+            android:textSize="21sp"
+            android:enabled="false"
+            android:background="@null"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            app:layout_constraintLeft_toRightOf="@id/camera_Activity_Top_Navigation_Back_Btn"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/camera_Activity_Top_Navigation_Bottom_Horizontal_Guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="@dimen/app_top_navigation_height" />
+    <itc.ink.hhxrf.home_fragment.CameraPreview
+        android:id="@+id/cameraView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/camera_Activity_Top_Navigation_Bottom_Horizontal_Guideline"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/camera_Activity_Top_Navigation_Bottom_Horizontal_Guideline"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <android.support.constraint.Guideline
+            android:id="@+id/camera_Preview_Vertical_Guideline_One"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.3333" />
+        <android.support.constraint.Guideline
+            android:id="@+id/camera_Preview_Vertical_Guideline_Two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.6666" />
+        <android.support.constraint.Guideline
+            android:id="@+id/camera_Preview_Horizontal_Guideline_One"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.3333" />
+        <android.support.constraint.Guideline
+            android:id="@+id/camera_Preview_Horizontal_Guideline_Two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.6666" />
+        <View
+            android:background="#FFFFFF"
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            app:layout_constraintRight_toRightOf="@id/camera_Preview_Vertical_Guideline_One"/>
+        <View
+            android:background="#FFFFFF"
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            app:layout_constraintRight_toRightOf="@id/camera_Preview_Vertical_Guideline_Two"/>
+        <View
+            android:background="#FFFFFF"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            app:layout_constraintTop_toTopOf="@id/camera_Preview_Horizontal_Guideline_One"/>
+        <View
+            android:background="#FFFFFF"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            app:layout_constraintTop_toTopOf="@id/camera_Preview_Horizontal_Guideline_Two"/>
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>

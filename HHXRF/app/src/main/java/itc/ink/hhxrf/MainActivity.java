@@ -2,6 +2,7 @@ package itc.ink.hhxrf;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,6 +16,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import itc.ink.hhxrf.home_fragment.CameraActivity;
+import itc.ink.hhxrf.home_fragment.CameraPreview;
 import itc.ink.hhxrf.home_fragment.HomeFragment;
 import itc.ink.hhxrf.home_fragment.last_report.LastReportFragment;
 import itc.ink.hhxrf.left_drawer.adapter.LeftDrawerSubDataAdapter;
@@ -218,6 +222,12 @@ public class MainActivity extends BaseActivity {
     public void onLastReportBtnClick(View view){
         LastReportFragment lastReportFragment = new LastReportFragment();
         getFragmentManager().beginTransaction().replace(R.id.main_Activity_Fragment_Container, lastReportFragment).commit();
+    }
+
+    public void onCameraBtnClick(View view){
+        Intent intent=new Intent();
+        intent.setClass(MainActivity.this, CameraActivity.class);
+        startActivity(intent);
     }
 
     public void onLastReportBackBtnClick(View view){
