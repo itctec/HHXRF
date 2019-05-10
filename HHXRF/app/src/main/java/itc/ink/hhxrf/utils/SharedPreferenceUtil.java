@@ -18,7 +18,7 @@ public class SharedPreferenceUtil {
         if (mSharedPreferences == null) {
             // mSharedPreferences = App.context.getSharedPreferences(
             // PREFERENCE_NAME, Context.MODE_PRIVATE);
-            mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(BaseActivity.baseActivityContext);
+            mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(AppApplication.applicationContext);
         }
         return mSharedPreferences;
     }

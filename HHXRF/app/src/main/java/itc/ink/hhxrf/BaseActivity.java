@@ -13,25 +13,41 @@ import java.util.Locale;
 
 import itc.ink.hhxrf.settings_group_fragment.language_fragment.LanguageFragment;
 import itc.ink.hhxrf.utils.SharedPreferenceUtil;
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class BaseActivity extends Activity {
-    public static Context baseActivityContext;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        baseActivityContext=this;
-
         Configuration configuration = getResources().getConfiguration();
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
 
+
         if(SharedPreferenceUtil.getInt(LanguageFragment.LANGUAGE_KEY)==LanguageFragment.LANGUAGE_VALUE_CHINESE){
+            CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                    .setDefaultFontPath("fonts/test.ttf")
+                    .setFontAttrId(R.attr.fontPath)
+                    .build()
+            );
+
             configuration.locale = Locale.SIMPLIFIED_CHINESE;
         }else{
+            CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                    .setDefaultFontPath("fonts/en.otf")
+                    .setFontAttrId(R.attr.fontPath)
+                    .build()
+            );
+
             configuration.locale = Locale.ENGLISH;
         }
         getResources().updateConfiguration(configuration,displayMetrics);
     }
 
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 }

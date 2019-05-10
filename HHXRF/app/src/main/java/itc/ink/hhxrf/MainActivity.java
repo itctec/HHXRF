@@ -27,6 +27,7 @@ import itc.ink.hhxrf.left_drawer.adapter.LeftDrawerWrapperDataAdapter;
 import itc.ink.hhxrf.left_drawer.mode.LeftDrawerSubDataMode;
 import itc.ink.hhxrf.left_drawer.mode.LeftDrawerWrapperDataMode;
 import itc.ink.hhxrf.utils.StatusBarUtil;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends BaseActivity {
     public static boolean commandFromLeftDrawer=false;
@@ -101,6 +102,7 @@ public class MainActivity extends BaseActivity {
         getFragmentManager().beginTransaction().replace(R.id.main_Activity_Fragment_Container, homeFragment).commit();
 
     }
+
 
     public List<LeftDrawerWrapperDataMode> prepareDrawerData(Context mContext) {
 

@@ -9,6 +9,7 @@ import java.util.Locale;
 
 import itc.ink.hhxrf.settings_group_fragment.language_fragment.LanguageFragment;
 import itc.ink.hhxrf.utils.SharedPreferenceUtil;
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 public class AppApplication extends Application {
     public static Context applicationContext;
