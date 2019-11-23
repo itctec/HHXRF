@@ -31,6 +31,9 @@
         <activity android:name=".MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/DefActivityTheme"/>
+        <activity android:name=".home_fragment.OnTestingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DefActivityTheme"/>
         <activity android:name=".home_fragment.CameraActivity"
             android:screenOrientation="portrait"
             android:theme="@style/DefActivityTheme"/>

@@ -20,8 +20,8 @@ import itc.ink.hhxrf.utils.SharedPreferenceUtil;
 
 public class TestWayFragment extends Fragment {
     public static final String TEST_WAY_KEY="test_way";
-    public static final int TEST_WAY_VALUE_METAL=0;
-    public static final int TEST_WAY_VALUE_GROUND=1;
+    public static final String TEST_WAY_VALUE_METAL="METAL";
+    public static final String TEST_WAY_VALUE_GROUND="GROUND";
 
     private ImageView testWayItemBack;
     private TextView testWayMetalBtnTitle;
@@ -49,7 +49,7 @@ public class TestWayFragment extends Fragment {
         testWayGroundBtnSelectedTip=rootView.findViewById(R.id.test_Way_Fragment_Ground_Btn_Selected_Tip);
 
 
-        if(SharedPreferenceUtil.getInt(TEST_WAY_KEY)==TEST_WAY_VALUE_METAL){
+        if(SharedPreferenceUtil.getString(TEST_WAY_KEY).equals(TEST_WAY_VALUE_METAL)){
             ConstraintLayout.LayoutParams lp=(ConstraintLayout.LayoutParams)testWayItemBack.getLayoutParams();
             lp.leftToLeft= ConstraintLayout.LayoutParams.PARENT_ID;
             lp.rightToRight=ConstraintLayout.LayoutParams.UNSET;
@@ -75,8 +75,8 @@ public class TestWayFragment extends Fragment {
     class TestWaySwitchBtnClickListener implements View.OnClickListener{
         @Override
         public void onClick(View view) {
-            if(SharedPreferenceUtil.getInt(TEST_WAY_KEY)==TEST_WAY_VALUE_METAL){
-                SharedPreferenceUtil.putInt(TEST_WAY_KEY,TEST_WAY_VALUE_GROUND);
+            if(SharedPreferenceUtil.getString(TEST_WAY_KEY).equals(TEST_WAY_VALUE_METAL)){
+                SharedPreferenceUtil.putString(TEST_WAY_KEY,TEST_WAY_VALUE_GROUND);
                 ConstraintLayout.LayoutParams lp=(ConstraintLayout.LayoutParams)testWayItemBack.getLayoutParams();
                 lp.rightToRight= ConstraintLayout.LayoutParams.PARENT_ID;
                 lp.leftToLeft=ConstraintLayout.LayoutParams.UNSET;
@@ -86,7 +86,7 @@ public class TestWayFragment extends Fragment {
                 testWayGroundBtnTitle.setTextColor(getResources().getColor(R.color.result_text_black,null));
                 testWayGroundBtnSelectedTip.setVisibility(View.VISIBLE);
             }else{
-                SharedPreferenceUtil.putInt(TEST_WAY_KEY,TEST_WAY_VALUE_METAL);
+                SharedPreferenceUtil.putString(TEST_WAY_KEY,TEST_WAY_VALUE_METAL);
                 ConstraintLayout.LayoutParams lp=(ConstraintLayout.LayoutParams)testWayItemBack.getLayoutParams();
                 lp.leftToLeft= ConstraintLayout.LayoutParams.PARENT_ID;
                 lp.rightToRight=ConstraintLayout.LayoutParams.UNSET;

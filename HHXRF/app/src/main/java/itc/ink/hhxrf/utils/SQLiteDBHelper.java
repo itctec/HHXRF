@@ -16,7 +16,7 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
     private final String TB_CREATE_ELEMENT_SHOW_RANK_INFO="create table tb_element_show_rank_info(element_id,element_name,element_ordinal,element_rank_num)";
     private final String TB_CREATE_COMPOUND_LIB_INFO="create table tb_compound_lib_info(compound_id,compound_element,compound_name,show_state)";
     private final String TB_CREATE_HISTORY_DATA="create table tb_history_data(sample_name PRIMARY KEY,test_datetime,test_way)";
-    private final String TB_CREATE_HISTORY_DATA_CONTENT="create table tb_history_data_content(element_name,element_content,sample_name,FOREIGN KEY(sample_name) REFERENCES tb_history_data(sample_name))";
+    private final String TB_CREATE_HISTORY_DATA_CONTENT="create table tb_history_data_content(element_name,element_concentration,element_range,element_average,sample_name,FOREIGN KEY(sample_name) REFERENCES tb_history_data(sample_name))";
     private final String TB_CREATE_TYPE_CALIBRATION="create table tb_type_calibration(type_name PRIMARY KEY,enable_state)";
     private final String TB_CREATE_TYPE_CALIBRATION_CONTENT="create table tb_type_calibration_content(element_id,element_name,value_multiplication,value_plus,value_unit,type_name,FOREIGN KEY(type_name) REFERENCES tb_type_calibration(type_name))";
     private final String TB_CREATE_MARK_DB="create table tb_mark_db(mark_db_id PRIMARY KEY,mark_db_name)";
@@ -43,7 +43,7 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
         initFragmentRankTb(sqLiteDatabase);
         initElementLibTb(sqLiteDatabase);
         initCompoundLibTb(sqLiteDatabase);
-        initHistoryTb(sqLiteDatabase);
+        //initHistoryTb(sqLiteDatabase);
     }
 
     @Override
@@ -98,12 +98,6 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
         String historyInsertSqlStr = "insert into tb_history_data(sample_name,test_datetime,test_way) values " +
                 "('Sample001','2019-02-15','金属'),('Sample002','2019-02-16','土壤'),('Sample003','2019-02-17','金属'),('Sample004','2019-02-18','金属'),('Sample005','2019-02-19','土壤')";
         sqLiteDatabase.execSQL(historyInsertSqlStr);
-
-        String historyContentInsertSqlStr = "insert into tb_history_data_content(element_name,element_content,sample_name) values " +
-                "('Fe','56','Sample001'),('Ru','28','Sample001'),('S','28','Sample001'),('Se','12','Sample001'),('Ti','1','Sample001'),('Hg','3.5','Sample001'),"+
-                "('A','56','Sample002'),('Ru','14','Sample002'),('Si','28','Sample002'),('K','12','Sample002'),('N','1','Sample002'),('Hg','36','Sample002'),"+
-                "('Fe','56','Sample003'),('Ru','23','Sample003'),('Tb','22','Sample003'),('Se','12','Sample003'),('Ge','34','Sample003'),('La','23','Sample003')";
-        sqLiteDatabase.execSQL(historyContentInsertSqlStr);
     }
 
 }

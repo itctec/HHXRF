@@ -24,18 +24,16 @@ public class BaseActivity extends Activity {
         Configuration configuration = getResources().getConfiguration();
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
 
-
         if(SharedPreferenceUtil.getInt(LanguageFragment.LANGUAGE_KEY)==LanguageFragment.LANGUAGE_VALUE_CHINESE){
             CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                    .setDefaultFontPath("fonts/test.ttf")
+                    .setDefaultFontPath("fonts/SourceHanSansCN-Normalx.otf")
                     .setFontAttrId(R.attr.fontPath)
                     .build()
             );
-
             configuration.locale = Locale.SIMPLIFIED_CHINESE;
         }else{
             CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                    .setDefaultFontPath("fonts/en.otf")
+                    .setDefaultFontPath("fonts/Helveticax.ttc")
                     .setFontAttrId(R.attr.fontPath)
                     .build()
             );

@@ -69,7 +69,7 @@ public class CompareResultActivity extends BaseActivity {
         String elementSqlStr = "select element_name from tb_history_data_content where sample_name=? or sample_name=?";
         Cursor elementListCursor = sqLiteDatabase.rawQuery(elementSqlStr, new String[]{sampleOneName,sampleTwoName});
 
-        String sampleSqlStr="select element_content from tb_history_data_content where sample_name=? and element_name=?";
+        String sampleSqlStr="select element_concentration from tb_history_data_content where sample_name=? and element_name=?";
 
         while(elementListCursor.moveToNext()){
             Cursor sampleOneResultCursor = sqLiteDatabase.rawQuery(sampleSqlStr, new String[]{sampleOneName,elementListCursor.getString(0)});

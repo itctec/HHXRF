@@ -11,4 +11,7 @@ public class HardwareControl {
      * which is packaged with this application.
      */
     public static native String stringFromJNI();
+
+    public static native String nativeRoutineAnalysis();
+
 }

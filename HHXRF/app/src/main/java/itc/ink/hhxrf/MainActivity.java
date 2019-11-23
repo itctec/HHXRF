@@ -9,6 +9,7 @@ import android.os.Message;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
@@ -17,9 +18,11 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import itc.ink.hhxrf.hardware.HardwareControl;
 import itc.ink.hhxrf.home_fragment.CameraActivity;
 import itc.ink.hhxrf.home_fragment.CameraPreview;
 import itc.ink.hhxrf.home_fragment.HomeFragment;
+import itc.ink.hhxrf.home_fragment.OnTestingActivity;
 import itc.ink.hhxrf.home_fragment.last_report.LastReportFragment;
 import itc.ink.hhxrf.left_drawer.adapter.LeftDrawerSubDataAdapter;
 import itc.ink.hhxrf.settings_group_fragment.SettingsGroupFragment;
@@ -51,6 +54,9 @@ public class MainActivity extends BaseActivity {
     public static final int FRAGMENT_ID_TEST_TIME=36;
     private DrawerLayout mainDrawerLayout;
     private RecyclerView leftDrawerContentRV;
+
+    public static final int TESTING_ACTIVITY_REQUEST_CODE=0X01;
+    public static final int TESTING_ACTIVITY_RESULT_CODE_OK=0X01;
 
     private TextView navigationHomeBtn;
     private TextView navigationResultBtn;
@@ -100,9 +106,16 @@ public class MainActivity extends BaseActivity {
 
         HomeFragment homeFragment = new HomeFragment();
         getFragmentManager().beginTransaction().replace(R.id.main_Activity_Fragment_Container, homeFragment).commit();
-
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(TESTING_ACTIVITY_REQUEST_CODE==requestCode&&TESTING_ACTIVITY_RESULT_CODE_OK==resultCode){
+            LastReportFragment lastReportFragment = new LastReportFragment();
+            getFragmentManager().beginTransaction().replace(R.id.main_Activity_Fragment_Container, lastReportFragment).commit();
+        }
+    }
 
     public List<LeftDrawerWrapperDataMode> prepareDrawerData(Context mContext) {
 
@@ -232,6 +245,12 @@ public class MainActivity extends BaseActivity {
         startActivity(intent);
     }
 
+    public void onStartNativeAnalyseBtnClick(View view){
+        Intent intent=new Intent();
+        intent.setClass(MainActivity.this, OnTestingActivity.class);
+        startActivityForResult(intent,TESTING_ACTIVITY_REQUEST_CODE);
+    }
+
     public void onLastReportBackBtnClick(View view){
         HomeFragment homeFragment = new HomeFragment();
         getFragmentManager().beginTransaction().replace(R.id.main_Activity_Fragment_Container, homeFragment).commit();
@@ -262,4 +281,6 @@ public class MainActivity extends BaseActivity {
             getFragmentManager().beginTransaction().replace(R.id.main_Activity_Fragment_Container, settingsGroupFragment).commit();
         }
     }
+
+
 }

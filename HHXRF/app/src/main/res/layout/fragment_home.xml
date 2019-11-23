@@ -92,6 +92,23 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/home_Fragment_Top_Navigation_Bottom_Horizontal_Guideline" />
 
+    <TextView
+        android:id="@+id/home_KouBan_Btn"
+        android:text="开始分析"
+        android:textColor="@color/home_text_white"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:drawableTop="@drawable/open_camera_icon"
+        android:drawablePadding="10dp"
+        android:layout_marginTop="250dp"
+        android:gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onStartNativeAnalyseBtnClick"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/home_Fragment_Top_Navigation_Bottom_Horizontal_Guideline"/>
+
     <android.support.constraint.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"

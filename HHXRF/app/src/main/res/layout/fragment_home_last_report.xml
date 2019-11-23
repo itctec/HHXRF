@@ -28,7 +28,8 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
         <EditText
-            android:text="Sample001"
+            android:id="@+id/last_Report_Fragment_Top_Navigation_Sample_Name"
+            android:text="@string/home_last_report_top_navigation_label"
             android:textColor="@color/home_text_white"
             android:textSize="21sp"
             android:textStyle="bold"

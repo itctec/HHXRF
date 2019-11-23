@@ -3,6 +3,8 @@ package itc.ink.hhxrf.home_fragment.last_report;
 import android.app.Fragment;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,12 +23,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import itc.ink.hhxrf.R;
+import itc.ink.hhxrf.settings_group_fragment.history_db_fragment.CompareDataActivity;
+import itc.ink.hhxrf.settings_group_fragment.history_db_fragment.HistoryDBDataMode;
+import itc.ink.hhxrf.utils.SQLiteDBHelper;
 
 /**
  * Created by yangwenjiang on 2018/9/19.
  */
 
 public class LastReportFragment extends Fragment {
+    private EditText topNavigationSampleName;
     private ImageView reportShowType;
     private ImageView reportChangeColumnBtn;
     private TextView elementNameLabel;
@@ -55,6 +62,17 @@ public class LastReportFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home_last_report, container, false);
 
+        topNavigationSampleName=rootView.findViewById(R.id.last_Report_Fragment_Top_Navigation_Sample_Name);
+        SQLiteDBHelper sqLiteDBHelper = new SQLiteDBHelper(getContext(), SQLiteDBHelper.DATABASE_FILE_NAME, SQLiteDBHelper.DATABASE_VERSION);
+        String sqlStr = "select sample_name from tb_history_data order by test_datetime desc LIMIT 1";
+        SQLiteDatabase sqLiteDatabase = sqLiteDBHelper.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery(sqlStr, null);
+        if(cursor.moveToNext()){
+            topNavigationSampleName.setText(cursor.getString(cursor.getColumnIndex("sample_name")));
+        }else{
+            topNavigationSampleName.setText(getResources().getString(R.string.home_last_report_top_navigation_label));
+        }
+
         reportShowType=rootView.findViewById(R.id.last_Report_Fragment_Report_Show_Type);
         reportShowType.setOnClickListener(new ReportShowTypeClickListener());
 
@@ -77,8 +95,16 @@ public class LastReportFragment extends Fragment {
 
     public List<LastReportDataMode> initListData(){
         List<LastReportDataMode> lastReportDataArray=new ArrayList<>();
-        for(int i=0;i<10;i++){
-            LastReportDataMode reportItem=new LastReportDataMode("AC"+i,"62","18~19","62");
+
+        SQLiteDBHelper sqLiteDBHelper = new SQLiteDBHelper(getContext(), SQLiteDBHelper.DATABASE_FILE_NAME, SQLiteDBHelper.DATABASE_VERSION);
+        String sqlStr = "select * from tb_history_data_content where sample_name=(select sample_name from tb_history_data order by test_datetime desc LIMIT 1)";
+        SQLiteDatabase sqLiteDatabase = sqLiteDBHelper.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery(sqlStr, null);
+        while(cursor.moveToNext()){
+            LastReportDataMode reportItem=new LastReportDataMode(cursor.getString(cursor.getColumnIndex("element_name")),
+                    cursor.getString(cursor.getColumnIndex("element_concentration")),
+                    cursor.getString(cursor.getColumnIndex("element_range")),
+                    cursor.getString(cursor.getColumnIndex("element_average")));
             lastReportDataArray.add(reportItem);
         }
 

@@ -11,9 +11,12 @@
 
     <string name="home_start_test_tip">Pull trigger start test</string>
     <string name="home_start_test_tip_detail">Pull the trigger as you see fit, or turn on the lens and aim</string>
+    <string name="home_on_testing_tip">On Testing...</string>
+    <string name="home_on_testing_waiting_time_tip">Waiting about two seconds</string>
     <string name="home_open_camera">Open Camera</string>
     <string name="camera_activity_title">Camera</string>
     <string name="home_last_report">Last Report</string>
+    <string name="home_last_report_top_navigation_label">No Data</string>
     <string name="home_last_report_column_element">Element</string>
     <string name="home_last_report_column_percent_symble">%</string>
     <string name="home_last_report_column_range">Range</string>
