@@ -7,7 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,11 +24,12 @@ import itc.ink.hhxrf.utils.StatusBarUtil;
 
 public class ElementAddActivity extends BaseActivity {
     private ImageView backBtn;
+    private EditText searchBox;
     private TextView multiChoiceBtn;
     private ImageView addBtn;
     private RecyclerView elementLibRecyclerView;
     private ElementLibDataAdapter elementLibDataAdapter;
-    private List<ElementLibDataMode> mElementLibListData;
+    private List<ElementLibDataMode> elementLibItemArray=new ArrayList<ElementLibDataMode>();
 
     public static boolean isMultiChoiceState=false;
 
@@ -43,25 +47,26 @@ public class ElementAddActivity extends BaseActivity {
         setContentView(R.layout.activity_element_add);
 
         backBtn=findViewById(R.id.element_Add_Top_Navigation_Back_Btn);
+        searchBox=findViewById(R.id.element_Add_SearchBox);
+        searchBox.addTextChangedListener(new SearchBoxTextWatcher());
         multiChoiceBtn=findViewById(R.id.element_Add_Top_Navigation_Multi_Sel_Btn);
         multiChoiceBtn.setOnClickListener(new MultiChoiceBtnClickListener());
         addBtn=findViewById(R.id.element_Fragment_Element_Lib_Add_Btn);
         addBtn.setOnClickListener(new AddBtnClickListener());
 
-        mElementLibListData=initElementLibData();
+        initElementLibData("");
         ItemClickCallBack itemClickCallBack=new ItemClickCallBack();
-        elementLibDataAdapter=new ElementLibDataAdapter(this, mElementLibListData,new ItemClickCallBack());
+        elementLibDataAdapter=new ElementLibDataAdapter(this, elementLibItemArray,new ItemClickCallBack());
         elementLibRecyclerView=findViewById(R.id.element_Fragment_Element_Lib_RV);
         elementLibRecyclerView.setAdapter(elementLibDataAdapter);
         RecyclerView.LayoutManager contentRvLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         elementLibRecyclerView.setLayoutManager(contentRvLayoutManager);
     }
 
-    public List<ElementLibDataMode> initElementLibData() {
-        List<ElementLibDataMode> elementLibItemArray=new ArrayList<>();
-
+    public List<ElementLibDataMode> initElementLibData(String elementSearchStrr) {
+        elementLibItemArray.clear();
         SQLiteDBHelper sqLiteDBHelper = new SQLiteDBHelper(this, SQLiteDBHelper.DATABASE_FILE_NAME, SQLiteDBHelper.DATABASE_VERSION);
-        String sqlStr = "select * from tb_element_lib_info";
+        String sqlStr = "select * from tb_element_lib_info where element_name like '"+elementSearchStrr+"%' or element_ordinal like '"+elementSearchStrr+"%'";
         SQLiteDatabase sqLiteDatabase = sqLiteDBHelper.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery(sqlStr, null);
         while(cursor.moveToNext()){
@@ -71,12 +76,30 @@ public class ElementAddActivity extends BaseActivity {
         return elementLibItemArray;
     }
 
+    class SearchBoxTextWatcher implements TextWatcher{
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            System.out.println(editable.toString());
+            initElementLibData(editable.toString());
+            elementLibDataAdapter.notifyDataSetChanged();
+
+        }
+    }
+
     class ItemClickCallBack implements ElementLibDataAdapter.ItemClickCallBack{
         @Override
         public void onItemClick(int position) {
             Intent intent=new Intent();
             ArrayList<Integer> itemAddArray=new ArrayList<>();
-            itemAddArray.add(mElementLibListData.get(position).getElement_id());
+            itemAddArray.add(elementLibItemArray.get(position).getElement_id());
             intent.putIntegerArrayListExtra("ITEM_ADD_ARRAY",itemAddArray);
             setResult(1,intent);
             finish();
@@ -104,8 +127,8 @@ public class ElementAddActivity extends BaseActivity {
                 backBtn.setVisibility(View.VISIBLE);
                 addBtn.setVisibility(View.GONE);
 
-                for(int i=0;i<mElementLibListData.size();i++){
-                    mElementLibListData.get(i).isEditSelected=false;
+                for(int i=0;i<elementLibItemArray.size();i++){
+                    elementLibItemArray.get(i).isEditSelected=false;
                 }
             }
             elementLibDataAdapter.notifyDataSetChanged();
@@ -118,10 +141,10 @@ public class ElementAddActivity extends BaseActivity {
             Intent intent=new Intent();
             ArrayList<Integer> itemAddArray=new ArrayList<>();
 
-            int itemCount=mElementLibListData.size();
+            int itemCount=elementLibItemArray.size();
             for (int i=itemCount-1;i>=0;i--){
-                if (mElementLibListData.get(i).isEditSelected){
-                    itemAddArray.add(mElementLibListData.get(i).getElement_id());
+                if (elementLibItemArray.get(i).isEditSelected){
+                    itemAddArray.add(elementLibItemArray.get(i).getElement_id());
                 }
             }
             intent.putIntegerArrayListExtra("ITEM_ADD_ARRAY",itemAddArray);

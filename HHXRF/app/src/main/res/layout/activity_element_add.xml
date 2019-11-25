@@ -30,7 +30,8 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
         <EditText
-            android:hint="搜索元素或者元素序号"
+            android:id="@+id/element_Add_SearchBox"
+            android:hint="@string/element_add_activity_search_box_hint"
             android:textColorHint="#999999"
             android:textSize="12sp"
             android:drawableLeft="@drawable/vector_drawable_search_icon"
@@ -46,7 +47,7 @@
             app:layout_constraintBottom_toBottomOf="parent"/>
         <TextView
             android:id="@+id/element_Add_Top_Navigation_Multi_Sel_Btn"
-            android:text="多选"
+            android:text="@string/element_add_activity_multi_choice_btn_text"
             android:textSize="15sp"
             android:textColor="#FFFFFF"
             android:layout_width="wrap_content"

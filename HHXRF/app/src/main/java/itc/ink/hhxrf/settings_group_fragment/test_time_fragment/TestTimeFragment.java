@@ -47,7 +47,13 @@ public class TestTimeFragment extends Fragment {
         public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
             if (i == EditorInfo.IME_ACTION_DONE ||
                     (keyEvent != null && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                int inputTime=Integer.parseInt(timeEdit.getText().toString());
+                int inputTime=1;
+                try {
+                    inputTime=Integer.parseInt(timeEdit.getText().toString());
+                }catch (NumberFormatException e){
+                    tipText.setText(R.string.test_time_fragment_label_empty_tip);
+                }
+
                 if (inputTime < 1||inputTime>1000) {
                     tipText.setText(R.string.test_time_fragment_label_tip_error);
                 }
@@ -66,9 +72,7 @@ public class TestTimeFragment extends Fragment {
 
         @Override
         public void afterTextChanged(Editable editable) {
-            if (timeEdit.getText().toString().trim().isEmpty()){
-                tipText.setText(R.string.test_time_fragment_label_tip);
-            }
+            tipText.setText(R.string.test_time_fragment_label_tip);
         }
     }
 
