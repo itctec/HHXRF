@@ -1,10 +1,13 @@
 package itc.ink.hhxrf.home_fragment.last_report;
 
 import android.app.Fragment;
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,19 +15,25 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import itc.ink.hhxrf.R;
+import itc.ink.hhxrf.settings_group_fragment.compound_fragment.CompoundLibDataMode;
 import itc.ink.hhxrf.settings_group_fragment.history_db_fragment.CompareDataActivity;
 import itc.ink.hhxrf.settings_group_fragment.history_db_fragment.HistoryDBDataMode;
+import itc.ink.hhxrf.settings_group_fragment.test_way_fragment.TestWayFragment;
 import itc.ink.hhxrf.utils.SQLiteDBHelper;
 
 /**
@@ -33,6 +42,7 @@ import itc.ink.hhxrf.utils.SQLiteDBHelper;
 
 public class LastReportFragment extends Fragment {
     private EditText topNavigationSampleName;
+    private String sampleOlderName="";
     private ImageView reportShowType;
     private ImageView reportChangeColumnBtn;
     private TextView elementNameLabel;
@@ -42,8 +52,10 @@ public class LastReportFragment extends Fragment {
     private boolean reportShowAsList=true;
     private LastReportDataListAdapter lastReportDataAdapter;
     private LastReportDataGridAdapter lastReportDataGridAdapter;
-    private List<LastReportDataMode> lastReportDataArray;
+    private List<LastReportDataMode> lastReportDataArray=new ArrayList<LastReportDataMode>();
     public static boolean showForthColumn=false;
+    private TextView showMoreBtn;
+    private boolean isShowAll=false;
 
     private ConstraintLayout sendReportLayout;
 
@@ -51,10 +63,17 @@ public class LastReportFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        lastReportDataArray=initListData();
+        initListData(false);
 
         lastReportDataAdapter=new LastReportDataListAdapter(getContext(),lastReportDataArray);
         lastReportDataGridAdapter=new LastReportDataGridAdapter(getContext(),lastReportDataArray);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(topNavigationSampleName.getWindowToken(), 0);
     }
 
     @Nullable
@@ -63,18 +82,34 @@ public class LastReportFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_home_last_report, container, false);
 
         topNavigationSampleName=rootView.findViewById(R.id.last_Report_Fragment_Top_Navigation_Sample_Name);
+        topNavigationSampleName.setOnEditorActionListener(new TopNavigationSampleNameEditorActionListener());
         SQLiteDBHelper sqLiteDBHelper = new SQLiteDBHelper(getContext(), SQLiteDBHelper.DATABASE_FILE_NAME, SQLiteDBHelper.DATABASE_VERSION);
-        String sqlStr = "select sample_name from tb_history_data order by test_datetime desc LIMIT 1";
+        String sqlStr = "select * from tb_history_data order by test_datetime desc LIMIT 1";
         SQLiteDatabase sqLiteDatabase = sqLiteDBHelper.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery(sqlStr, null);
+
+        TextView testType=rootView.findViewById(R.id.last_Report_Fragment_Test_Type);
+
         if(cursor.moveToNext()){
             topNavigationSampleName.setText(cursor.getString(cursor.getColumnIndex("sample_name")));
+            sampleOlderName=cursor.getString(cursor.getColumnIndex("sample_name"));
+
+            if(cursor.getString(cursor.getColumnIndex("test_way")).equals(TestWayFragment.TEST_WAY_VALUE_METAL)){
+                testType.setText(R.string.test_way_fragment_metal);
+            }else{
+                testType.setText(R.string.test_way_fragment_ground);
+            }
+
         }else{
             topNavigationSampleName.setText(getResources().getString(R.string.home_last_report_top_navigation_label));
+            topNavigationSampleName.setEnabled(false);
+
+            testType.setText("--");
         }
 
         reportShowType=rootView.findViewById(R.id.last_Report_Fragment_Report_Show_Type);
         reportShowType.setOnClickListener(new ReportShowTypeClickListener());
+
 
         reportChangeColumnBtn=rootView.findViewById(R.id.last_Report_Fragment_Report_Change_Column_Btn);
         reportChangeColumnBtn.setOnClickListener(new ReportChangeColumnRightBtnClickListener());
@@ -88,21 +123,28 @@ public class LastReportFragment extends Fragment {
         RecyclerView.LayoutManager contentRvLayoutManager = new LinearLayoutManager(getContext());
         reportDataRV.setLayoutManager(contentRvLayoutManager);
 
+        showMoreBtn=rootView.findViewById(R.id.last_Report_Fragment_Report_Data_Show_More_Btn);
+        showMoreBtn.setOnClickListener(new ShowMoreBtnClickListener());
+
         sendReportLayout=rootView.findViewById(R.id.last_Report_Fragment_Send_Report_Layout);
         sendReportLayout.setOnClickListener(new SendReportLayoutClickListener());
         return rootView;
     }
 
-    public List<LastReportDataMode> initListData(){
-        List<LastReportDataMode> lastReportDataArray=new ArrayList<>();
+    public List<LastReportDataMode> initListData(boolean isShowAll){
 
         SQLiteDBHelper sqLiteDBHelper = new SQLiteDBHelper(getContext(), SQLiteDBHelper.DATABASE_FILE_NAME, SQLiteDBHelper.DATABASE_VERSION);
-        String sqlStr = "select * from tb_history_data_content where sample_name=(select sample_name from tb_history_data order by test_datetime desc LIMIT 1)";
+        String sqlStr;
+        if(isShowAll){
+            sqlStr = "select * from tb_history_data_content where sample_name=(select sample_name from tb_history_data order by test_datetime desc LIMIT 1) order by element_concentration desc";
+        }else{
+            sqlStr = "select * from tb_history_data_content where sample_name=(select sample_name from tb_history_data order by test_datetime desc LIMIT 1) order by element_concentration desc LIMIT 4";
+        }
         SQLiteDatabase sqLiteDatabase = sqLiteDBHelper.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery(sqlStr, null);
         while(cursor.moveToNext()){
             LastReportDataMode reportItem=new LastReportDataMode(cursor.getString(cursor.getColumnIndex("element_name")),
-                    cursor.getString(cursor.getColumnIndex("element_concentration")),
+                    cursor.getString(cursor.getColumnIndex("element_concentration")).substring(0,5),
                     cursor.getString(cursor.getColumnIndex("element_range")),
                     cursor.getString(cursor.getColumnIndex("element_average")));
             lastReportDataArray.add(reportItem);
@@ -111,12 +153,43 @@ public class LastReportFragment extends Fragment {
         return lastReportDataArray;
     }
 
+    class TopNavigationSampleNameEditorActionListener implements TextView.OnEditorActionListener{
+        @Override
+        public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+            if (i == EditorInfo.IME_ACTION_DONE) {
+                topNavigationSampleName.clearFocus();
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(topNavigationSampleName.getWindowToken(), 0);
+
+                SQLiteDBHelper sqLiteDBHelper = new SQLiteDBHelper(getContext(), SQLiteDBHelper.DATABASE_FILE_NAME, SQLiteDBHelper.DATABASE_VERSION);
+                SQLiteDatabase sqLiteDatabase = sqLiteDBHelper.getReadableDatabase();
+
+                String checkNameSqlStr="select sample_name from tb_history_data where sample_name='"+topNavigationSampleName.getText().toString()+"'";
+                Cursor cursor = sqLiteDatabase.rawQuery(checkNameSqlStr, null);
+
+                if(cursor.moveToNext()){
+                    Toast.makeText(getContext(),R.string.home_last_report_sameple_rename_faild_tip,Toast.LENGTH_LONG).show();
+                }else{
+                    ContentValues contentValues = new ContentValues();
+                    contentValues.put("sample_name", topNavigationSampleName.getText().toString());
+                    sqLiteDatabase.update("tb_history_data", contentValues, "sample_name=?", new String[]{sampleOlderName});
+                    sampleOlderName=topNavigationSampleName.getText().toString();
+                }
+            }
+            return false;
+        }
+    }
+
     class ReportShowTypeClickListener implements View.OnClickListener{
         @Override
         public void onClick(View view) {
             reportShowAsList=!reportShowAsList;
 
             if(reportShowAsList){
+                lastReportDataArray.clear();
+                initListData(isShowAll);
+                lastReportDataAdapter.notifyDataSetChanged();
+
                 reportShowType.setImageResource(R.drawable.report_show_type_grid_icon);
                 reportDataRV.setAdapter(lastReportDataAdapter);
                 RecyclerView.LayoutManager contentRvLayoutManager = new LinearLayoutManager(getContext());
@@ -129,7 +202,12 @@ public class LastReportFragment extends Fragment {
                 operationOneLabel.setVisibility(View.VISIBLE);
                 operationTwoLabel.setVisibility(View.VISIBLE);
                 reportChangeColumnBtn.setVisibility(View.VISIBLE);
+                showMoreBtn.setVisibility(View.VISIBLE);
             }else{
+                lastReportDataArray.clear();
+                initListData(true);
+                lastReportDataGridAdapter.notifyDataSetChanged();
+
                 reportShowType.setImageResource(R.drawable.report_show_type_list_icon);
                 reportDataRV.setAdapter(lastReportDataGridAdapter);
                 RecyclerView.LayoutManager contentRvLayoutManager = new GridLayoutManager(getContext(), 3);
@@ -143,6 +221,7 @@ public class LastReportFragment extends Fragment {
                 operationOneLabel.setVisibility(View.GONE);
                 operationTwoLabel.setVisibility(View.GONE);
                 reportChangeColumnBtn.setVisibility(View.GONE);
+                showMoreBtn.setVisibility(View.GONE);
             }
         }
 
@@ -167,6 +246,27 @@ public class LastReportFragment extends Fragment {
                 operationOneLabel.setText(getResources().getString(R.string.home_last_report_column_percent_symble));
                 operationTwoLabel.setText(getResources().getString(R.string.home_last_report_column_range));
             }
+        }
+    }
+
+    class ShowMoreBtnClickListener implements View.OnClickListener{
+        @Override
+        public void onClick(View view) {
+            if(isShowAll){
+                Drawable drawable= getResources().getDrawable(R.drawable.expand_more,null);
+                showMoreBtn.setCompoundDrawablesWithIntrinsicBounds(drawable,null,null,null);
+                showMoreBtn.setText(R.string.home_last_report_show_more);
+                isShowAll=false;
+            }else{
+                Drawable drawable= getResources().getDrawable(R.drawable.expand_less,null);
+                showMoreBtn.setCompoundDrawablesWithIntrinsicBounds(drawable,null,null,null);
+                showMoreBtn.setText(R.string.home_last_report_show_less);
+                isShowAll=true;
+            }
+
+            lastReportDataArray.clear();
+            initListData(isShowAll);
+            lastReportDataAdapter.notifyDataSetChanged();
         }
     }
 

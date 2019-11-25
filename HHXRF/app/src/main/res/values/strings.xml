@@ -16,6 +16,9 @@
     <string name="home_open_camera">Open Camera</string>
     <string name="camera_activity_title">Camera</string>
     <string name="home_last_report">Last Report</string>
+    <string name="home_last_report_show_more">show all</string>
+    <string name="home_last_report_show_less">show less</string>
+    <string name="home_last_report_sameple_rename_faild_tip">Sample name unchanged,Database has the same name!</string>
     <string name="home_last_report_top_navigation_label">No Data</string>
     <string name="home_last_report_column_element">Element</string>
     <string name="home_last_report_column_percent_symble">%</string>

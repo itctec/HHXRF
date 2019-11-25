@@ -79,7 +79,7 @@ public class HistoryDbDataAdapter extends RecyclerView.Adapter<HistoryDbDataAdap
         }else{
             holder.historySelBtn.setVisibility(View.GONE);
             holder.itemView.setTag(position);
-            holder.itemView.setOnClickListener(new ItemClickListener());
+            holder.itemView.setOnClickListener(new ItemClickListener(historyDataItem.getSample_name()));
         }
     }
 
@@ -89,10 +89,16 @@ public class HistoryDbDataAdapter extends RecyclerView.Adapter<HistoryDbDataAdap
     }
 
     class ItemClickListener implements View.OnClickListener{
+        private String sampleName="";
+        public ItemClickListener(String sampleName) {
+            this.sampleName=sampleName;
+        }
+
         @Override
         public void onClick(View view) {
             int position=(int)view.getTag();
             Intent intent=new Intent();
+            intent.putExtra("SAMPLE_NAME",sampleName);
             intent.setClass(getContext(), ReportActivity.class);
             getContext().startActivity(intent);
         }

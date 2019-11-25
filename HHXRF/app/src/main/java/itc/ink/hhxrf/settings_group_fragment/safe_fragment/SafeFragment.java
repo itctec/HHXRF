@@ -26,6 +26,7 @@ import itc.ink.hhxrf.utils.SharedPreferenceUtil;
  */
 
 public class SafeFragment extends Fragment {
+    public static final String PASSWORD_USER_KEY="PASSWORD_USER";
     private TextView passwordInputTip;
     private EditText passwordEditOne;
     private EditText passwordEditTwo;
@@ -108,7 +109,7 @@ public class SafeFragment extends Fragment {
                     passwordStr=passwordStr1+passwordStr2+passwordStr3+passwordStr4;
 
                     if(passwordResetStep==1){
-                        if(passwordStr.equals(SharedPreferenceUtil.getString("PASSWORD_USER","0000"))||passwordStr.equals("1236")){
+                        if(passwordStr.equals(SharedPreferenceUtil.getString(PASSWORD_USER_KEY,"0000"))||passwordStr.equals("1236")){
                             passwordInputTip.setText(R.string.safe_fragment_input_new_password_tip);
                             passwordResetStep=2;
                         }else{
@@ -122,7 +123,7 @@ public class SafeFragment extends Fragment {
                         passwordResetStep=3;
                     }else if(passwordResetStep==3){
                         if(passwordCatchStr.equals(passwordStr)){
-                            SharedPreferenceUtil.putString("PASSWORD_USER",passwordStr);
+                            SharedPreferenceUtil.putString(PASSWORD_USER_KEY,passwordStr);
                             passwordInputTip.setText(R.string.safe_fragment_input_current_password_tip);
                             passwordResetStep=1;
                             Toast.makeText(getContext(),R.string.safe_fragment_input_new_password_success_tip,Toast.LENGTH_SHORT).show();

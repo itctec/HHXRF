@@ -101,7 +101,7 @@ public class OnTestingActivity extends BaseActivity {
                 ContentValues historyDataContentDbValues = new ContentValues();
                 historyDataContentDbValues.put("element_name", buffer[0]);
                 historyDataContentDbValues.put("element_concentration", buffer[4]);
-                historyDataContentDbValues.put("element_range", "18~19");
+                historyDataContentDbValues.put("element_range", "18~90");
                 historyDataContentDbValues.put("element_average", "62");
                 historyDataContentDbValues.put("sample_name", tempSampleName);
                 sqLiteDatabase.insert("tb_history_data_content", "", historyDataContentDbValues);

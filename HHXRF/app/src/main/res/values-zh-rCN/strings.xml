@@ -16,6 +16,9 @@
     <string name="home_open_camera">打开镜头</string>
     <string name="camera_activity_title">摄像头</string>
     <string name="home_last_report">上次结果</string>
+    <string name="home_last_report_show_more">显示全部</string>
+    <string name="home_last_report_show_less">部分显示</string>
+    <string name="home_last_report_sameple_rename_faild_tip">样品名称未改变，数据库已经有同名样品！</string>
     <string name="home_last_report_top_navigation_label">无数据</string>
     <string name="home_last_report_column_element">元素</string>
     <string name="home_last_report_column_percent_symble">%</string>

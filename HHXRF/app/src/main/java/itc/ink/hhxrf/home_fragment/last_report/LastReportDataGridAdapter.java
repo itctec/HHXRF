@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
@@ -47,6 +48,14 @@ public class LastReportDataGridAdapter extends RecyclerView.Adapter<LastReportDa
 
         holder.elementName.setText(lastReportDataItem.getElement_name());
         holder.percentLabel.setText(lastReportDataItem.getElement_percent()+"%");
+        if(Float.parseFloat(lastReportDataItem.getElement_percent())<Integer.parseInt(lastReportDataItem.getElement_range().split("~")[0])){
+            holder.percentIndicator.setImageResource(R.drawable.concentration_indicator_less);
+        }else if(Float.parseFloat(lastReportDataItem.getElement_percent())>Integer.parseInt(lastReportDataItem.getElement_range().split("~")[1])){
+            holder.percentIndicator.setImageResource(R.drawable.concentration_indicator_more);
+        }else{
+            holder.percentIndicator.setImageResource(R.drawable.concentration_indicator_middle);
+        }
+
 
         if (position>=mData.size()-1){
             holder.lastItemDivider.setVisibility(View.VISIBLE);
@@ -69,12 +78,14 @@ public class LastReportDataGridAdapter extends RecyclerView.Adapter<LastReportDa
     public static class VH extends RecyclerView.ViewHolder {
         private TextView elementName;
         private TextView percentLabel;
+        private ImageView percentIndicator;
         private View lastItemDivider;
 
         public VH(View view) {
             super(view);
             elementName = view.findViewById(R.id.last_Report_Grid_Item_Element_Name);
             percentLabel = view.findViewById(R.id.last_Report_Grid_Item_Percent_Label);
+            percentIndicator=view.findViewById(R.id.last_Report_Grid_Item_Percent_Indicator);
             lastItemDivider=view.findViewById(R.id.last_Report_Grid_Last_Item_Divider);
         }
     }

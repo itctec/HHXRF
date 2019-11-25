@@ -49,7 +49,7 @@ public class TestWayFragment extends Fragment {
         testWayGroundBtnSelectedTip=rootView.findViewById(R.id.test_Way_Fragment_Ground_Btn_Selected_Tip);
 
 
-        if(SharedPreferenceUtil.getString(TEST_WAY_KEY).equals(TEST_WAY_VALUE_METAL)){
+        if(SharedPreferenceUtil.getString(TEST_WAY_KEY,TEST_WAY_VALUE_METAL).equals(TEST_WAY_VALUE_METAL)){
             ConstraintLayout.LayoutParams lp=(ConstraintLayout.LayoutParams)testWayItemBack.getLayoutParams();
             lp.leftToLeft= ConstraintLayout.LayoutParams.PARENT_ID;
             lp.rightToRight=ConstraintLayout.LayoutParams.UNSET;
@@ -75,7 +75,7 @@ public class TestWayFragment extends Fragment {
     class TestWaySwitchBtnClickListener implements View.OnClickListener{
         @Override
         public void onClick(View view) {
-            if(SharedPreferenceUtil.getString(TEST_WAY_KEY).equals(TEST_WAY_VALUE_METAL)){
+            if(SharedPreferenceUtil.getString(TEST_WAY_KEY,TEST_WAY_VALUE_METAL).equals(TEST_WAY_VALUE_METAL)){
                 SharedPreferenceUtil.putString(TEST_WAY_KEY,TEST_WAY_VALUE_GROUND);
                 ConstraintLayout.LayoutParams lp=(ConstraintLayout.LayoutParams)testWayItemBack.getLayoutParams();
                 lp.rightToRight= ConstraintLayout.LayoutParams.PARENT_ID;
