@@ -14,4 +14,6 @@ public class HardwareControl {
 
     public static native String nativeRoutineAnalysis();
 
+    public static native String nativeEnergyCalibration();
+
 }

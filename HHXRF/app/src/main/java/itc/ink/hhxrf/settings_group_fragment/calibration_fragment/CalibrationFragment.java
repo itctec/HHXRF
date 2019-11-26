@@ -41,7 +41,7 @@ public class CalibrationFragment extends Fragment {
         @Override
         public void onClick(View view) {
             Intent intent=new Intent();
-            //intent.setClass(getContext(),);
+            intent.setClass(getContext(),EnergyCalibrationActivity.class);
             startActivity(intent);
         }
     }

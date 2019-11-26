@@ -64,6 +64,9 @@ public class CompareResultActivity extends BaseActivity {
     }
 
     public List<CompareResultDataMode> initCompareResultData(String sampleOneName,String sampleTwoName,List<CompareResultDataMode> compareResultItemArray) {
+        CompareResultDataMode compareResultHeaderItem=new CompareResultDataMode("",sampleOneName,sampleTwoName);
+        compareResultItemArray.add(compareResultHeaderItem);
+
         SQLiteDBHelper sqLiteDBHelper = new SQLiteDBHelper(this, SQLiteDBHelper.DATABASE_FILE_NAME, SQLiteDBHelper.DATABASE_VERSION);
         SQLiteDatabase sqLiteDatabase = sqLiteDBHelper.getReadableDatabase();
         String elementSqlStr = "select element_name from tb_history_data_content where sample_name=? or sample_name=?";

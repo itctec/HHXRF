@@ -30,9 +30,14 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
         <EditText
-            android:hint="搜索元素或者元素序号"
+            android:id="@+id/data_Compare_SearchBox"
+            android:hint="@string/compare_data_activity_search_box_hint"
             android:textColorHint="#999999"
             android:textSize="12sp"
+            android:lines="1"
+            android:imeOptions="actionDone"
+            android:singleLine="true"
+            android:maxLength="30"
             android:drawableLeft="@drawable/vector_drawable_search_icon"
             android:background="@drawable/round_rectangle_search_box_bg_light"
             android:paddingLeft="10dp"

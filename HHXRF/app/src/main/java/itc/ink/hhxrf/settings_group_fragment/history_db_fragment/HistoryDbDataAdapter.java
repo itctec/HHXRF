@@ -16,6 +16,7 @@ import java.util.List;
 
 import itc.ink.hhxrf.R;
 import itc.ink.hhxrf.home_fragment.last_report.ReportActivity;
+import itc.ink.hhxrf.settings_group_fragment.test_way_fragment.TestWayFragment;
 
 /**
  * Created by yangwenjiang on 2018/9/14.
@@ -57,7 +58,12 @@ public class HistoryDbDataAdapter extends RecyclerView.Adapter<HistoryDbDataAdap
         }
         holder.historyItemIcon.setText(historyDataItem.getSample_name());
         holder.historyOrdinal.setText(historyDataItem.getTest_datetime());
-        holder.historyWay.setText(historyDataItem.getTest_way());
+
+        if(historyDataItem.getTest_way().equals(TestWayFragment.TEST_WAY_VALUE_METAL)){
+            holder.historyWay.setText(R.string.test_way_fragment_metal);
+        }else{
+            holder.historyWay.setText(R.string.test_way_fragment_ground);
+        }
         holder.itemView.setOnClickListener(null);
         holder.itemView.setVisibility(View.VISIBLE);
 

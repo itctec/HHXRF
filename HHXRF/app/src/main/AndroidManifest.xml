@@ -53,6 +53,15 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|stateUnchanged"
             android:theme="@style/DefActivityTheme"/>
+        <activity android:name=".settings_group_fragment.calibration_fragment.EnergyCalibrationActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DefActivityTheme"/>
+        <activity android:name=".settings_group_fragment.calibration_fragment.OnEnergyCalibrationActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DefActivityTheme"/>
+        <activity android:name=".settings_group_fragment.calibration_fragment.EnergyCalibrationResultActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DefActivityTheme"/>
         <activity android:name=".settings_group_fragment.calibration_fragment.TypeCalibrationActivity"
             android:screenOrientation="portrait"
             android:theme="@style/DefActivityTheme"/>

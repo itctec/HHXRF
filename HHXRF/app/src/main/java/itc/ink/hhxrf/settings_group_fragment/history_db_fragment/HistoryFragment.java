@@ -74,7 +74,7 @@ public class HistoryFragment extends Fragment{
         List<HistoryDBDataMode> historyItemArray=new ArrayList<>();
 
         SQLiteDBHelper sqLiteDBHelper = new SQLiteDBHelper(getContext(), SQLiteDBHelper.DATABASE_FILE_NAME, SQLiteDBHelper.DATABASE_VERSION);
-        String sqlStr = "select * from tb_history_data";
+        String sqlStr = "select * from tb_history_data order by test_datetime desc";
         SQLiteDatabase sqLiteDatabase = sqLiteDBHelper.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery(sqlStr, null);
         while(cursor.moveToNext()){

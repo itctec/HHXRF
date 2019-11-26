@@ -66,6 +66,7 @@ public class ReportActivity extends BaseActivity {
         setContentView(R.layout.fragment_home_last_report);
 
         topNavigationSampleName=findViewById(R.id.last_Report_Fragment_Top_Navigation_Sample_Name);
+        topNavigationSampleName.setEnabled(false);
         topNavigationSampleName.setOnEditorActionListener(new TopNavigationSampleNameEditorActionListener());
         SQLiteDBHelper sqLiteDBHelper = new SQLiteDBHelper(ReportActivity.this, SQLiteDBHelper.DATABASE_FILE_NAME, SQLiteDBHelper.DATABASE_VERSION);
         String sqlStr = "select * from tb_history_data where sample_name='"+sampleName+"'";
