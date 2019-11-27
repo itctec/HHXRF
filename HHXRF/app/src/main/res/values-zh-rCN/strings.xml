@@ -24,6 +24,10 @@
     <string name="home_last_report_column_percent_symble">%</string>
     <string name="home_last_report_column_range">范围</string>
     <string name="home_last_report_column_mean_value">均值</string>
+    <string name="home_last_report_print_report">打印报告</string>
+    <string name="home_last_report_print_report_details">蓝牙连接</string>
+    <string name="home_last_report_share_report">传输报告</string>
+    <string name="home_last_report_share_report_details">WLAN连接</string>
 
     <string name="result_settings">结果设置</string>
     <string name="test_way">方法</string>

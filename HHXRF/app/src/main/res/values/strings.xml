@@ -24,6 +24,10 @@
     <string name="home_last_report_column_percent_symble">%</string>
     <string name="home_last_report_column_range">Range</string>
     <string name="home_last_report_column_mean_value">Mean Value</string>
+    <string name="home_last_report_print_report">Print report</string>
+    <string name="home_last_report_print_report_details">Bluetooth connect</string>
+    <string name="home_last_report_share_report">Transport report</string>
+    <string name="home_last_report_share_report_details">WLAN connect</string>
 
     <string name="result_settings">Results Settings</string>
     <string name="test_way">Test way</string>

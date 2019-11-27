@@ -97,7 +97,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="22dp"
         android:layout_marginLeft="16dp"
-        android:text="合金"
+        android:text="@string/test_way_fragment_metal"
         android:textColor="@color/home_text_black"
         android:textSize="14sp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -231,7 +231,7 @@
             app:layout_constraintBottom_toBottomOf="parent"/>
         <TextView
             android:id="@+id/last_Report_Fragment_Print_Report_Label"
-            android:text="打印报告"
+            android:text="@string/home_last_report_print_report"
             android:textSize="14sp"
             android:textColor="@color/home_text_black"
             android:gravity="center_horizontal"
@@ -242,7 +242,7 @@
             app:layout_constraintLeft_toRightOf="@id/last_Report_Fragment_Print_Report_Icon"/>
         <TextView
             android:id="@+id/last_Report_Fragment_Print_Report_Bluetooth_State_Label"
-            android:text="蓝牙连接"
+            android:text="@string/home_last_report_print_report_details"
             android:textSize="10sp"
             android:textColor="@color/home_text_gray"
             android:gravity="center_horizontal"
@@ -277,7 +277,7 @@
             app:layout_constraintBottom_toBottomOf="parent"/>
         <TextView
             android:id="@+id/last_Report_Fragment_Send_Report_Label"
-            android:text="传输报告"
+            android:text="@string/home_last_report_share_report"
             android:textSize="14sp"
             android:textColor="@color/home_text_black"
             android:gravity="center_horizontal"
@@ -288,7 +288,7 @@
             app:layout_constraintLeft_toRightOf="@id/last_Report_Fragment_Send_Report_Icon"/>
         <TextView
             android:id="@+id/last_Report_Fragment_Send_Report_WLAN_State_Label"
-            android:text="WLAN连接"
+            android:text="@string/home_last_report_share_report_details"
             android:textSize="10sp"
             android:textColor="@color/home_text_gray"
             android:gravity="center_horizontal"
