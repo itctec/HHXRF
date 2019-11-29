@@ -13,12 +13,14 @@ import java.io.File;
 import java.io.FileReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.FormatFlagsConversionMismatchException;
 import java.util.Locale;
 
 import itc.ink.hhxrf.BaseActivity;
 import itc.ink.hhxrf.MainActivity;
 import itc.ink.hhxrf.R;
 import itc.ink.hhxrf.hardware.HardwareControl;
+import itc.ink.hhxrf.settings_group_fragment.calibration_fragment.TypeCalibrationActivity;
 import itc.ink.hhxrf.settings_group_fragment.test_way_fragment.TestWayFragment;
 import itc.ink.hhxrf.utils.SQLiteDBHelper;
 import itc.ink.hhxrf.utils.SharedPreferenceUtil;
@@ -86,6 +88,7 @@ public class OnTestingActivity extends BaseActivity {
             String currentDateTimeString = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US).format(new Date());
             newSampleDbValues.put("test_datetime", currentDateTimeString);
             newSampleDbValues.put("test_way", SharedPreferenceUtil.getString(TestWayFragment.TEST_WAY_KEY,TestWayFragment.TEST_WAY_VALUE_METAL));
+            newSampleDbValues.put("calibration_type", SharedPreferenceUtil.getString(TypeCalibrationActivity.CA_KEY,TypeCalibrationActivity.CA_NONE_VALUE));
             sqLiteDatabase.insert("tb_history_data", "", newSampleDbValues);
 
 
@@ -95,12 +98,43 @@ public class OnTestingActivity extends BaseActivity {
             br.readLine();
             String line = "";
             while ((line = br.readLine()) != null) {
-                System.out.println("Data Line-->" + line);
+                //System.out.println("Data Line-->" + line);
                 String buffer[] = line.split(",");
 
                 ContentValues historyDataContentDbValues = new ContentValues();
-                historyDataContentDbValues.put("element_name", buffer[0]);
-                historyDataContentDbValues.put("element_concentration", buffer[4]);
+
+                String checkCompoundStr="select * from tb_compound_lib_info where compound_element=? and show_state='true' and compound_id<>'-1'";
+                Cursor checkCompoundResultCursor=sqLiteDatabase.rawQuery(checkCompoundStr,new String[]{buffer[0].trim()});
+                if(checkCompoundResultCursor.moveToNext()){
+                    String compoundName=checkCompoundResultCursor.getString(checkCompoundResultCursor.getColumnIndex("compound_name"));
+                    System.out.println("化合物---->"+compoundName);
+                    historyDataContentDbValues.put("element_name",compoundName);
+                    int elementNum=Integer.parseInt(compoundName.substring(compoundName.toUpperCase().indexOf(buffer[0].toUpperCase().trim())+buffer[0].trim().length()+0,compoundName.toUpperCase().indexOf(buffer[0].toUpperCase().trim())+buffer[0].trim().length()+1));
+                    System.out.println("化合物中的元素个数---->"+elementNum);
+                    if (SharedPreferenceUtil.getString(TypeCalibrationActivity.CA_KEY,TypeCalibrationActivity.CA_NONE_VALUE).equals(TypeCalibrationActivity.CA_NONE_VALUE)){
+                        historyDataContentDbValues.put("element_concentration", Float.parseFloat(buffer[4])/elementNum+"");
+                    }else{
+                        String checkParametersStr="select * from tb_type_calibration_content where type_name=? and element_name=? and element_id<>?";
+                        Cursor checkParametersResultCursor = sqLiteDatabase.rawQuery(checkParametersStr, new String[]{SharedPreferenceUtil.getString(TypeCalibrationActivity.CA_KEY,TypeCalibrationActivity.CA_NONE_VALUE),buffer[0].trim(),"-1"});
+                        if(checkParametersResultCursor.moveToNext()){
+                            historyDataContentDbValues.put("element_concentration", (Float.parseFloat(buffer[4])*Integer.parseInt(checkParametersResultCursor.getString(checkParametersResultCursor.getColumnIndex("value_multiplication")))+Integer.parseInt(checkParametersResultCursor.getString(checkParametersResultCursor.getColumnIndex("value_plus"))))/elementNum+"");
+                        }
+                    }
+                }else{
+                    //System.out.println("无化合物元素");
+                    historyDataContentDbValues.put("element_name",buffer[0]);
+                    if (SharedPreferenceUtil.getString(TypeCalibrationActivity.CA_KEY,TypeCalibrationActivity.CA_NONE_VALUE).equals(TypeCalibrationActivity.CA_NONE_VALUE)){
+                        historyDataContentDbValues.put("element_concentration", buffer[4]);
+                    }else{
+                        String checkParametersStr="select * from tb_type_calibration_content where type_name=? and element_name=? and element_id<>?";
+                        Cursor checkParametersResultCursor = sqLiteDatabase.rawQuery(checkParametersStr, new String[]{SharedPreferenceUtil.getString(TypeCalibrationActivity.CA_KEY,TypeCalibrationActivity.CA_NONE_VALUE),buffer[0].trim(),"-1"});
+                        if(checkParametersResultCursor.moveToNext()){
+                            historyDataContentDbValues.put("element_concentration", Float.parseFloat(buffer[4])*Integer.parseInt(checkParametersResultCursor.getString(checkParametersResultCursor.getColumnIndex("value_multiplication")))+Integer.parseInt(checkParametersResultCursor.getString(checkParametersResultCursor.getColumnIndex("value_plus"))));
+                        }
+                    }
+                }
+
+
                 historyDataContentDbValues.put("element_range", "18~90");
                 historyDataContentDbValues.put("element_average", "62");
                 historyDataContentDbValues.put("sample_name", tempSampleName);

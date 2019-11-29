@@ -32,11 +32,13 @@ public class CompoundLibDataAdapter extends RecyclerView.Adapter<CompoundLibData
     private WeakReference<Context> mWeakContextReference;
     public List<CompoundLibDataMode> mData;
     private ItemClickCallBack mItemClickCallBack;
+    private RecyclerView mRV;
 
-    public CompoundLibDataAdapter(Context mContext, List<CompoundLibDataMode> mData, ItemClickCallBack mItemClickCallBack) {
+    public CompoundLibDataAdapter(Context mContext, List<CompoundLibDataMode> mData, ItemClickCallBack mItemClickCallBack,RecyclerView mRV) {
         this.mWeakContextReference = new WeakReference<>(mContext);
         this.mData = mData;
         this.mItemClickCallBack = mItemClickCallBack;
+        this.mRV=mRV;
     }
 
     private Context getContext() {
@@ -98,13 +100,32 @@ public class CompoundLibDataAdapter extends RecyclerView.Adapter<CompoundLibData
     class CompoundItemSwitchChangeListener implements CompoundButton.OnCheckedChangeListener {
         @Override
         public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+            CompoundLibDataMode compoundLibDataItem = (CompoundLibDataMode) compoundButton.getTag();
+
             SQLiteDBHelper sqLiteDBHelper = new SQLiteDBHelper(getContext(), SQLiteDBHelper.DATABASE_FILE_NAME, SQLiteDBHelper.DATABASE_VERSION);
             SQLiteDatabase sqLiteDatabase = sqLiteDBHelper.getReadableDatabase();
 
-            CompoundLibDataMode compoundLibDataItem = (CompoundLibDataMode) compoundButton.getTag();
+            if(b){
+                if(!mRV.isComputingLayout()){
+                    for(int i=0;i<mData.size();i++){
+                        if (mData.get(i).isVisibility()&&mData.get(i).getCompound_element().equals(compoundLibDataItem.getCompound_element())){
+                            mData.get(i).setVisibility(false);
+                            notifyItemChanged(i);
+                        }
+                    }
+                    ContentValues contentValues = new ContentValues();
+                    contentValues.put("show_state", "false");
+                    sqLiteDatabase.update("tb_compound_lib_info", contentValues, "compound_element =? and compound_id<>?", new String[]{compoundLibDataItem.getCompound_element(),"-1"});
+                }
+            }
+
             ContentValues contentValues = new ContentValues();
             contentValues.put("show_state", b + "");
             sqLiteDatabase.update("tb_compound_lib_info", contentValues, "compound_id=?", new String[]{compoundLibDataItem.getCompound_id() + ""});
+            compoundLibDataItem.setVisibility(b);
+
+
+
 
         }
     }

@@ -15,7 +15,7 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
     private final String TB_CREATE_ELEMENT_LIB_INFO="create table tb_element_lib_info(element_id,element_name,element_ordinal)";
     private final String TB_CREATE_ELEMENT_SHOW_RANK_INFO="create table tb_element_show_rank_info(element_id,element_name,element_ordinal,element_rank_num)";
     private final String TB_CREATE_COMPOUND_LIB_INFO="create table tb_compound_lib_info(compound_id,compound_element,compound_name,show_state)";
-    private final String TB_CREATE_HISTORY_DATA="create table tb_history_data(sample_name PRIMARY KEY,test_datetime,test_way)";
+    private final String TB_CREATE_HISTORY_DATA="create table tb_history_data(sample_name PRIMARY KEY,test_datetime,test_way,calibration_type)";
     private final String TB_CREATE_HISTORY_DATA_CONTENT="create table tb_history_data_content(element_name,element_concentration,element_range,element_average,sample_name,FOREIGN KEY(sample_name) REFERENCES tb_history_data(sample_name) on update cascade on delete cascade)";
     private final String TB_CREATE_TYPE_CALIBRATION="create table tb_type_calibration(type_name PRIMARY KEY,enable_state)";
     private final String TB_CREATE_TYPE_CALIBRATION_CONTENT="create table tb_type_calibration_content(element_id,element_name,value_multiplication,value_plus,value_unit,type_name,FOREIGN KEY(type_name) REFERENCES tb_type_calibration(type_name))";
@@ -94,10 +94,5 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(compoundInsertSqlStr);
     }
 
-    public void initHistoryTb(SQLiteDatabase sqLiteDatabase) {
-        String historyInsertSqlStr = "insert into tb_history_data(sample_name,test_datetime,test_way) values " +
-                "('Sample001','2019-02-15','金属'),('Sample002','2019-02-16','土壤'),('Sample003','2019-02-17','金属'),('Sample004','2019-02-18','金属'),('Sample005','2019-02-19','土壤')";
-        sqLiteDatabase.execSQL(historyInsertSqlStr);
-    }
 
 }

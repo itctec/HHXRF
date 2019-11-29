@@ -11,12 +11,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import itc.ink.hhxrf.R;
+import itc.ink.hhxrf.utils.SharedPreferenceUtil;
 
 /**
  * Created by yangwenjiang on 2018/9/19.
  */
 
 public class DecimalPointFragment extends Fragment {
+    public static final String DECIMAL_POINT_KEY="decimal_point_key";
     private ImageView zeroItemBg;
     private TextView zeroTitle;
     private TextView zeroSelLabel;
@@ -59,43 +61,69 @@ public class DecimalPointFragment extends Fragment {
         threeItemBg.setOnClickListener(new ItemBgClickListener());
         threeTitle=rootView.findViewById(R.id.decimal_point_Fragment_Three_Btn_Title);
         threeSelLabel=rootView.findViewById(R.id.decimal_point_Fragment_Three_Select_Label);
+
+        updateView(SharedPreferenceUtil.getString(DECIMAL_POINT_KEY,"0.00"));
         return rootView;
+    }
+
+    public void updateView(String patternStr){
+        zeroItemBg.setBackground(null);
+        zeroTitle.setTextColor(getResources().getColor(R.color.decimal_point_text_light,null));
+        zeroSelLabel.setVisibility(View.GONE);
+        oneItemBg.setBackground(null);
+        oneTitle.setTextColor(getResources().getColor(R.color.decimal_point_text_light,null));
+        oneSelLabel.setVisibility(View.GONE);
+        twoItemBg.setBackground(null);
+        twoTitle.setTextColor(getResources().getColor(R.color.decimal_point_text_light,null));
+        twoSelLabel.setVisibility(View.GONE);
+        threeItemBg.setBackground(null);
+        threeTitle.setTextColor(getResources().getColor(R.color.decimal_point_text_light,null));
+        threeSelLabel.setVisibility(View.GONE);
+
+        switch (patternStr){
+            case "0":
+                zeroTitle.setTextColor(getResources().getColor(R.color.decimal_point_text_gray,null));
+                zeroSelLabel.setVisibility(View.VISIBLE);
+                zeroItemBg.setBackgroundResource(R.drawable.unit_sel_icon);
+                break;
+            case "0.0":
+                oneTitle.setTextColor(getResources().getColor(R.color.decimal_point_text_gray,null));
+                oneSelLabel.setVisibility(View.VISIBLE);
+                oneItemBg.setBackgroundResource(R.drawable.unit_sel_icon);
+                break;
+            case "0.00":
+                twoTitle.setTextColor(getResources().getColor(R.color.decimal_point_text_gray,null));
+                twoSelLabel.setVisibility(View.VISIBLE);
+                twoItemBg.setBackgroundResource(R.drawable.unit_sel_icon);
+                break;
+            case "0.000":
+                threeTitle.setTextColor(getResources().getColor(R.color.decimal_point_text_gray,null));
+                threeSelLabel.setVisibility(View.VISIBLE);
+                threeItemBg.setBackgroundResource(R.drawable.unit_sel_icon);
+                break;
+        }
     }
 
     class ItemBgClickListener implements View.OnClickListener{
         @Override
         public void onClick(View view) {
             String tagStr=(String)view.getTag();
-            zeroItemBg.setBackground(null);
-            zeroTitle.setTextColor(getResources().getColor(R.color.decimal_point_text_light,null));
-            zeroSelLabel.setVisibility(View.GONE);
-            oneItemBg.setBackground(null);
-            oneTitle.setTextColor(getResources().getColor(R.color.decimal_point_text_light,null));
-            oneSelLabel.setVisibility(View.GONE);
-            twoItemBg.setBackground(null);
-            twoTitle.setTextColor(getResources().getColor(R.color.decimal_point_text_light,null));
-            twoSelLabel.setVisibility(View.GONE);
-            threeItemBg.setBackground(null);
-            threeTitle.setTextColor(getResources().getColor(R.color.decimal_point_text_light,null));
-            threeSelLabel.setVisibility(View.GONE);
+
+            updateView(tagStr);
 
             view.setBackgroundResource(R.drawable.unit_sel_icon);
             switch (tagStr){
                 case "0":
-                    zeroTitle.setTextColor(getResources().getColor(R.color.decimal_point_text_gray,null));
-                    zeroSelLabel.setVisibility(View.VISIBLE);
+                    SharedPreferenceUtil.putString(DECIMAL_POINT_KEY,"0");
                     break;
                 case "0.0":
-                    oneTitle.setTextColor(getResources().getColor(R.color.decimal_point_text_gray,null));
-                    oneSelLabel.setVisibility(View.VISIBLE);
+                    SharedPreferenceUtil.putString(DECIMAL_POINT_KEY,"0.0");
                     break;
                 case "0.00":
-                    twoTitle.setTextColor(getResources().getColor(R.color.decimal_point_text_gray,null));
-                    twoSelLabel.setVisibility(View.VISIBLE);
+                    SharedPreferenceUtil.putString(DECIMAL_POINT_KEY,"0.00");
                     break;
                 case "0.000":
-                    threeTitle.setTextColor(getResources().getColor(R.color.decimal_point_text_gray,null));
-                    threeSelLabel.setVisibility(View.VISIBLE);
+                    SharedPreferenceUtil.putString(DECIMAL_POINT_KEY,"0.000");
                     break;
             }
         }

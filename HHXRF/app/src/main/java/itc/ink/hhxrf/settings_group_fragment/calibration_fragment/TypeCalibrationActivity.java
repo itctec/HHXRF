@@ -14,10 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 import itc.ink.hhxrf.R;
 import itc.ink.hhxrf.utils.SQLiteDBHelper;
+import itc.ink.hhxrf.utils.SharedPreferenceUtil;
 import itc.ink.hhxrf.utils.StatusBarUtil;
 
 public class TypeCalibrationActivity extends Activity {
     public static final int NEW_TYPE_CALIBRATION_REQUEST_CODE=0x01;
+    public static final String CA_KEY="CA_KEY";
+    public static final String CA_NONE_VALUE="CA_NONE";
     private RecyclerView typeCalibrationShowRecyclerView;
     private TypeCalibrationDataAdapter typeCalibrationDataAdapter;
     private List<TypeCalibrationDataMode> mTypeCalibrationListData=new ArrayList<>();
@@ -36,15 +39,15 @@ public class TypeCalibrationActivity extends Activity {
         StatusBarUtil.setAndroidNativeLightStatusBar(this, false);
 
         setContentView(R.layout.activity_type_calibration);
-
-        typeCalibrationDataAdapter=new TypeCalibrationDataAdapter(TypeCalibrationActivity.this, mTypeCalibrationListData,new AddItemCallBack());
+        typeCalibrationShowRecyclerView=findViewById(R.id.type_Calibration_Item_RV);
+        initTypeCalibrationData(mTypeCalibrationListData);
+        typeCalibrationDataAdapter=new TypeCalibrationDataAdapter(TypeCalibrationActivity.this, mTypeCalibrationListData,new AddItemCallBack(),typeCalibrationShowRecyclerView);
 
         isEditState=false;
         editBtn=findViewById(R.id.type_Calibration_Edit_Btn);
         editBtn.setOnClickListener(new EditBtnClickListener());
         typeCalibrationDelBtn=findViewById(R.id.type_Calibration_Item_Del_Btn);
         typeCalibrationDelBtn.setOnClickListener(new ItemDelBtnClickListener());
-        typeCalibrationShowRecyclerView=findViewById(R.id.type_Calibration_Item_RV);
         typeCalibrationShowRecyclerView.setAdapter(typeCalibrationDataAdapter);
         RecyclerView.LayoutManager contentRvLayoutManager = new LinearLayoutManager(TypeCalibrationActivity.this, LinearLayoutManager.VERTICAL, false);
         typeCalibrationShowRecyclerView.setLayoutManager(contentRvLayoutManager);
@@ -69,11 +72,16 @@ public class TypeCalibrationActivity extends Activity {
         SQLiteDatabase sqLiteDatabase = sqLiteDBHelper.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery(sqlStr, null);
         while(cursor.moveToNext()){
-            TypeCalibrationDataMode typeCalibrationDataItem=new TypeCalibrationDataMode(cursor.getString(0),Boolean.parseBoolean(cursor.getString(1)),false);
+            TypeCalibrationDataMode typeCalibrationDataItem=new TypeCalibrationDataMode(cursor.getString(0),Boolean.parseBoolean(cursor.getString(1)),false,false);
+            if (SharedPreferenceUtil.getString(CA_KEY,CA_NONE_VALUE).equals(typeCalibrationDataItem.getCalibration_type_name())){
+                typeCalibrationDataItem.setCA_Enable(true);
+            }else{
+                typeCalibrationDataItem.setCA_Enable(false);
+            }
             mTypeCalibrationListData.add(typeCalibrationDataItem);
         }
 
-        TypeCalibrationDataMode item_Add_Btn=new TypeCalibrationDataMode(getString(R.string.calibration_fragment_add_new_type),false,false);
+        TypeCalibrationDataMode item_Add_Btn=new TypeCalibrationDataMode(getString(R.string.calibration_fragment_add_new_type),false,false,false);
         mTypeCalibrationListData.add(item_Add_Btn);
     }
 

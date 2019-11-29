@@ -22,13 +22,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import itc.ink.hhxrf.BaseActivity;
 import itc.ink.hhxrf.R;
+import itc.ink.hhxrf.settings_group_fragment.calibration_fragment.TypeCalibrationActivity;
+import itc.ink.hhxrf.settings_group_fragment.decimal_point_fragment.DecimalPointFragment;
 import itc.ink.hhxrf.settings_group_fragment.test_way_fragment.TestWayFragment;
+import itc.ink.hhxrf.settings_group_fragment.unit.UnitFragment;
 import itc.ink.hhxrf.utils.SQLiteDBHelper;
+import itc.ink.hhxrf.utils.SharedPreferenceUtil;
 import itc.ink.hhxrf.utils.StatusBarUtil;
 
 public class ReportActivity extends BaseActivity {
@@ -45,7 +50,6 @@ public class ReportActivity extends BaseActivity {
     private LastReportDataListAdapter lastReportDataAdapter;
     private LastReportDataGridAdapter lastReportDataGridAdapter;
     private List<LastReportDataMode> lastReportDataArray=new ArrayList<LastReportDataMode>();
-    public static boolean showForthColumn=false;
     private TextView showMoreBtn;
     private boolean isShowAll=false;
 
@@ -54,6 +58,8 @@ public class ReportActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        LastReportFragment.showForthColumn=false;
 
         Intent intent=getIntent();
         String sampleName=intent.getStringExtra("SAMPLE_NAME");
@@ -73,11 +79,19 @@ public class ReportActivity extends BaseActivity {
         SQLiteDatabase sqLiteDatabase = sqLiteDBHelper.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery(sqlStr, null);
 
+        TextView calibrationName=findViewById(R.id.last_Report_Fragment_Calibration_Name);
+
         TextView testType=findViewById(R.id.last_Report_Fragment_Test_Type);
 
         if(cursor.moveToNext()){
             topNavigationSampleName.setText(cursor.getString(cursor.getColumnIndex("sample_name")));
             sampleOlderName=cursor.getString(cursor.getColumnIndex("sample_name"));
+
+            if(cursor.getString(cursor.getColumnIndex("calibration_type")).equals(TypeCalibrationActivity.CA_NONE_VALUE)){
+                calibrationName.setText("");
+            }else{
+                calibrationName.setText(cursor.getString(cursor.getColumnIndex("calibration_type")));
+            }
 
             if(cursor.getString(cursor.getColumnIndex("test_way")).equals(TestWayFragment.TEST_WAY_VALUE_METAL)){
                 testType.setText(R.string.test_way_fragment_metal);
@@ -89,6 +103,7 @@ public class ReportActivity extends BaseActivity {
             topNavigationSampleName.setText(getResources().getString(R.string.home_last_report_top_navigation_label));
             topNavigationSampleName.setEnabled(false);
 
+            calibrationName.setText("");
             testType.setText("--");
         }
 
@@ -108,6 +123,7 @@ public class ReportActivity extends BaseActivity {
 
         elementNameLabel=findViewById(R.id.last_Report_Fragment_Element_Name);
         operationOneLabel=findViewById(R.id.last_Report_Fragment_Element_Operation_One_Label);
+        operationOneLabel.setText(SharedPreferenceUtil.getString(UnitFragment.KEY_UNIT,"%"));
         operationTwoLabel=findViewById(R.id.last_Report_Fragment_Element_Operation_Two_Label);
 
         reportDataRV=findViewById(R.id.last_Report_Fragment_Report_Data_RV);
@@ -142,9 +158,10 @@ public class ReportActivity extends BaseActivity {
 
         SQLiteDatabase sqLiteDatabase = sqLiteDBHelper.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery(sqlStr, null);
+        DecimalFormat decimalFormat=new DecimalFormat(SharedPreferenceUtil.getString(DecimalPointFragment.DECIMAL_POINT_KEY,"0.00"));
         while(cursor.moveToNext()){
             LastReportDataMode reportItem=new LastReportDataMode(cursor.getString(cursor.getColumnIndex("element_name")),
-                    cursor.getString(cursor.getColumnIndex("element_concentration")).substring(0,5),
+                    decimalFormat.format(Float.parseFloat(cursor.getString(cursor.getColumnIndex("element_concentration")))),
                     cursor.getString(cursor.getColumnIndex("element_range")),
                     cursor.getString(cursor.getColumnIndex("element_average")));
             lastReportDataArray.add(reportItem);
@@ -226,16 +243,16 @@ public class ReportActivity extends BaseActivity {
         @Override
         public void onClick(View view) {
 
-            showForthColumn=!showForthColumn;
+            LastReportFragment.showForthColumn=!LastReportFragment.showForthColumn;
             lastReportDataAdapter.notifyDataSetChanged();
 
-            if(showForthColumn){
+            if(LastReportFragment.showForthColumn){
                 reportChangeColumnBtn.setImageResource(R.drawable.vector_drawable_triangle_left);
                 operationOneLabel.setText(getResources().getString(R.string.home_last_report_column_range));
                 operationTwoLabel.setText(getResources().getString(R.string.home_last_report_column_mean_value));
             }else{
                 reportChangeColumnBtn.setImageResource(R.drawable.vector_drawable_triangle_right);
-                operationOneLabel.setText(getResources().getString(R.string.home_last_report_column_percent_symble));
+                operationOneLabel.setText(SharedPreferenceUtil.getString(UnitFragment.KEY_UNIT,"%"));
                 operationTwoLabel.setText(getResources().getString(R.string.home_last_report_column_range));
             }
         }

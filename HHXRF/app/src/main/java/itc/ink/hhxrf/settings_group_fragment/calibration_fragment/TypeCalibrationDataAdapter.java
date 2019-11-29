@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import java.lang.ref.WeakReference;
 import java.util.List;
 
 import itc.ink.hhxrf.R;
+import itc.ink.hhxrf.utils.SharedPreferenceUtil;
 
 /**
  * Created by yangwenjiang on 2018/9/14.
@@ -27,11 +29,13 @@ public class TypeCalibrationDataAdapter extends RecyclerView.Adapter<TypeCalibra
     private WeakReference<Context> mWeakContextReference;
     public List<TypeCalibrationDataMode> mData;
     private AddItemCallBack mAddItemCallBack;
+    private RecyclerView mRv;
 
-    public TypeCalibrationDataAdapter(Context mContext, List<TypeCalibrationDataMode> mData,AddItemCallBack mAddItemCallBack) {
+    public TypeCalibrationDataAdapter(Context mContext, List<TypeCalibrationDataMode> mData,AddItemCallBack mAddItemCallBack,RecyclerView mRV) {
         this.mWeakContextReference = new WeakReference<>(mContext);
         this.mData = mData;
         this.mAddItemCallBack=mAddItemCallBack;
+        this.mRv=mRV;
     }
 
     private Context getContext() {
@@ -85,6 +89,12 @@ public class TypeCalibrationDataAdapter extends RecyclerView.Adapter<TypeCalibra
                 holder.itemView.setOnClickListener(new ItemEditClickListener());
                 holder.typeItemIcon.setVisibility(View.GONE);
                 holder.typeItemSwitchBtn.setVisibility(View.VISIBLE);
+                holder.typeItemSwitchBtn.setOnCheckedChangeListener(new ItemCheckListener(typeDataItem.getCalibration_type_name(),typeDataItem));
+                if(typeDataItem.isCA_Enable()){
+                    holder.typeItemSwitchBtn.setChecked(true);
+                }else{
+                    holder.typeItemSwitchBtn.setChecked(false);
+                }
             }
         }
     }
@@ -106,6 +116,33 @@ public class TypeCalibrationDataAdapter extends RecyclerView.Adapter<TypeCalibra
             intent.setClass(getContext(),TypeCalibrationAddSpTwo.class);
             intent.putExtra("TYPE_NAME",typeName);
             getContext().startActivity(intent);
+        }
+    }
+
+    class ItemCheckListener implements CompoundButton.OnCheckedChangeListener{
+        private String cAName;
+        private TypeCalibrationDataMode typeDataItem;
+        public ItemCheckListener(String cAName,TypeCalibrationDataMode typeDataItem) {
+            this.cAName=cAName;
+            this.typeDataItem=typeDataItem;
+        }
+
+        @Override
+        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+            if (b){
+                if(!mRv.isComputingLayout()){
+                    for(int i=0;i<mData.size();i++){
+                        if (mData.get(i).isCA_Enable()){
+                            mData.get(i).setCA_Enable(false);
+                            notifyItemChanged(i);
+                        }
+                    }
+                }
+                SharedPreferenceUtil.putString(TypeCalibrationActivity.CA_KEY,cAName);
+                typeDataItem.setCA_Enable(true);
+            }else{
+                SharedPreferenceUtil.putString(TypeCalibrationActivity.CA_KEY,TypeCalibrationActivity.CA_NONE_VALUE);
+            }
         }
     }
 

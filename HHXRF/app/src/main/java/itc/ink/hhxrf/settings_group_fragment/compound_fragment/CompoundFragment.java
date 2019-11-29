@@ -41,8 +41,8 @@ public class CompoundFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_compound, container, false);
 
-        compoundLibDataAdapter=new CompoundLibDataAdapter(getContext(), mCompoundLibListData,new ItemClickCallBack());
         compoundLibRecyclerView=rootView.findViewById(R.id.compound_Fragment_Compound_Lib_RV);
+        compoundLibDataAdapter=new CompoundLibDataAdapter(getContext(), mCompoundLibListData,new ItemClickCallBack(),compoundLibRecyclerView);
         compoundLibRecyclerView.setAdapter(compoundLibDataAdapter);
         RecyclerView.LayoutManager contentRvLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         compoundLibRecyclerView.setLayoutManager(contentRvLayoutManager);

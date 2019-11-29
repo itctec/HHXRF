@@ -72,7 +72,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="16dp"
-        android:text="CA1"
         android:textColor="@color/home_text_black"
         android:textSize="14sp"
         app:layout_constraintLeft_toLeftOf="parent"

@@ -4,14 +4,16 @@ public class TypeCalibrationDataMode {
     private String calibration_type_name;
     private boolean calibration_type_enable_state=false;
     private boolean isEditSelected=false;
+    private boolean isCA_Enable=false;
 
     public TypeCalibrationDataMode() {
     }
 
-    public TypeCalibrationDataMode(String calibration_type_name, boolean calibration_type_enable_state, boolean isEditSelected) {
+    public TypeCalibrationDataMode(String calibration_type_name, boolean calibration_type_enable_state, boolean isEditSelected, boolean isCA_Enable) {
         this.calibration_type_name = calibration_type_name;
         this.calibration_type_enable_state = calibration_type_enable_state;
         this.isEditSelected = isEditSelected;
+        this.isCA_Enable = isCA_Enable;
     }
 
     public String getCalibration_type_name() {
@@ -36,5 +38,13 @@ public class TypeCalibrationDataMode {
 
     public void setEditSelected(boolean editSelected) {
         isEditSelected = editSelected;
+    }
+
+    public boolean isCA_Enable() {
+        return isCA_Enable;
+    }
+
+    public void setCA_Enable(boolean CA_Enable) {
+        isCA_Enable = CA_Enable;
     }
 }
