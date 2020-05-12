@@ -8,10 +8,13 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.FileProvider;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,10 +29,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import itc.ink.hhxrf.BuildConfig;
 import itc.ink.hhxrf.R;
 import itc.ink.hhxrf.settings_group_fragment.calibration_fragment.TypeCalibrationActivity;
 import itc.ink.hhxrf.settings_group_fragment.compound_fragment.CompoundLibDataMode;
@@ -292,9 +297,37 @@ public class LastReportFragment extends Fragment {
         @Override
         public void onClick(View view) {
             Intent intent=new Intent(Intent.ACTION_SEND);
-            intent.setType("image/*");
+            intent.setType("text/*");
             intent.putExtra(Intent.EXTRA_SUBJECT, "Share");
-            intent.putExtra(Intent.EXTRA_TEXT, "I have successfully share my message through my app");
+            intent.putExtra(Intent.EXTRA_TEXT, "元素\t\t%\t\t范围\nCr\t\t16.95\t\t18~19\n" +
+                    "Cr\t\t16.95\t\t18~19\n" +
+                    "Cr\t\t16.95\t\t18~19\n" +
+                    "Cr\t\t16.95\t\t18~19\n" +
+                    "Cr\t\t16.95\t\t18~19\n" +
+                    "Cr\t\t16.95\t\t18~19\n" +
+                    "Cr\t\t16.95\t\t18~19\n" +
+                    "Cr\t\t16.95\t\t18~19\n" +
+                    "Cr\t\t16.95\t\t18~19\n" +
+                    "Cr\t\t16.95\t\t18~19\n" +
+                    "Cr\t\t16.95\t\t18~19\n" +
+                    "Cr\t\t16.95\t\t18~19\n" +
+                    "Cr\t\t16.95\t\t18~19\n" +
+                    "Cr\t\t16.95\t\t18~19\n" +
+                    "Cr\t\t16.95\t\t18~19\n" +
+                    "Cr\t\t16.95\t\t18~19\n" +
+                    "Cr\t\t16.95\t\t18~19\n" +
+                    "Cr\t\t16.95\t\t18~19\n" +
+                    "Cr\t\t16.95\t\t18~19\n" +
+                    "Cr\t\t16.95\t\t18~19\n" +
+                    "Cr\t\t16.95\t\t18~19\n" +
+                    "Cr\t\t16.95\t\t18~19\n" +
+                    "Cr\t\t16.95\t\t18~19\n" +
+                    "Cr\t\t16.95\t\t18~19\n" +
+                    "Cr\t\t16.95\t\t18~19\n" +
+                    "Cr\t\t16.95\t\t18~19\n" +
+                    "Cr\t\t16.95\t\t18~19\n" +
+                    "Cr\t\t16.95\t\t18~19\n" +
+                    "Cr\t\t16.95\t\t18~12\n");
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(Intent.createChooser(intent, "分享"));
         }
