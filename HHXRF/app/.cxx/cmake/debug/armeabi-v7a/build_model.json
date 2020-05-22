@@ -1,0 +1,72 @@
+{
+  "variant": {
+    "module": {
+      "rootBuildGradleFolder": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF",
+      "sdkFolder": "/Users/yangwenjiang/Library/Android/sdk",
+      "isNativeCompilerSettingsCacheEnabled": false,
+      "isBuildOnlyTargetAbiEnabled": true,
+      "splitsAbiFilterSet": [],
+      "intermediatesFolder": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/build/intermediates",
+      "gradleModulePathName": ":app",
+      "moduleRootFolder": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app",
+      "makeFile": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/src/main/cpp/CMakeLists.txt",
+      "buildSystem": "CMAKE",
+      "compilerSettingsCacheFolder": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/.cxx",
+      "cxxFolder": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx",
+      "ndkFolder": "/Users/yangwenjiang/Library/Android/sdk/ndk-bundle",
+      "ndkVersion": "20.1.5948944",
+      "ndkSupportedAbiList": [
+        "ARMEABI_V7A",
+        "ARM64_V8A",
+        "X86",
+        "X86_64"
+      ],
+      "ndkDefaultAbiList": [
+        "ARMEABI_V7A",
+        "ARM64_V8A",
+        "X86",
+        "X86_64"
+      ],
+      "cmakeToolchainFile": "."
+    },
+    "buildSystemArgumentList": [],
+    "cFlagList": [],
+    "cppFlagsList": [
+      ""
+    ],
+    "variantName": "debug",
+    "soFolder": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/build/intermediates/cmake/debug/lib",
+    "objFolder": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/build/intermediates/cmake/debug/obj",
+    "jsonFolder": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx/cmake/debug",
+    "gradleBuildOutputFolder": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx/cxx/debug",
+    "isDebuggableEnabled": true,
+    "validAbiList": [
+      "ARMEABI_V7A",
+      "ARM64_V8A",
+      "X86",
+      "X86_64"
+    ],
+    "buildTargetSet": []
+  },
+  "abi": "ARMEABI_V7A",
+  "abiPlatformVersion": 23,
+  "cxxBuildFolder": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx/cmake/debug/armeabi-v7a",
+  "jsonFile": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx/cmake/debug/armeabi-v7a/android_gradle_build.json",
+  "gradleBuildOutputFolder": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx/cxx/debug/armeabi-v7a",
+  "objFolder": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/build/intermediates/cmake/debug/obj/armeabi-v7a",
+  "buildCommandFile": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx/cmake/debug/armeabi-v7a/build_command.txt",
+  "buildOutputFile": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx/cmake/debug/armeabi-v7a/build_output.txt",
+  "modelOutputFile": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx/cmake/debug/armeabi-v7a/build_model.json",
+  "cmake": {
+    "cmakeListsWrapperFile": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx/cxx/debug/armeabi-v7a/CMakeLists.txt",
+    "toolchainWrapperFile": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx/cxx/debug/armeabi-v7a/android_gradle_build.toolchain.cmake",
+    "buildGenerationStateFile": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx/cxx/debug/armeabi-v7a/build_generation_state.json",
+    "cacheKeyFile": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx/cxx/debug/armeabi-v7a/compiler_cache_key.json",
+    "compilerCacheUseFile": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx/cxx/debug/armeabi-v7a/compiler_cache_use.json",
+    "compilerCacheWriteFile": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx/cxx/debug/armeabi-v7a/compiler_cache_write.json",
+    "toolchainSettingsFromCacheFile": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx/cxx/debug/armeabi-v7a/compiler_settings_cache.cmake",
+    "cmakeWrappingBaseFolder": "."
+  },
+  "jsonGenerationLoggingRecordFile": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx/cmake/debug/armeabi-v7a/json_generation_record.json",
+  "compileCommandsJsonFile": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx/cmake/debug/armeabi-v7a/compile_commands.json"
+}

@@ -1,0 +1,15 @@
+Executable : /Users/yangwenjiang/Library/Android/sdk/cmake/3.6.4111459/bin/cmake
+arguments : 
+-H/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/src/main/cpp
+-B/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx/cmake/release/x86_64
+-DANDROID_ABI=x86_64
+-DANDROID_PLATFORM=android-23
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/build/intermediates/cmake/release/obj/x86_64
+-DCMAKE_BUILD_TYPE=Release
+-DANDROID_NDK=/Users/yangwenjiang/Library/Android/sdk/ndk-bundle
+-DCMAKE_CXX_FLAGS=
+-DCMAKE_TOOLCHAIN_FILE=/Users/yangwenjiang/Library/Android/sdk/ndk-bundle/build/cmake/android.toolchain.cmake
+-DCMAKE_MAKE_PROGRAM=/Users/yangwenjiang/Library/Android/sdk/cmake/3.6.4111459/bin/ninja
+-GAndroid Gradle - Ninja
+jvmArgs : 
+

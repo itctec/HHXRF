@@ -32,17 +32,17 @@ public class LaunchActivity extends BaseActivity {
 
         setContentView(R.layout.activity_launch);
 
-        launchVideoView=findViewById(R.id.launch_Activity_Video_VideoView);
+        /*launchVideoView=findViewById(R.id.launch_Activity_Video_VideoView);
         launchVideoView.setOnCompletionListener(new VideoCompletionListener());
         Uri launchVideoUri = Uri.parse("android.resource://" + getPackageName() + "/raw/" + R.raw.launch_video);
         launchVideoView.setVideoURI(launchVideoUri);
         launchVideoView.requestFocus();
-        launchVideoView.start();
+        launchVideoView.start();*/
 
-        /*Intent intent=new Intent();
+        Intent intent=new Intent();
         intent.setClass(LaunchActivity.this, MainActivity.class);
         startActivity(intent);
-        finish();*/
+        finish();
     }
 
     @Override

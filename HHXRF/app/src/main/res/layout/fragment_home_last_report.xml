@@ -193,6 +193,15 @@
         app:layout_constraintBottom_toTopOf="@+id/last_Report_Fragment_Report_Data_Show_More_Btn"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
+    <itc.ink.hhxrf.view.McaLineView
+        android:id="@+id/last_Report_Fragment_Report_Data_Mca_Line_View"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/last_Report_Fragment_Item_Divider_Line_One"
+        app:layout_constraintBottom_toTopOf="@+id/last_Report_Fragment_Report_Data_Show_More_Btn"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
     <TextView
         android:id="@+id/last_Report_Fragment_Report_Data_Show_More_Btn"
         android:textSize="6pt"

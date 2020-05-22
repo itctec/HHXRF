@@ -29,7 +29,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +47,7 @@ import itc.ink.hhxrf.settings_group_fragment.test_way_fragment.TestWayFragment;
 import itc.ink.hhxrf.settings_group_fragment.unit.UnitFragment;
 import itc.ink.hhxrf.utils.SQLiteDBHelper;
 import itc.ink.hhxrf.utils.SharedPreferenceUtil;
+import itc.ink.hhxrf.view.McaLineView;
 
 /**
  * Created by yangwenjiang on 2018/9/19.
@@ -59,11 +62,12 @@ public class LastReportFragment extends Fragment {
     private TextView operationOneLabel;
     private TextView operationTwoLabel;
     private RecyclerView reportDataRV;
-    private boolean reportShowAsList=true;
+    private int reportShowAsList=0;
     private LastReportDataListAdapter lastReportDataAdapter;
     private LastReportDataGridAdapter lastReportDataGridAdapter;
     private List<LastReportDataMode> lastReportDataArray=new ArrayList<LastReportDataMode>();
     public static boolean showForthColumn=false;
+    private McaLineView reportMcaLineView;
     private TextView showMoreBtn;
     private boolean isShowAll=false;
 
@@ -145,6 +149,9 @@ public class LastReportFragment extends Fragment {
         RecyclerView.LayoutManager contentRvLayoutManager = new LinearLayoutManager(getContext());
         reportDataRV.setLayoutManager(contentRvLayoutManager);
 
+        reportMcaLineView=rootView.findViewById(R.id.last_Report_Fragment_Report_Data_Mca_Line_View);
+        reportMcaLineView.setMcaData(initMcaData());
+
         showMoreBtn=rootView.findViewById(R.id.last_Report_Fragment_Report_Data_Show_More_Btn);
         showMoreBtn.setOnClickListener(new ShowMoreBtnClickListener());
 
@@ -174,6 +181,34 @@ public class LastReportFragment extends Fragment {
         }
 
         return lastReportDataArray;
+    }
+
+    public List<Integer> initMcaData(){
+        List<Integer> mcaDataList=new ArrayList<>();
+        File csv = new File("data/XRS/Data_T/_Gaussfit_CC1.mca");
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(csv));
+            br.readLine();
+            String line = "";
+            boolean startTag=false;
+            while ((line = br.readLine()) != null) {
+                if(startTag){
+                    if(line.equals("<<END>>")){
+                        break;
+                    }else{
+                        int data=Integer.parseInt(line);
+                        mcaDataList.add(data);
+                    }
+                }
+                if(line.equals("<<DATA>>")){
+                    startTag=true;
+                }
+            }
+            br.close();
+        }catch (Exception e) {
+                e.printStackTrace();
+        }
+        return mcaDataList;
     }
 
     class TopNavigationSampleNameEditorActionListener implements TextView.OnEditorActionListener{
@@ -206,9 +241,11 @@ public class LastReportFragment extends Fragment {
     class ReportShowTypeClickListener implements View.OnClickListener{
         @Override
         public void onClick(View view) {
-            reportShowAsList=!reportShowAsList;
+            reportShowAsList=(++reportShowAsList)%3;
 
-            if(reportShowAsList){
+            if(0==reportShowAsList){
+                reportMcaLineView.setVisibility(View.GONE);
+                reportDataRV.setVisibility(View.VISIBLE);
                 lastReportDataArray.clear();
                 initListData(isShowAll);
                 lastReportDataAdapter.notifyDataSetChanged();
@@ -226,12 +263,14 @@ public class LastReportFragment extends Fragment {
                 operationTwoLabel.setVisibility(View.VISIBLE);
                 reportChangeColumnBtn.setVisibility(View.VISIBLE);
                 showMoreBtn.setVisibility(View.VISIBLE);
-            }else{
+            }else if(1==reportShowAsList){
+                reportMcaLineView.setVisibility(View.GONE);
+                reportDataRV.setVisibility(View.VISIBLE);
                 lastReportDataArray.clear();
                 initListData(true);
                 lastReportDataGridAdapter.notifyDataSetChanged();
 
-                reportShowType.setImageResource(R.drawable.report_show_type_list_icon);
+                reportShowType.setImageResource(R.drawable.report_show_type_line_icon);
                 reportDataRV.setAdapter(lastReportDataGridAdapter);
                 RecyclerView.LayoutManager contentRvLayoutManager = new GridLayoutManager(getContext(), 3);
                 reportDataRV.setLayoutManager(contentRvLayoutManager);
@@ -244,6 +283,15 @@ public class LastReportFragment extends Fragment {
                 operationOneLabel.setVisibility(View.GONE);
                 operationTwoLabel.setVisibility(View.GONE);
                 reportChangeColumnBtn.setVisibility(View.GONE);
+                showMoreBtn.setVisibility(View.GONE);
+            }else if(2==reportShowAsList){
+                reportShowType.setImageResource(R.drawable.report_show_type_list_icon);
+                elementNameLabel.setVisibility(View.GONE);
+                operationOneLabel.setVisibility(View.GONE);
+                operationTwoLabel.setVisibility(View.GONE);
+                reportChangeColumnBtn.setVisibility(View.GONE);
+                reportDataRV.setVisibility(View.GONE);
+                reportMcaLineView.setVisibility(View.VISIBLE);
                 showMoreBtn.setVisibility(View.GONE);
             }
         }

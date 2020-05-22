@@ -1,0 +1,72 @@
+{
+  "variant": {
+    "module": {
+      "rootBuildGradleFolder": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF",
+      "sdkFolder": "/Users/yangwenjiang/Library/Android/sdk",
+      "isNativeCompilerSettingsCacheEnabled": false,
+      "isBuildOnlyTargetAbiEnabled": true,
+      "splitsAbiFilterSet": [],
+      "intermediatesFolder": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/build/intermediates",
+      "gradleModulePathName": ":app",
+      "moduleRootFolder": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app",
+      "makeFile": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/src/main/cpp/CMakeLists.txt",
+      "buildSystem": "CMAKE",
+      "compilerSettingsCacheFolder": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/.cxx",
+      "cxxFolder": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx",
+      "ndkFolder": "/Users/yangwenjiang/Library/Android/sdk/ndk-bundle",
+      "ndkVersion": "20.1.5948944",
+      "ndkSupportedAbiList": [
+        "ARMEABI_V7A",
+        "ARM64_V8A",
+        "X86",
+        "X86_64"
+      ],
+      "ndkDefaultAbiList": [
+        "ARMEABI_V7A",
+        "ARM64_V8A",
+        "X86",
+        "X86_64"
+      ],
+      "cmakeToolchainFile": "."
+    },
+    "buildSystemArgumentList": [],
+    "cFlagList": [],
+    "cppFlagsList": [
+      ""
+    ],
+    "variantName": "release",
+    "soFolder": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/build/intermediates/cmake/release/lib",
+    "objFolder": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/build/intermediates/cmake/release/obj",
+    "jsonFolder": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx/cmake/release",
+    "gradleBuildOutputFolder": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx/cxx/release",
+    "isDebuggableEnabled": false,
+    "validAbiList": [
+      "ARMEABI_V7A",
+      "ARM64_V8A",
+      "X86",
+      "X86_64"
+    ],
+    "buildTargetSet": []
+  },
+  "abi": "X86_64",
+  "abiPlatformVersion": 23,
+  "cxxBuildFolder": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx/cmake/release/x86_64",
+  "jsonFile": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx/cmake/release/x86_64/android_gradle_build.json",
+  "gradleBuildOutputFolder": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx/cxx/release/x86_64",
+  "objFolder": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/build/intermediates/cmake/release/obj/x86_64",
+  "buildCommandFile": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx/cmake/release/x86_64/build_command.txt",
+  "buildOutputFile": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx/cmake/release/x86_64/build_output.txt",
+  "modelOutputFile": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx/cmake/release/x86_64/build_model.json",
+  "cmake": {
+    "cmakeListsWrapperFile": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx/cxx/release/x86_64/CMakeLists.txt",
+    "toolchainWrapperFile": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx/cxx/release/x86_64/android_gradle_build.toolchain.cmake",
+    "buildGenerationStateFile": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx/cxx/release/x86_64/build_generation_state.json",
+    "cacheKeyFile": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx/cxx/release/x86_64/compiler_cache_key.json",
+    "compilerCacheUseFile": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx/cxx/release/x86_64/compiler_cache_use.json",
+    "compilerCacheWriteFile": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx/cxx/release/x86_64/compiler_cache_write.json",
+    "toolchainSettingsFromCacheFile": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx/cxx/release/x86_64/compiler_settings_cache.cmake",
+    "cmakeWrappingBaseFolder": "."
+  },
+  "jsonGenerationLoggingRecordFile": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx/cmake/release/x86_64/json_generation_record.json",
+  "compileCommandsJsonFile": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx/cmake/release/x86_64/compile_commands.json"
+}
