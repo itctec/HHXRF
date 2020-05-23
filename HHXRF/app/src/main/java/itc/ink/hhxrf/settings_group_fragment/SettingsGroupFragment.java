@@ -89,6 +89,13 @@ public class SettingsGroupFragment extends Fragment{
         mHelper = new ItemTouchHelper(new FragmentIndicatorSimpleItemTouchCallback(getContext(),mSettingsGroupDataAdapter, mSettingsGroupListData));
         mHelper.attachToRecyclerView(settingsIndicatorRecyclerView);
 
+        if(MainActivity.currentTab==MainActivity.TAB_RESULT){
+            mSettingsGroupListData=prepareResultSettingsData();
+        }else if(MainActivity.currentTab==MainActivity.TAB_OPERATE){
+            mSettingsGroupListData=prepareOperateSettingsData();
+        }else if(MainActivity.currentTab==MainActivity.TAB_DEVICE){
+            mSettingsGroupListData=prepareSystemSettingsData();
+        }
         if(MainActivity.commandFromLeftDrawer){
             changeFragment(MainActivity.currentSubFragmentID);
         }else{
