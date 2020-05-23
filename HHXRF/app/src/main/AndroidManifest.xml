@@ -3,8 +3,12 @@
     package="itc.ink.hhxrf">
 
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
@@ -35,6 +39,9 @@
             android:screenOrientation="portrait"
             android:theme="@style/DefActivityTheme"/>
         <activity android:name=".home_fragment.CameraActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DefActivityTheme"/>
+        <activity android:name=".settings_group_fragment.edit_report_fragment.EditReportTemplateActivity"
             android:screenOrientation="portrait"
             android:theme="@style/DefActivityTheme"/>
         <activity android:name=".settings_group_fragment.element_fragment.ElementAddActivity"

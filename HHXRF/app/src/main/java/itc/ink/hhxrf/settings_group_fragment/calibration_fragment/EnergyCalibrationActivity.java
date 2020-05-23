@@ -14,11 +14,12 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import itc.ink.hhxrf.BaseActivity;
 import itc.ink.hhxrf.R;
 import itc.ink.hhxrf.utils.SQLiteDBHelper;
 import itc.ink.hhxrf.utils.StatusBarUtil;
 
-public class EnergyCalibrationActivity extends Activity {
+public class EnergyCalibrationActivity extends BaseActivity {
 
     public static boolean isEditState=false;
 

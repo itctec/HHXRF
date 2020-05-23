@@ -1,0 +1,21 @@
+package itc.ink.hhxrf.settings_group_fragment.link_fragment.printer;
+
+
+import android.content.Context;
+import android.content.Intent;
+import android.hardware.usb.UsbManager;
+import android.os.Handler;
+
+import com.android.print.sdk.PrinterInstance;
+
+public interface IPrinterOpertion {
+	public void open(Intent data);
+
+	public void close();
+
+	public PrinterInstance getPrinter();
+
+	public void btAutoConn(Context context, Handler mHandler);
+
+
+}

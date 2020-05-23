@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ import itc.ink.hhxrf.utils.SQLiteDBHelper;
 import itc.ink.hhxrf.utils.StatusBarUtil;
 
 public class TypeCalibrationAddSpTwo extends BaseActivity {
+    private TextView typeNameTxt;
     private Switch showChangedItemSwitch;
     private RecyclerView elementRecyclerView;
     private TypeCalibrationElementDataAdapter typeCalibrationElementDataAdapter;
@@ -46,6 +48,9 @@ public class TypeCalibrationAddSpTwo extends BaseActivity {
         mElementListData=initCompareResultData(TypeName,mElementListData);
 
         setContentView(R.layout.activity_type_calibration_add_sp_two);
+
+        typeNameTxt=findViewById(R.id.type_Calibration_Add_Sp_Two_Top_Navigation_Type_Name);
+        typeNameTxt.setText(TypeName);
 
         showChangedItemSwitch=findViewById(R.id.type_Calibration_Add_Sp_Two_Top_Navigation_Show_Changed_Item_Switch);
         showChangedItemSwitch.setOnCheckedChangeListener(new ShowChangedItemSwitchCheckedChangeListener());

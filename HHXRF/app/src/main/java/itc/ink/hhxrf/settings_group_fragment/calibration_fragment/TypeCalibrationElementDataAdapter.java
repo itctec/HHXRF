@@ -101,6 +101,10 @@ public class TypeCalibrationElementDataAdapter extends RecyclerView.Adapter<Type
 
             holder.unitValue.setText(elementDataItem.getValue_unit());
         }
+
+        if(position==mData.size()-1){
+            holder.itemView.setPadding(holder.itemView.getPaddingLeft(),holder.itemView.getPaddingTop(),holder.itemView.getPaddingRight(),holder.itemView.getPaddingBottom()+205);
+        }
     }
 
     @Override

@@ -29,6 +29,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.print.sdk.PrinterConstants;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -41,8 +43,11 @@ import itc.ink.hhxrf.R;
 import itc.ink.hhxrf.settings_group_fragment.calibration_fragment.TypeCalibrationActivity;
 import itc.ink.hhxrf.settings_group_fragment.compound_fragment.CompoundLibDataMode;
 import itc.ink.hhxrf.settings_group_fragment.decimal_point_fragment.DecimalPointFragment;
+import itc.ink.hhxrf.settings_group_fragment.edit_report_fragment.EditReportFragment;
 import itc.ink.hhxrf.settings_group_fragment.history_db_fragment.CompareDataActivity;
 import itc.ink.hhxrf.settings_group_fragment.history_db_fragment.HistoryDBDataMode;
+import itc.ink.hhxrf.settings_group_fragment.link_fragment.LinkFragment;
+import itc.ink.hhxrf.settings_group_fragment.link_fragment.printer.util.PrintUtils;
 import itc.ink.hhxrf.settings_group_fragment.test_way_fragment.TestWayFragment;
 import itc.ink.hhxrf.settings_group_fragment.unit.UnitFragment;
 import itc.ink.hhxrf.utils.SQLiteDBHelper;
@@ -71,7 +76,9 @@ public class LastReportFragment extends Fragment {
     private TextView showMoreBtn;
     private boolean isShowAll=false;
 
+    private ConstraintLayout printReportLayout;
     private ConstraintLayout sendReportLayout;
+    private String reportDateTime="";
 
 
     @Override
@@ -111,6 +118,7 @@ public class LastReportFragment extends Fragment {
         if(cursor.moveToNext()){
             topNavigationSampleName.setText(cursor.getString(cursor.getColumnIndex("sample_name")));
             sampleOlderName=cursor.getString(cursor.getColumnIndex("sample_name"));
+            reportDateTime=cursor.getString(cursor.getColumnIndex("test_datetime"));
 
             if(cursor.getString(cursor.getColumnIndex("calibration_type")).equals(TypeCalibrationActivity.CA_NONE_VALUE)){
                 calibrationName.setText("");
@@ -154,6 +162,9 @@ public class LastReportFragment extends Fragment {
 
         showMoreBtn=rootView.findViewById(R.id.last_Report_Fragment_Report_Data_Show_More_Btn);
         showMoreBtn.setOnClickListener(new ShowMoreBtnClickListener());
+
+        printReportLayout=rootView.findViewById(R.id.last_Report_Fragment_Print_Report_Layout);
+        printReportLayout.setOnClickListener(new PrintReportLayoutClickListener());
 
         sendReportLayout=rootView.findViewById(R.id.last_Report_Fragment_Send_Report_Layout);
         sendReportLayout.setOnClickListener(new SendReportLayoutClickListener());
@@ -338,6 +349,60 @@ public class LastReportFragment extends Fragment {
             lastReportDataArray.clear();
             initListData(isShowAll);
             lastReportDataAdapter.notifyDataSetChanged();
+        }
+    }
+
+    class PrintReportLayoutClickListener implements View.OnClickListener{
+        @Override
+        public void onClick(View view) {
+            if(!LinkFragment.isConnected && LinkFragment.mPrinter == null) {
+                Toast.makeText(getContext(),"打印机未连接，请先连接打印机",Toast.LENGTH_LONG).show();
+            }else{
+                new Thread(){
+                    @Override
+                    public void run() {
+                        LinkFragment.mPrinter.init();
+
+                        String printHeaderText="";
+                        if(SharedPreferenceUtil.getString(EditReportFragment.REPORT_TEMPLATE_KEY,EditReportFragment.REPORT_TEMPLATE_VALUE_ONE).equals(EditReportFragment.REPORT_TEMPLATE_VALUE_ONE)){
+                            printHeaderText=SharedPreferenceUtil.getString(EditReportFragment.REPORT_TEMPLATE_VALUE_ONE+"_HEADER","");
+                        }else if(SharedPreferenceUtil.getString(EditReportFragment.REPORT_TEMPLATE_KEY,EditReportFragment.REPORT_TEMPLATE_VALUE_ONE).equals(EditReportFragment.REPORT_TEMPLATE_VALUE_TWO)){
+                            printHeaderText=SharedPreferenceUtil.getString(EditReportFragment.REPORT_TEMPLATE_VALUE_TWO+"_HEADER","");
+                        }else if(SharedPreferenceUtil.getString(EditReportFragment.REPORT_TEMPLATE_KEY,EditReportFragment.REPORT_TEMPLATE_VALUE_ONE).equals(EditReportFragment.REPORT_TEMPLATE_VALUE_THREE)){
+                            printHeaderText=SharedPreferenceUtil.getString(EditReportFragment.REPORT_TEMPLATE_VALUE_THREE+"_HEADER","");
+                        }
+
+                        String printTableTitleText="样品名称："+topNavigationSampleName.getText().toString()+"\n测试时间："+reportDateTime;
+                        String printTableText="元素\t%\t均值\n";
+                        for(LastReportDataMode reportItem :lastReportDataArray){
+                            printTableText+=reportItem.getElement_name()+"\t"+
+                                    reportItem.getElement_percent()+"\t"+
+                                    reportItem.getElement_mean_value()+"\n";
+                        }
+
+                        String printFooterText="";
+                        if(SharedPreferenceUtil.getString(EditReportFragment.REPORT_TEMPLATE_KEY,EditReportFragment.REPORT_TEMPLATE_VALUE_ONE).equals(EditReportFragment.REPORT_TEMPLATE_VALUE_ONE)){
+                            printFooterText=SharedPreferenceUtil.getString(EditReportFragment.REPORT_TEMPLATE_VALUE_ONE+"_FOOTER","");
+                        }else if(SharedPreferenceUtil.getString(EditReportFragment.REPORT_TEMPLATE_KEY,EditReportFragment.REPORT_TEMPLATE_VALUE_ONE).equals(EditReportFragment.REPORT_TEMPLATE_VALUE_TWO)){
+                            printFooterText=SharedPreferenceUtil.getString(EditReportFragment.REPORT_TEMPLATE_VALUE_TWO+"_FOOTER","");
+                        }else if(SharedPreferenceUtil.getString(EditReportFragment.REPORT_TEMPLATE_KEY,EditReportFragment.REPORT_TEMPLATE_VALUE_ONE).equals(EditReportFragment.REPORT_TEMPLATE_VALUE_THREE)){
+                            printFooterText=SharedPreferenceUtil.getString(EditReportFragment.REPORT_TEMPLATE_VALUE_THREE+"_FOOTER","");
+                        }
+
+                        LinkFragment.mPrinter.setPrinter(PrinterConstants.Command.ALIGN, 0);
+                        LinkFragment.mPrinter.setFont(0, 0, 1, 0);
+                        LinkFragment.mPrinter.printText(printHeaderText);
+                        LinkFragment.mPrinter.setPrinter(PrinterConstants.Command.PRINT_AND_WAKE_PAPER_BY_LINE, 2);
+                        LinkFragment.mPrinter.printText(printTableTitleText);
+                        LinkFragment.mPrinter.setFont(0, 0, 0, 0);
+                        LinkFragment.mPrinter.setPrinter(PrinterConstants.Command.PRINT_AND_WAKE_PAPER_BY_LINE, 1);
+                        LinkFragment.mPrinter.printText(printTableText);
+                        LinkFragment.mPrinter.setPrinter(PrinterConstants.Command.PRINT_AND_WAKE_PAPER_BY_LINE, 1);
+                        LinkFragment.mPrinter.printText(printFooterText);
+                        LinkFragment.mPrinter.setPrinter(PrinterConstants.Command.PRINT_AND_WAKE_PAPER_BY_LINE, 2);
+                    }
+                }.start();
+            }
         }
     }
 

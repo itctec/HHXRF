@@ -105,7 +105,7 @@ public class ElementFragment extends Fragment implements OnStartDragListener{
 
         });
 
-        ElementShowDataMode ele_Add_Btn=new ElementShowDataMode(-1,"","添加元素",-1);
+        ElementShowDataMode ele_Add_Btn=new ElementShowDataMode(-1,"",getString(R.string.element_fragment_item_add),-1);
         elementShowItemArray.add(ele_Add_Btn);
 
         return elementShowItemArray;

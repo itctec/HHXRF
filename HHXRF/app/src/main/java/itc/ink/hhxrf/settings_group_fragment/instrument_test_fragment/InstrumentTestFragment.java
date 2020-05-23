@@ -75,8 +75,20 @@ public class InstrumentTestFragment extends Fragment {
         powerBoardTemperatureLabel=rootView.findViewById(R.id.instrument_Power_Board_Temperature_Label);
         drivePlateTemperatureLabel=rootView.findViewById(R.id.instrument_Drive_Plate_Temperature_Label);
 
+        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
 
         return rootView;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        boolean isOpen = imm.isActive();
+        if (isOpen) {
+            imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
 
     class PasswordTextWatcher implements TextWatcher {

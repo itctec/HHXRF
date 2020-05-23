@@ -1,11 +1,11 @@
 package itc.ink.hhxrf;
 
-import android.app.Activity;
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,26 +13,23 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import itc.ink.hhxrf.hardware.HardwareControl;
 import itc.ink.hhxrf.home_fragment.CameraActivity;
-import itc.ink.hhxrf.home_fragment.CameraPreview;
 import itc.ink.hhxrf.home_fragment.HomeFragment;
 import itc.ink.hhxrf.home_fragment.OnTestingActivity;
 import itc.ink.hhxrf.home_fragment.last_report.LastReportFragment;
-import itc.ink.hhxrf.left_drawer.adapter.LeftDrawerSubDataAdapter;
 import itc.ink.hhxrf.settings_group_fragment.SettingsGroupFragment;
 import itc.ink.hhxrf.left_drawer.adapter.LeftDrawerWrapperDataAdapter;
 import itc.ink.hhxrf.left_drawer.mode.LeftDrawerSubDataMode;
 import itc.ink.hhxrf.left_drawer.mode.LeftDrawerWrapperDataMode;
 import itc.ink.hhxrf.utils.StatusBarUtil;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+import itc.ink.hhxrf.utils.permission.DynamicPermission;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity{
+    private final String LOG_TAG = "MainActivity";
     public static boolean commandFromLeftDrawer=false;
     public static int currentSubFragmentID=0;
     public static final int FRAGMENT_ID_TEST_WAY=11;
@@ -46,12 +43,15 @@ public class MainActivity extends BaseActivity {
     public static final int FRAGMENT_ID_HISTORY_DB=21;
     public static final int FRAGMENT_ID_CALIBRATION=22;
     public static final int FRAGMENT_ID_MARK_DB=23;
-    public static final int FRAGMENT_ID_LANGUAGE=31;
+
+    public static final int FRAGMENT_ID_TEST_TIME=31;
     public static final int FRAGMENT_ID_PULL_TIME=32;
-    public static final int FRAGMENT_ID_SAFE=33;
-    public static final int FRAGMENT_ID_ABOUT=34;
-    public static final int FRAGMENT_ID_HARDWARE_TEST=35;
-    public static final int FRAGMENT_ID_TEST_TIME=36;
+    public static final int FRAGMENT_ID_LANGUAGE=33;
+    public static final int FRAGMENT_ID_LINK=34;
+    public static final int FRAGMENT_ID_SAFE=35;
+    public static final int FRAGMENT_ID_ABOUT=36;
+    public static final int FRAGMENT_ID_HARDWARE_TEST=37;
+
     private DrawerLayout mainDrawerLayout;
     private RecyclerView leftDrawerContentRV;
 
@@ -69,7 +69,11 @@ public class MainActivity extends BaseActivity {
     public static final int TAB_DEVICE=3;
     public static int currentTab=TAB_HOME;
 
-
+    private DynamicPermission dynamicPermission;
+    private String[] permissionsNeeded = null;
+    private final int PERMISSION_REQUEST_CODE = 0X001;
+    public static boolean obtainAllPermissionSuccess = false;
+    public static ArrayList<String> deniedPermissionList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +85,14 @@ public class MainActivity extends BaseActivity {
         StatusBarUtil.setAndroidNativeLightStatusBar(this, false);
 
         setContentView(R.layout.activity_main);
+
+        //Dynamic Apply Permission
+        permissionsNeeded = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.ACCESS_COARSE_LOCATION};
+        dynamicPermission = new DynamicPermission();
+        obtainAllPermissionSuccess = dynamicPermission.outService.requestPermissions(MainActivity.this, PERMISSION_REQUEST_CODE, permissionsNeeded);
+        if (obtainAllPermissionSuccess) {
+            Log.d(LOG_TAG, "本页面已无权限需求限制");
+        }
 
         mainDrawerLayout=findViewById(R.id.main_Drawer_Layout);
 
@@ -109,6 +121,38 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
+    protected void onRestart() {
+        super.onRestart();
+        if (dynamicPermission.outService.hasPermission(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            deniedPermissionList.remove(Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
+        if (dynamicPermission.outService.hasPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION)) {
+            deniedPermissionList.remove(Manifest.permission.ACCESS_COARSE_LOCATION);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            deniedPermissionList.clear();
+            obtainAllPermissionSuccess = true;
+            for (int i = 0; i < grantResults.length; i++) {
+                if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
+                    deniedPermissionList.add(permissions[i]);
+                    obtainAllPermissionSuccess = false;
+                }
+            }
+
+            if (obtainAllPermissionSuccess) {
+                Log.d(LOG_TAG, "已动态获取所有权限");
+            } else {
+                Log.d(LOG_TAG, "以下权限获取失败：\n" + deniedPermissionList.toString());
+            }
+        }
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(TESTING_ACTIVITY_REQUEST_CODE==requestCode&&TESTING_ACTIVITY_RESULT_CODE_OK==resultCode){
@@ -120,21 +164,21 @@ public class MainActivity extends BaseActivity {
     public List<LeftDrawerWrapperDataMode> prepareDrawerData(Context mContext) {
 
         //Result settings data
-        LeftDrawerSubDataMode test_time=new LeftDrawerSubDataMode(FRAGMENT_ID_TEST_WAY,getResources().getString(R.string.test_way),R.drawable.sub_item_test_way_icon_sel,R.drawable.sub_item_test_way_icon_unsel,1);
-        LeftDrawerSubDataMode test_way=new LeftDrawerSubDataMode(FRAGMENT_ID_EDIT_REPORT,getResources().getString(R.string.edit_report),R.drawable.sub_item_edit_report_icon_sel,R.drawable.sub_item_edit_report_icon_unsel,2);
-        LeftDrawerSubDataMode unit=new LeftDrawerSubDataMode(FRAGMENT_ID_FORMAT,getResources().getString(R.string.format),R.drawable.sub_item_format_icon_sel,R.drawable.sub_item_format_icon_unsel,3);
-        LeftDrawerSubDataMode edit_report=new LeftDrawerSubDataMode(FRAGMENT_ID_ELEMENT,getResources().getString(R.string.element),R.drawable.sub_item_element_icon_sel,R.drawable.sub_item_element_icon_unsel,4);
-        LeftDrawerSubDataMode element=new LeftDrawerSubDataMode(FRAGMENT_ID_COMPOUND,getResources().getString(R.string.compound),R.drawable.sub_item_compound_icon_sel,R.drawable.sub_item_compound_icon_unsel,5);
-        LeftDrawerSubDataMode compound=new LeftDrawerSubDataMode(FRAGMENT_ID_UNIT,getResources().getString(R.string.unit),R.drawable.sub_item_unit_icon_sel,R.drawable.sub_item_unit_icon_unsel,6);
-        LeftDrawerSubDataMode format=new LeftDrawerSubDataMode(FRAGMENT_ID_DECIMAL_POINT,getResources().getString(R.string.decimal_point),R.drawable.sub_item_decimal_point_icon_sel,R.drawable.sub_item_decimal_point_icon_unsel,7);
+        LeftDrawerSubDataMode test_way=new LeftDrawerSubDataMode(FRAGMENT_ID_TEST_WAY,getResources().getString(R.string.test_way),R.drawable.sub_item_test_way_icon_sel,R.drawable.sub_item_test_way_icon_unsel,1);
+        LeftDrawerSubDataMode edit_report=new LeftDrawerSubDataMode(FRAGMENT_ID_EDIT_REPORT,getResources().getString(R.string.edit_report),R.drawable.sub_item_edit_report_icon_sel,R.drawable.sub_item_edit_report_icon_unsel,2);
+        LeftDrawerSubDataMode format=new LeftDrawerSubDataMode(FRAGMENT_ID_FORMAT,getResources().getString(R.string.format),R.drawable.sub_item_format_icon_sel,R.drawable.sub_item_format_icon_unsel,3);
+        LeftDrawerSubDataMode element=new LeftDrawerSubDataMode(FRAGMENT_ID_ELEMENT,getResources().getString(R.string.element),R.drawable.sub_item_element_icon_sel,R.drawable.sub_item_element_icon_unsel,4);
+        LeftDrawerSubDataMode compound=new LeftDrawerSubDataMode(FRAGMENT_ID_COMPOUND,getResources().getString(R.string.compound),R.drawable.sub_item_compound_icon_sel,R.drawable.sub_item_compound_icon_unsel,5);
+        LeftDrawerSubDataMode unit=new LeftDrawerSubDataMode(FRAGMENT_ID_UNIT,getResources().getString(R.string.unit),R.drawable.sub_item_unit_icon_sel,R.drawable.sub_item_unit_icon_unsel,6);
+        LeftDrawerSubDataMode decimal_point=new LeftDrawerSubDataMode(FRAGMENT_ID_DECIMAL_POINT,getResources().getString(R.string.decimal_point),R.drawable.sub_item_decimal_point_icon_sel,R.drawable.sub_item_decimal_point_icon_unsel,7);
         List<LeftDrawerSubDataMode> resultSettingSubItemArray=new ArrayList<>();
-        resultSettingSubItemArray.add(test_time);
         resultSettingSubItemArray.add(test_way);
-        resultSettingSubItemArray.add(unit);
         resultSettingSubItemArray.add(edit_report);
+        resultSettingSubItemArray.add(format);
         resultSettingSubItemArray.add(element);
         resultSettingSubItemArray.add(compound);
-        resultSettingSubItemArray.add(format);
+        resultSettingSubItemArray.add(unit);
+        resultSettingSubItemArray.add(decimal_point);
         LeftDrawerWrapperDataMode resultSettings=new LeftDrawerWrapperDataMode(getResources().getString(R.string.result_settings),resultSettingSubItemArray);
 
         LeftDrawerSubDataMode history_db=new LeftDrawerSubDataMode(FRAGMENT_ID_HISTORY_DB,getResources().getString(R.string.history_db),R.drawable.sub_item_history_icon_sel,R.drawable.sub_item_history_icon_unsel,1);
@@ -146,19 +190,21 @@ public class MainActivity extends BaseActivity {
         operateSettingSubItemArray.add(mark_db);
         LeftDrawerWrapperDataMode operateSettings=new LeftDrawerWrapperDataMode(getResources().getString(R.string.operate_settings),operateSettingSubItemArray);
 
-        LeftDrawerSubDataMode language=new LeftDrawerSubDataMode(FRAGMENT_ID_LANGUAGE,getResources().getString(R.string.language),R.drawable.sub_item_language_icon_unsel,R.drawable.sub_item_language_icon_unsel,1);
+        LeftDrawerSubDataMode test_time=new LeftDrawerSubDataMode(FRAGMENT_ID_TEST_TIME,getResources().getString(R.string.test_time),R.drawable.sub_item_test_time_icon_sel,R.drawable.sub_item_test_time_icon_unsel,1);
         LeftDrawerSubDataMode pull_time=new LeftDrawerSubDataMode(FRAGMENT_ID_PULL_TIME,getResources().getString(R.string.pull_time),R.drawable.sub_item_pull_time_icon_sel,R.drawable.sub_item_pull_time_icon_unsel,2);
-        LeftDrawerSubDataMode safe=new LeftDrawerSubDataMode(FRAGMENT_ID_SAFE,getResources().getString(R.string.safe),R.drawable.sub_item_safe_icon_sel,R.drawable.sub_item_safe_icon_unsel,3);
-        LeftDrawerSubDataMode power_off_time=new LeftDrawerSubDataMode(FRAGMENT_ID_ABOUT,getResources().getString(R.string.about),R.drawable.sub_item_state_icon_sel,R.drawable.sub_item_safe_icon_unsel,4);
-        LeftDrawerSubDataMode instrument_debug=new LeftDrawerSubDataMode(FRAGMENT_ID_HARDWARE_TEST,getResources().getString(R.string.instrument_test),R.drawable.sub_item_debug_icon_sel,R.drawable.sub_item_debug_icon_unsel,5);
-        LeftDrawerSubDataMode decimal_point=new LeftDrawerSubDataMode(FRAGMENT_ID_TEST_TIME,getResources().getString(R.string.test_time),R.drawable.sub_item_test_time_icon_sel,R.drawable.sub_item_test_time_icon_unsel,6);
+        LeftDrawerSubDataMode language=new LeftDrawerSubDataMode(FRAGMENT_ID_LANGUAGE,getResources().getString(R.string.language),R.drawable.sub_item_language_icon_unsel,R.drawable.sub_item_language_icon_unsel,3);
+        LeftDrawerSubDataMode link=new LeftDrawerSubDataMode(FRAGMENT_ID_LINK,getResources().getString(R.string.link),R.drawable.sub_item_link_icon_sel,R.drawable.sub_item_link_icon_unsel,4);
+        LeftDrawerSubDataMode safe=new LeftDrawerSubDataMode(FRAGMENT_ID_SAFE,getResources().getString(R.string.safe),R.drawable.sub_item_safe_icon_sel,R.drawable.sub_item_safe_icon_unsel,5);
+        LeftDrawerSubDataMode about=new LeftDrawerSubDataMode(FRAGMENT_ID_ABOUT,getResources().getString(R.string.about),R.drawable.sub_item_state_icon_sel,R.drawable.sub_item_safe_icon_unsel,6);
+        LeftDrawerSubDataMode instrument_debug=new LeftDrawerSubDataMode(FRAGMENT_ID_HARDWARE_TEST,getResources().getString(R.string.instrument_test),R.drawable.sub_item_debug_icon_sel,R.drawable.sub_item_debug_icon_unsel,7);
         List<LeftDrawerSubDataMode> systemSettingSubItemArray=new ArrayList<>();
-        systemSettingSubItemArray.add(language);
+        systemSettingSubItemArray.add(test_time);
         systemSettingSubItemArray.add(pull_time);
-        systemSettingSubItemArray.add(power_off_time);
+        systemSettingSubItemArray.add(language);
+        systemSettingSubItemArray.add(link);
         systemSettingSubItemArray.add(safe);
+        systemSettingSubItemArray.add(about);
         systemSettingSubItemArray.add(instrument_debug);
-        systemSettingSubItemArray.add(decimal_point);
         LeftDrawerWrapperDataMode systemSettings=new LeftDrawerWrapperDataMode(getResources().getString(R.string.device_settings),systemSettingSubItemArray);
 
         //Drawer data
@@ -281,6 +327,7 @@ public class MainActivity extends BaseActivity {
             getFragmentManager().beginTransaction().replace(R.id.main_Activity_Fragment_Container, settingsGroupFragment).commit();
         }
     }
+
 
 
 }
