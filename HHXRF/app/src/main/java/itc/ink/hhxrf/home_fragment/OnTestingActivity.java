@@ -27,10 +27,11 @@ import itc.ink.hhxrf.settings_group_fragment.test_way_fragment.TestWayFragment;
 import itc.ink.hhxrf.utils.SQLiteDBHelper;
 import itc.ink.hhxrf.utils.SharedPreferenceUtil;
 import itc.ink.hhxrf.utils.StatusBarUtil;
+import itc.ink.hhxrf.view.TestingProgressView;
 
 public class OnTestingActivity extends BaseActivity {
     private TextView on_Testing_Tip_Sub_Text;
-    private ImageView on_Testing_Progress;
+    private TestingProgressView on_Testing_Progress_View;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,13 @@ public class OnTestingActivity extends BaseActivity {
         String timeStrRes=getResources().getString(R.string.home_on_testing_waiting_time_tip);
         String timeStr=String.format(timeStrRes,SharedPreferenceUtil.getInt(TestTimeFragment.TEST_TIME_KEY,15)+7);
         on_Testing_Tip_Sub_Text.setText(timeStr);
-        on_Testing_Progress=findViewById(R.id.on_Testing_Progress);
+        on_Testing_Progress_View=findViewById(R.id.on_Testing_Progress_View);
+        on_Testing_Progress_View.setTotalTime(SharedPreferenceUtil.getInt(TestTimeFragment.TEST_TIME_KEY, 15) * 1000 + 7 * 1000, new TestingProgressView.ProgressCallBack() {
+            @Override
+            public void progressEnd() {
+                finish();
+            }
+        });
         t_NativeRoutineAnalysis.start();
     }
 
@@ -55,29 +62,9 @@ public class OnTestingActivity extends BaseActivity {
         @Override
         public void run() {
             super.run();
-            try{
-                sleep(SharedPreferenceUtil.getInt(TestTimeFragment.TEST_TIME_KEY,15)*1000+7*1000);
-            }catch (Exception e){
-                System.out.println(e.toString());
-            }
             HardwareControl.nativeRoutineAnalysis();
-
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    on_Testing_Progress.setImageResource(R.drawable.progress_on_testing_state_three);
-                }
-            });
-
             readSummaryDataFromCsv();
-
-            try{
-                sleep(200);
-            }catch (Exception e){
-                System.out.println(e.toString());
-            }
             setResult(MainActivity.TESTING_ACTIVITY_RESULT_CODE_OK);
-            finish();
         }
     };
 

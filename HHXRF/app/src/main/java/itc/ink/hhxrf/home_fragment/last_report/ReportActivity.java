@@ -247,7 +247,7 @@ public class ReportActivity extends BaseActivity {
     class ReportShowTypeClickListener implements View.OnClickListener{
         @Override
         public void onClick(View view) {
-            reportShowAsList=(++reportShowAsList)%3;
+            reportShowAsList=(++reportShowAsList)%2;
 
             if(0==reportShowAsList){
                 reportMcaLineView.setVisibility(View.GONE);
@@ -268,7 +268,7 @@ public class ReportActivity extends BaseActivity {
             }else if(1==reportShowAsList){
                 reportMcaLineView.setVisibility(View.GONE);
                 reportDataRV.setVisibility(View.VISIBLE);
-                reportShowType.setImageResource(R.drawable.report_show_type_line_icon);
+                reportShowType.setImageResource(R.drawable.report_show_type_list_icon);
                 reportDataRV.setAdapter(lastReportDataGridAdapter);
                 RecyclerView.LayoutManager contentRvLayoutManager = new GridLayoutManager(ReportActivity.this, 3);
                 reportDataRV.setLayoutManager(contentRvLayoutManager);
@@ -282,7 +282,7 @@ public class ReportActivity extends BaseActivity {
                 operationTwoLabel.setVisibility(View.GONE);
                 reportChangeColumnBtn.setVisibility(View.GONE);
                 showMoreBtn.setVisibility(View.GONE);
-            }else if(2==reportShowAsList){
+            }/*else if(2==reportShowAsList){
                 reportShowType.setImageResource(R.drawable.report_show_type_list_icon);
                 elementNameLabel.setVisibility(View.GONE);
                 operationOneLabel.setVisibility(View.GONE);
@@ -291,7 +291,7 @@ public class ReportActivity extends BaseActivity {
                 reportDataRV.setVisibility(View.GONE);
                 reportMcaLineView.setVisibility(View.VISIBLE);
                 showMoreBtn.setVisibility(View.GONE);
-            }
+            }*/
         }
 
         private float dp2px(int dp){
