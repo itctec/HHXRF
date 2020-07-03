@@ -83,8 +83,8 @@ public class SharedPreferenceUtil {
      * @param key
      * @return
      */
-    public static int getInt(String key) {
-        return getPreferneces().getInt(key, 0);
+    public static int getInt(String key,int defValue) {
+        return getPreferneces().getInt(key, defValue);
     }
 
 

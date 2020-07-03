@@ -1,6 +1,8 @@
 package itc.ink.hhxrf.settings_group_fragment.test_time_fragment;
 
 import android.app.Fragment;
+import android.content.ComponentName;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,12 +17,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import itc.ink.hhxrf.R;
+import itc.ink.hhxrf.settings_group_fragment.pull_time_fragment.PullTimeFragment;
+import itc.ink.hhxrf.settings_group_fragment.test_way_fragment.TestWayFragment;
+import itc.ink.hhxrf.utils.SharedPreferenceUtil;
 
 /**
  * Created by yangwenjiang on 2018/9/19.
  */
 
 public class TestTimeFragment extends Fragment {
+    public static final String TEST_TIME_KEY="test_time";
     private TextView tipText;
     private EditText timeEdit;
 
@@ -36,6 +42,7 @@ public class TestTimeFragment extends Fragment {
 
         tipText=rootView.findViewById(R.id.test_Time_Fragment_Label_Tip);
         timeEdit=rootView.findViewById(R.id.test_Time_Fragment_Time_Edit);
+        timeEdit.setText(""+SharedPreferenceUtil.getInt(TEST_TIME_KEY,15));
         timeEdit.setOnEditorActionListener(new SearchBarEditActionListener());
         timeEdit.addTextChangedListener(new MyTextWatcher());
 
@@ -56,7 +63,17 @@ public class TestTimeFragment extends Fragment {
 
                 if (inputTime < 1||inputTime>1000) {
                     tipText.setText(R.string.test_time_fragment_label_tip_error);
+                }else{
+                    SharedPreferenceUtil.putInt(TEST_TIME_KEY,inputTime);
+                    Intent intent = new Intent();
+                    intent.putExtra("TrigMode",SharedPreferenceUtil.getString(PullTimeFragment.PULL_TIME_KEY,PullTimeFragment.PULL_TIME_VALUE_SHORT));//短按Short   长按Long
+                    intent.putExtra("period",SharedPreferenceUtil.getInt(TestTimeFragment.TEST_TIME_KEY,15));
+                    intent.putExtra("MaterialType",SharedPreferenceUtil.getString(TestWayFragment.TEST_WAY_KEY,TestWayFragment.TEST_WAY_VALUE_METAL));//金属  Mental 土壤Soil
+                    intent.setAction("xray.information");
+                    intent.setComponent(new ComponentName("com.example.androidjnitest","com.example.androidjnitest.BroadcastReceiver1"));
+                    getContext().sendBroadcast(intent);
                 }
+
             }
             return false;
         }

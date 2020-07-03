@@ -1,6 +1,8 @@
 package itc.ink.hhxrf.settings_group_fragment.test_way_fragment;
 
 import android.app.Fragment;
+import android.content.ComponentName;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import itc.ink.hhxrf.R;
+import itc.ink.hhxrf.settings_group_fragment.pull_time_fragment.PullTimeFragment;
+import itc.ink.hhxrf.settings_group_fragment.test_time_fragment.TestTimeFragment;
 import itc.ink.hhxrf.utils.SharedPreferenceUtil;
 
 /**
@@ -20,8 +24,8 @@ import itc.ink.hhxrf.utils.SharedPreferenceUtil;
 
 public class TestWayFragment extends Fragment {
     public static final String TEST_WAY_KEY="test_way";
-    public static final String TEST_WAY_VALUE_METAL="METAL";
-    public static final String TEST_WAY_VALUE_GROUND="GROUND";
+    public static final String TEST_WAY_VALUE_METAL="Metal";
+    public static final String TEST_WAY_VALUE_GROUND="Soil";
 
     private ImageView testWayItemBack;
     private TextView testWayMetalBtnTitle;
@@ -48,7 +52,6 @@ public class TestWayFragment extends Fragment {
         testWayGroundBtnTitle=rootView.findViewById(R.id.test_Way_Fragment_Ground_Btn_Title);
         testWayGroundBtnSelectedTip=rootView.findViewById(R.id.test_Way_Fragment_Ground_Btn_Selected_Tip);
 
-
         if(SharedPreferenceUtil.getString(TEST_WAY_KEY,TEST_WAY_VALUE_METAL).equals(TEST_WAY_VALUE_METAL)){
             ConstraintLayout.LayoutParams lp=(ConstraintLayout.LayoutParams)testWayItemBack.getLayoutParams();
             lp.leftToLeft= ConstraintLayout.LayoutParams.PARENT_ID;
@@ -68,6 +71,13 @@ public class TestWayFragment extends Fragment {
             testWayGroundBtnTitle.setTextColor(getResources().getColor(R.color.result_text_black,null));
             testWayGroundBtnSelectedTip.setVisibility(View.VISIBLE);
         }
+        Intent intent = new Intent();
+        intent.putExtra("TrigMode",SharedPreferenceUtil.getString(PullTimeFragment.PULL_TIME_KEY,PullTimeFragment.PULL_TIME_VALUE_SHORT));//短按Short   长按Long
+        intent.putExtra("period",SharedPreferenceUtil.getInt(TestTimeFragment.TEST_TIME_KEY,15));
+        intent.putExtra("MaterialType",SharedPreferenceUtil.getString(TEST_WAY_KEY,TEST_WAY_VALUE_METAL));//金属  Mental 土壤Soil
+        intent.setAction("xray.information");
+        intent.setComponent(new ComponentName("com.example.androidjnitest","com.example.androidjnitest.BroadcastReceiver1"));
+        getContext().sendBroadcast(intent);
 
         return rootView;
     }
@@ -96,6 +106,13 @@ public class TestWayFragment extends Fragment {
                 testWayGroundBtnTitle.setTextColor(getResources().getColor(R.color.result_text_white,null));
                 testWayGroundBtnSelectedTip.setVisibility(View.GONE);
             }
+            Intent intent = new Intent();
+            intent.putExtra("TrigMode",SharedPreferenceUtil.getString(PullTimeFragment.PULL_TIME_KEY,PullTimeFragment.PULL_TIME_VALUE_SHORT));//短按Short   长按Long
+            intent.putExtra("period",SharedPreferenceUtil.getInt(TestTimeFragment.TEST_TIME_KEY,15));
+            intent.putExtra("MaterialType",SharedPreferenceUtil.getString(TEST_WAY_KEY,TEST_WAY_VALUE_METAL));//金属  Mental 土壤Soil
+            intent.setAction("xray.information");
+            intent.setComponent(new ComponentName("com.example.androidjnitest","com.example.androidjnitest.BroadcastReceiver1"));
+            getContext().sendBroadcast(intent);
         }
     }
 

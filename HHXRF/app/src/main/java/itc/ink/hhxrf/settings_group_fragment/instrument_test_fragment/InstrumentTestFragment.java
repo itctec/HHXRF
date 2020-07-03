@@ -1,7 +1,9 @@
 package itc.ink.hhxrf.settings_group_fragment.instrument_test_fragment;
 
 import android.app.Fragment;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,7 +20,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import itc.ink.hhxrf.MainActivity;
 import itc.ink.hhxrf.R;
+import itc.ink.hhxrf.hardware.DataCallBack;
+import itc.ink.hhxrf.hardware.HardwareBroadCastReceiver;
 import itc.ink.hhxrf.utils.SharedPreferenceUtil;
 
 /**
@@ -87,8 +92,11 @@ public class InstrumentTestFragment extends Fragment {
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         boolean isOpen = imm.isActive();
         if (isOpen) {
-            imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+            //imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+            imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
+
+        MainActivity.hardwareBroadCastReceiver.removeCallBack();
     }
 
     class PasswordTextWatcher implements TextWatcher {
@@ -149,6 +157,33 @@ public class InstrumentTestFragment extends Fragment {
                         passwordEditThree.setVisibility(View.GONE);
                         passwordEditFour.setVisibility(View.GONE);
                         hardwareDataLayout.setVisibility(View.VISIBLE);
+
+                        //Check Data
+                        MainActivity.hardwareBroadCastReceiver.addCallBack(new DataCallBack() {
+                            @Override
+                            public void onDataChanged(String s) {
+                                System.out.println("状态数据-》"+s);
+                                if(s.startsWith("S_")){
+                                    String lightTubeVoltageStr=s.substring(s.indexOf("GGV")+4,s.indexOf("TRIG_STATE"));
+                                    String lightTubeElectricityStr=s.substring(s.indexOf("GGI")+4,s.indexOf("GGV"));
+                                    String instrumentTemperatureStr=s.substring(s.indexOf("XRAY_T")+6,s.indexOf("Count"));
+                                    String detectorTemperatureStr=s.substring(s.indexOf("DP5_ST=")+7,s.indexOf("XRAY_T"));
+                                    String countRateStr=s.substring(s.indexOf("Count:")+6);
+                                    String motherboardTemperatureStr=s.substring(s.indexOf("DP5_BT=")+7,s.indexOf("DP5_ST"));
+                                    lightTubeVoltageLabel.setText(getString(R.string.instrument_light_tube_voltage)+lightTubeVoltageStr);
+                                    lightTubeElectricityLabel.setText(getString(R.string.instrument_light_tube_electricity)+lightTubeElectricityStr);
+                                    instrumentTemperatureLabel.setText(getString(R.string.instrument_instrument_temperature)+instrumentTemperatureStr);
+                                    detectorTemperatureLabel.setText(getString(R.string.instrument_detector_temperature)+detectorTemperatureStr);
+                                    countRateLabel.setText(getString(R.string.instrument_count_rate)+countRateStr);
+                                    motherboardTemperatureLabel.setText(getString(R.string.instrument_motherboard_temperature)+motherboardTemperatureStr);
+                                }
+                            }
+                        });
+
+                        Intent intent = new Intent();
+                        intent.setAction("xray.Query");
+                        intent.setComponent(new ComponentName("com.example.androidjnitest","com.example.androidjnitest.BroadcastReceiver1"));
+                        getContext().sendBroadcast(intent);
                     } else {
                         Toast.makeText(getContext(), R.string.instrument_test_fragment_input_current_password_error_tip, Toast.LENGTH_SHORT).show();
                         passwordEditOne.setText("");

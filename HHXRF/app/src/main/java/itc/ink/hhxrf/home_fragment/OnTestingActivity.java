@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -21,13 +22,14 @@ import itc.ink.hhxrf.MainActivity;
 import itc.ink.hhxrf.R;
 import itc.ink.hhxrf.hardware.HardwareControl;
 import itc.ink.hhxrf.settings_group_fragment.calibration_fragment.TypeCalibrationActivity;
+import itc.ink.hhxrf.settings_group_fragment.test_time_fragment.TestTimeFragment;
 import itc.ink.hhxrf.settings_group_fragment.test_way_fragment.TestWayFragment;
 import itc.ink.hhxrf.utils.SQLiteDBHelper;
 import itc.ink.hhxrf.utils.SharedPreferenceUtil;
 import itc.ink.hhxrf.utils.StatusBarUtil;
 
 public class OnTestingActivity extends BaseActivity {
-
+    private TextView on_Testing_Tip_Sub_Text;
     private ImageView on_Testing_Progress;
 
     @Override
@@ -40,6 +42,10 @@ public class OnTestingActivity extends BaseActivity {
 
         setContentView(R.layout.activity_on_testing);
 
+        on_Testing_Tip_Sub_Text=findViewById(R.id.on_Testing_Tip_Sub_Text);
+        String timeStrRes=getResources().getString(R.string.home_on_testing_waiting_time_tip);
+        String timeStr=String.format(timeStrRes,SharedPreferenceUtil.getInt(TestTimeFragment.TEST_TIME_KEY,15)+7);
+        on_Testing_Tip_Sub_Text.setText(timeStr);
         on_Testing_Progress=findViewById(R.id.on_Testing_Progress);
         t_NativeRoutineAnalysis.start();
     }
@@ -49,6 +55,11 @@ public class OnTestingActivity extends BaseActivity {
         @Override
         public void run() {
             super.run();
+            try{
+                sleep(SharedPreferenceUtil.getInt(TestTimeFragment.TEST_TIME_KEY,15)*1000+7*1000);
+            }catch (Exception e){
+                System.out.println(e.toString());
+            }
             HardwareControl.nativeRoutineAnalysis();
 
             runOnUiThread(new Runnable() {

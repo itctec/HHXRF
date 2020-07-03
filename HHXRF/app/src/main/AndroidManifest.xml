@@ -87,6 +87,12 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|stateUnchanged"
             android:theme="@style/DefActivityTheme"/>
+
+        <receiver android:name=".hardware.HardwareBroadCastReceiver">
+            <intent-filter>
+                <action android:name="xray.Query" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

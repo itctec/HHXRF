@@ -24,7 +24,7 @@ public class BaseActivity extends Activity {
         Configuration configuration = getResources().getConfiguration();
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
 
-        if(SharedPreferenceUtil.getInt(LanguageFragment.LANGUAGE_KEY)==LanguageFragment.LANGUAGE_VALUE_CHINESE){
+        if(SharedPreferenceUtil.getInt(LanguageFragment.LANGUAGE_KEY,0)==LanguageFragment.LANGUAGE_VALUE_CHINESE){
             CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                     .setDefaultFontPath("fonts/SourceHanSansCN-Normalx.otf")
                     .setFontAttrId(R.attr.fontPath)

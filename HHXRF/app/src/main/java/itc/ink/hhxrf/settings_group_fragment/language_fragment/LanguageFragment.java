@@ -51,7 +51,7 @@ public class LanguageFragment extends Fragment {
         languageEnglishBtnSelectedTip = rootView.findViewById(R.id.language_Fragment_English_Btn_Selected_Tip);
 
 
-        if (SharedPreferenceUtil.getInt(LANGUAGE_KEY) == LANGUAGE_VALUE_CHINESE) {
+        if (SharedPreferenceUtil.getInt(LANGUAGE_KEY,0) == LANGUAGE_VALUE_CHINESE) {
             ConstraintLayout.LayoutParams lp = (ConstraintLayout.LayoutParams) languageItemBack.getLayoutParams();
             lp.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID;
             lp.rightToRight = ConstraintLayout.LayoutParams.UNSET;
@@ -77,7 +77,7 @@ public class LanguageFragment extends Fragment {
     class TestWaySwitchBtnClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            if (SharedPreferenceUtil.getInt(LANGUAGE_KEY) == LANGUAGE_VALUE_CHINESE) {
+            if (SharedPreferenceUtil.getInt(LANGUAGE_KEY,0) == LANGUAGE_VALUE_CHINESE) {
                 SharedPreferenceUtil.putInt(LANGUAGE_KEY, LANGUAGE_VALUE_ENGLISH);
                 ConstraintLayout.LayoutParams lp = (ConstraintLayout.LayoutParams) languageItemBack.getLayoutParams();
                 lp.rightToRight = ConstraintLayout.LayoutParams.PARENT_ID;

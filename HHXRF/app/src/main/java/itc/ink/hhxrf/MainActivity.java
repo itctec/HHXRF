@@ -1,7 +1,12 @@
 package itc.ink.hhxrf;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -17,6 +22,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import itc.ink.hhxrf.hardware.HardwareBroadCastReceiver;
 import itc.ink.hhxrf.home_fragment.CameraActivity;
 import itc.ink.hhxrf.home_fragment.HomeFragment;
 import itc.ink.hhxrf.home_fragment.OnTestingActivity;
@@ -25,6 +31,7 @@ import itc.ink.hhxrf.settings_group_fragment.SettingsGroupFragment;
 import itc.ink.hhxrf.left_drawer.adapter.LeftDrawerWrapperDataAdapter;
 import itc.ink.hhxrf.left_drawer.mode.LeftDrawerSubDataMode;
 import itc.ink.hhxrf.left_drawer.mode.LeftDrawerWrapperDataMode;
+import itc.ink.hhxrf.settings_group_fragment.link_fragment.LinkBluetoothDataMode;
 import itc.ink.hhxrf.utils.StatusBarUtil;
 import itc.ink.hhxrf.utils.permission.DynamicPermission;
 
@@ -74,6 +81,8 @@ public class MainActivity extends BaseActivity{
     private final int PERMISSION_REQUEST_CODE = 0X001;
     public static boolean obtainAllPermissionSuccess = false;
     public static ArrayList<String> deniedPermissionList = new ArrayList<>();
+
+    public static HardwareBroadCastReceiver hardwareBroadCastReceiver=new HardwareBroadCastReceiver();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -327,7 +336,5 @@ public class MainActivity extends BaseActivity{
             getFragmentManager().beginTransaction().replace(R.id.main_Activity_Fragment_Container, settingsGroupFragment).commit();
         }
     }
-
-
 
 }
