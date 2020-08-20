@@ -11,12 +11,15 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import itc.ink.hhxrf.BaseActivity;
 import itc.ink.hhxrf.R;
+import itc.ink.hhxrf.settings_group_fragment.decimal_point_fragment.DecimalPointFragment;
 import itc.ink.hhxrf.utils.SQLiteDBHelper;
+import itc.ink.hhxrf.utils.SharedPreferenceUtil;
 import itc.ink.hhxrf.utils.StatusBarUtil;
 
 public class CompareResultActivity extends BaseActivity {
@@ -74,17 +77,20 @@ public class CompareResultActivity extends BaseActivity {
 
         String sampleSqlStr="select element_concentration from tb_history_data_content where sample_name=? and element_name=?";
 
+        DecimalFormat decimalFormat=new DecimalFormat(SharedPreferenceUtil.getString(DecimalPointFragment.DECIMAL_POINT_KEY,"0.00"));
         while(elementListCursor.moveToNext()){
             Cursor sampleOneResultCursor = sqLiteDatabase.rawQuery(sampleSqlStr, new String[]{sampleOneName,elementListCursor.getString(0)});
             String sampleOneResultStr="0";
             if(sampleOneResultCursor.moveToNext()){
-                sampleOneResultStr=sampleOneResultCursor.getString(0);
+                sampleOneResultStr=decimalFormat.format(Float.parseFloat(sampleOneResultCursor.getString(0)));
+                //sampleOneResultStr=sampleOneResultCursor.getString(0);
             }
             sampleOneResultCursor.close();
             Cursor sampleTwoResultCursor = sqLiteDatabase.rawQuery(sampleSqlStr, new String[]{sampleTwoName,elementListCursor.getString(0)});
             String sampleTwoResultStr="0";
             if(sampleTwoResultCursor.moveToNext()){
-                sampleTwoResultStr=sampleTwoResultCursor.getString(0);
+                sampleTwoResultStr=decimalFormat.format(Float.parseFloat(sampleTwoResultCursor.getString(0)));
+                //sampleTwoResultStr=sampleTwoResultCursor.getString(0);
             }
             sampleTwoResultCursor.close();
             if(isHideSameItem&&sampleOneResultStr.equals(sampleTwoResultStr)){

@@ -96,7 +96,7 @@
     <string name="energy_calibration_start_tip">Pull the trigger to start alignment</string>
     <string name="energy_calibration_start_tip_detail">Just pull the trigger</string>
     <string name="on_energy_calibration_tip">On Energy Calibration...</string>
-    <string name="on_energy_calibration_waiting_time_tip">Waiting about two seconds</string>
+    <string name="on_energy_calibration_waiting_time_tip">Waiting about 60 seconds</string>
     <string name="on_energy_calibration_waiting_time_finish_tip">Finish</string>
     <string name="energy_calibration_result_title">Result page</string>
     <string name="calibration_fragment_type_calibration">TYPE CALIBRATION</string>

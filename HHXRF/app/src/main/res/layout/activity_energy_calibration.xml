@@ -23,7 +23,8 @@
             android:id="@+id/energy_Calibration_Top_Navigation_Back_Btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="35dp"
             android:onClick="onBackBtnClick"
             android:src="@drawable/vector_drawable_back_arrow"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -37,7 +38,6 @@
             android:background="@null"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="35dp"
             app:layout_constraintLeft_toRightOf="@id/energy_Calibration_Top_Navigation_Back_Btn"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
@@ -100,7 +100,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="143dp"
         android:src="@drawable/bg_logo"
-        android:onClick="onPull"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/energy_Calibration_Top_Navigation_Bottom_Horizontal_Guideline" />

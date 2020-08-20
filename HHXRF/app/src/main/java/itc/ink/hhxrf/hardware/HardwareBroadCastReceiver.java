@@ -7,6 +7,7 @@ import android.content.Intent;
 public class HardwareBroadCastReceiver extends BroadcastReceiver {
     private String rcvString;
     public static DataCallBack mDataCallBack;
+    public static DataCallBack mDefDataCallBack;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -18,10 +19,21 @@ public class HardwareBroadCastReceiver extends BroadcastReceiver {
         }
     }
 
+    public void addDefCalBack(DataCallBack myCallBack){
+        if(myCallBack!=null){
+            mDefDataCallBack = myCallBack;
+            mDataCallBack=mDefDataCallBack;
+        }
+    }
+
     public void addCallBack(DataCallBack myCallBack){
         if(myCallBack!=null){
             mDataCallBack = myCallBack;
         }
+    }
+
+    public void resetCallBack(){
+        mDataCallBack=mDefDataCallBack;
     }
 
     public void removeCallBack(){

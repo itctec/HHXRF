@@ -61,10 +61,12 @@ import itc.ink.hhxrf.view.McaLineView;
 public class LastReportFragment extends Fragment {
     private EditText topNavigationSampleName;
     private String sampleOlderName="";
+    private TextView gradeName;
     private ImageView reportShowType;
     private ImageView reportChangeColumnBtn;
     private TextView elementNameLabel;
     private TextView operationOneLabel;
+    private TextView operationOneLabelSmall;
     private TextView operationTwoLabel;
     private RecyclerView reportDataRV;
     private int reportShowAsList=0;
@@ -140,17 +142,28 @@ public class LastReportFragment extends Fragment {
             testType.setText("--");
         }
 
+        ReportShowTypeClickListener reportShowTypeClickListener= new ReportShowTypeClickListener();
+        gradeName=rootView.findViewById(R.id.last_Report_Fragment_Grade_Name);
+        gradeName.setOnClickListener(reportShowTypeClickListener);
+
         reportShowType=rootView.findViewById(R.id.last_Report_Fragment_Report_Show_Type);
-        reportShowType.setOnClickListener(new ReportShowTypeClickListener());
+        reportShowType.setOnClickListener(reportShowTypeClickListener);
 
-
+        ReportChangeColumnRightBtnClickListener reportChangeColumnRightBtnClickListener=new ReportChangeColumnRightBtnClickListener();
         reportChangeColumnBtn=rootView.findViewById(R.id.last_Report_Fragment_Report_Change_Column_Btn);
-        reportChangeColumnBtn.setOnClickListener(new ReportChangeColumnRightBtnClickListener());
+        reportChangeColumnBtn.setOnClickListener(reportChangeColumnRightBtnClickListener);
 
         elementNameLabel=rootView.findViewById(R.id.last_Report_Fragment_Element_Name);
         operationOneLabel=rootView.findViewById(R.id.last_Report_Fragment_Element_Operation_One_Label);
         operationOneLabel.setText(SharedPreferenceUtil.getString(UnitFragment.KEY_UNIT,"%"));
+        operationOneLabelSmall=rootView.findViewById(R.id.last_Report_Fragment_Element_Operation_One_Label_Small);
+        if(SharedPreferenceUtil.getString(UnitFragment.KEY_UNIT,"%").equals("mg/cm")){
+            operationOneLabelSmall.setVisibility(View.VISIBLE);
+        }else{
+            operationOneLabelSmall.setVisibility(View.GONE);
+        }
         operationTwoLabel=rootView.findViewById(R.id.last_Report_Fragment_Element_Operation_Two_Label);
+        operationTwoLabel.setOnClickListener(reportChangeColumnRightBtnClickListener);
 
         reportDataRV=rootView.findViewById(R.id.last_Report_Fragment_Report_Data_RV);
         reportDataRV.setAdapter(lastReportDataAdapter);
@@ -261,7 +274,7 @@ public class LastReportFragment extends Fragment {
                 initListData(isShowAll);
                 lastReportDataAdapter.notifyDataSetChanged();
 
-                reportShowType.setImageResource(R.drawable.report_show_type_grid_icon);
+                reportShowType.setImageResource(R.drawable.report_show_type_list_icon);
                 reportDataRV.setAdapter(lastReportDataAdapter);
                 RecyclerView.LayoutManager contentRvLayoutManager = new LinearLayoutManager(getContext());
                 reportDataRV.setLayoutManager(contentRvLayoutManager);
@@ -271,6 +284,11 @@ public class LastReportFragment extends Fragment {
 
                 elementNameLabel.setVisibility(View.VISIBLE);
                 operationOneLabel.setVisibility(View.VISIBLE);
+                if(SharedPreferenceUtil.getString(UnitFragment.KEY_UNIT,"%").equals("mg/cm")){
+                    operationOneLabelSmall.setVisibility(View.VISIBLE);
+                }else{
+                    operationOneLabelSmall.setVisibility(View.GONE);
+                }
                 operationTwoLabel.setVisibility(View.VISIBLE);
                 reportChangeColumnBtn.setVisibility(View.VISIBLE);
                 showMoreBtn.setVisibility(View.VISIBLE);
@@ -281,7 +299,7 @@ public class LastReportFragment extends Fragment {
                 initListData(true);
                 lastReportDataGridAdapter.notifyDataSetChanged();
 
-                reportShowType.setImageResource(R.drawable.report_show_type_line_icon);
+                reportShowType.setImageResource(R.drawable.report_show_type_grid_icon);
                 reportDataRV.setAdapter(lastReportDataGridAdapter);
                 RecyclerView.LayoutManager contentRvLayoutManager = new GridLayoutManager(getContext(), 3);
                 reportDataRV.setLayoutManager(contentRvLayoutManager);
@@ -292,13 +310,15 @@ public class LastReportFragment extends Fragment {
 
                 elementNameLabel.setVisibility(View.GONE);
                 operationOneLabel.setVisibility(View.GONE);
+                operationOneLabelSmall.setVisibility(View.GONE);
                 operationTwoLabel.setVisibility(View.GONE);
                 reportChangeColumnBtn.setVisibility(View.GONE);
                 showMoreBtn.setVisibility(View.GONE);
             }else if(2==reportShowAsList){
-                reportShowType.setImageResource(R.drawable.report_show_type_list_icon);
+                reportShowType.setImageResource(R.drawable.report_show_type_line_icon);
                 elementNameLabel.setVisibility(View.GONE);
                 operationOneLabel.setVisibility(View.GONE);
+                operationOneLabelSmall.setVisibility(View.GONE);
                 operationTwoLabel.setVisibility(View.GONE);
                 reportChangeColumnBtn.setVisibility(View.GONE);
                 reportDataRV.setVisibility(View.GONE);
@@ -322,10 +342,16 @@ public class LastReportFragment extends Fragment {
             if(showForthColumn){
                 reportChangeColumnBtn.setImageResource(R.drawable.vector_drawable_triangle_left);
                 operationOneLabel.setText(getResources().getString(R.string.home_last_report_column_range));
+                operationOneLabelSmall.setVisibility(View.GONE);
                 operationTwoLabel.setText(getResources().getString(R.string.home_last_report_column_mean_value));
             }else{
                 reportChangeColumnBtn.setImageResource(R.drawable.vector_drawable_triangle_right);
                 operationOneLabel.setText(SharedPreferenceUtil.getString(UnitFragment.KEY_UNIT,"%"));
+                if(SharedPreferenceUtil.getString(UnitFragment.KEY_UNIT,"%").equals("mg/cm")){
+                    operationOneLabelSmall.setVisibility(View.VISIBLE);
+                }else{
+                    operationOneLabelSmall.setVisibility(View.GONE);
+                }
                 operationTwoLabel.setText(getResources().getString(R.string.home_last_report_column_range));
             }
         }

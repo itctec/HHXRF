@@ -27,6 +27,7 @@ public class UnitFragment extends Fragment {
     private TextView ppmSelLabel;
     private ImageView mgcmItemBg;
     private TextView mgcmTitle;
+    private TextView mgcmTitleSmall;
     private TextView mgcmSelLabel;
     private ImageView umItemBg;
     private TextView umTitle;
@@ -52,9 +53,10 @@ public class UnitFragment extends Fragment {
         ppmTitle=rootView.findViewById(R.id.unit_Fragment_PPM_Btn_Title);
         ppmSelLabel=rootView.findViewById(R.id.unit_Fragment_PPM_Select_Label);
         mgcmItemBg=rootView.findViewById(R.id.unit_Fragment_MGCM_Item_Btn_Back);
-        mgcmItemBg.setTag("mg/cm2");
+        mgcmItemBg.setTag("mg/cm");
         mgcmItemBg.setOnClickListener(new ItemBgClickListener());
         mgcmTitle=rootView.findViewById(R.id.unit_Fragment_MGCM_Btn_Title);
+        mgcmTitleSmall=rootView.findViewById(R.id.unit_Fragment_MGCM_Btn_Title_Small);
         mgcmSelLabel=rootView.findViewById(R.id.unit_Fragment_MGCM_Select_Label);
         umItemBg=rootView.findViewById(R.id.unit_Fragment_UM_Item_Btn_Back);
         umItemBg.setTag("μm");
@@ -86,6 +88,7 @@ public class UnitFragment extends Fragment {
         ppmSelLabel.setVisibility(View.GONE);
         mgcmItemBg.setBackground(null);
         mgcmTitle.setTextColor(getResources().getColor(R.color.unit_text_light,null));
+        mgcmTitleSmall.setTextColor(getResources().getColor(R.color.unit_text_light,null));
         mgcmSelLabel.setVisibility(View.GONE);
         umItemBg.setBackground(null);
         umTitle.setTextColor(getResources().getColor(R.color.unit_text_light,null));
@@ -104,10 +107,11 @@ public class UnitFragment extends Fragment {
                 ppmTitle.setTextColor(getResources().getColor(R.color.unit_text_gray,null));
                 ppmSelLabel.setVisibility(View.VISIBLE);
                 break;
-            case "mg/cm2":
-                SharedPreferenceUtil.putString("KEY_UNIT","mg/cm2");
+            case "mg/cm":
+                SharedPreferenceUtil.putString("KEY_UNIT","mg/cm");
                 mgcmItemBg.setBackgroundResource(R.drawable.unit_sel_icon);
                 mgcmTitle.setTextColor(getResources().getColor(R.color.unit_text_gray,null));
+                mgcmTitleSmall.setTextColor(getResources().getColor(R.color.unit_text_gray,null));
                 mgcmSelLabel.setVisibility(View.VISIBLE);
                 break;
             case "μm":

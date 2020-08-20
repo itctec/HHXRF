@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -15,7 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import itc.ink.hhxrf.BaseActivity;
+import itc.ink.hhxrf.MainActivity;
 import itc.ink.hhxrf.R;
+import itc.ink.hhxrf.hardware.DataCallBack;
 import itc.ink.hhxrf.utils.SQLiteDBHelper;
 import itc.ink.hhxrf.utils.StatusBarUtil;
 
@@ -34,6 +37,24 @@ public class EnergyCalibrationActivity extends BaseActivity {
 
         setContentView(R.layout.activity_energy_calibration);
 
+        MainActivity.hardwareBroadCastReceiver.addCallBack(new DataCallBack() {
+            @Override
+            public void onDataChanged(String s) {
+                if(s.startsWith("B_")){
+                    Intent intent=new Intent();
+                    intent.setClass(EnergyCalibrationActivity.this, OnEnergyCalibrationActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        });
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MainActivity.hardwareBroadCastReceiver.resetCallBack();
     }
 
 

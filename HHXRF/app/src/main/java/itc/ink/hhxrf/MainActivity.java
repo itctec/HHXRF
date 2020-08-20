@@ -10,6 +10,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -63,7 +65,7 @@ public class MainActivity extends BaseActivity{
     private RecyclerView leftDrawerContentRV;
 
     public static final int TESTING_ACTIVITY_REQUEST_CODE=0X01;
-    public static final int TESTING_ACTIVITY_RESULT_CODE_OK=0X01;
+    public static final int TESTING_ACTIVITY_RESULT_CODE_OK=0X02;
 
     private TextView navigationHomeBtn;
     private TextView navigationResultBtn;
@@ -83,6 +85,11 @@ public class MainActivity extends BaseActivity{
     public static ArrayList<String> deniedPermissionList = new ArrayList<>();
 
     public static HardwareBroadCastReceiver hardwareBroadCastReceiver=new HardwareBroadCastReceiver();
+    public static Handler mHandler;
+
+    static{
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +99,8 @@ public class MainActivity extends BaseActivity{
         StatusBarUtil.setStatusBarFullTransparent(this);
         //StatusBar Text And Icon Style
         StatusBarUtil.setAndroidNativeLightStatusBar(this, false);
+
+        mHandler=new MyHandler();
 
         setContentView(R.layout.activity_main);
 
@@ -164,7 +173,9 @@ public class MainActivity extends BaseActivity{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        System.out.println("执行结束1");
         if(TESTING_ACTIVITY_REQUEST_CODE==requestCode&&TESTING_ACTIVITY_RESULT_CODE_OK==resultCode){
+            System.out.println("执行结束2");
             LastReportFragment lastReportFragment = new LastReportFragment();
             getFragmentManager().beginTransaction().replace(R.id.main_Activity_Fragment_Container, lastReportFragment).commit();
         }
@@ -334,6 +345,20 @@ public class MainActivity extends BaseActivity{
             }
 
             getFragmentManager().beginTransaction().replace(R.id.main_Activity_Fragment_Container, settingsGroupFragment).commit();
+        }
+    }
+
+    class MyHandler extends Handler{
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if(msg.what==0x01){
+                Intent intentTest=new Intent();
+                intentTest.setClass(MainActivity.this,OnTestingActivity.class);
+                startActivityForResult(intentTest, MainActivity.TESTING_ACTIVITY_REQUEST_CODE);
+            }else if(msg.what==0x02){
+                updateBtnState(navigationHomeBtn);
+            }
         }
     }
 

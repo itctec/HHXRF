@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -33,7 +34,6 @@ public class HomeFragment extends Fragment {
 
         IntentFilter filter = new IntentFilter();
         filter.addAction("xray.Query");
-        //getContext().registerReceiver(mDeviceReceiver, filter);
     }
 
     @Nullable
@@ -43,14 +43,14 @@ public class HomeFragment extends Fragment {
 
         showLeftDrawerBtn=rootView.findViewById(R.id.home_Fragment_Top_Navigation_Show_Left_Drawer_Btn);
 
-        MainActivity.hardwareBroadCastReceiver.addCallBack(new DataCallBack() {
+        MainActivity.hardwareBroadCastReceiver.addDefCalBack(new DataCallBack() {
             @Override
             public void onDataChanged(String s) {
                 System.out.println("状态数据-》"+s);
                 if(s.startsWith("B_")){
-                    Intent intentTest=new Intent();
-                    intentTest.setClass(getContext(), OnTestingActivity.class);
-                    startActivityForResult(intentTest, MainActivity.TESTING_ACTIVITY_REQUEST_CODE);
+                    Message msg= MainActivity.mHandler.obtainMessage();
+                    msg.what=0x01;
+                    MainActivity.mHandler.dispatchMessage(msg);
                 }
             }
         });
@@ -61,19 +61,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        MainActivity.hardwareBroadCastReceiver.removeCallBack();
+        //MainActivity.hardwareBroadCastReceiver.removeCallBack();
     }
 
-    private final BroadcastReceiver mDeviceReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            System.out.println("扣动扳机");
-            if ("xray.Query".equals(action)&&intent.getStringExtra("MachineStatus").startsWith("B_")) {
-                Intent intentTest=new Intent();
-                intentTest.setClass(getContext(), OnTestingActivity.class);
-                startActivityForResult(intent, MainActivity.TESTING_ACTIVITY_REQUEST_CODE);
-            }
-        }
-    };
 }

@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+
 import itc.ink.hhxrf.R;
 import itc.ink.hhxrf.settings_group_fragment.pull_time_fragment.PullTimeFragment;
 import itc.ink.hhxrf.settings_group_fragment.test_time_fragment.TestTimeFragment;
@@ -32,6 +34,9 @@ public class TestWayFragment extends Fragment {
     private TextView testWayMetalBtnSelectedTip;
     private TextView testWayGroundBtnTitle;
     private TextView testWayGroundBtnSelectedTip;
+    private View itemOneBtn;
+    private View itemTwoBtn;
+    private boolean ready=true;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,14 +48,20 @@ public class TestWayFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_test_way, container, false);
 
-        ConstraintLayout testWaySwitchBtn=rootView.findViewById(R.id.test_Way_Fragment_Item_Switch_Layout_Btn);
-        testWaySwitchBtn.setOnClickListener(new TestWaySwitchBtnClickListener());
+        /*ConstraintLayout testWaySwitchBtn=rootView.findViewById(R.id.test_Way_Fragment_Item_Switch_Layout_Btn);
+        testWaySwitchBtn.setOnClickListener(new TestWaySwitchBtnClickListener());*/
 
         testWayItemBack=rootView.findViewById(R.id.test_Way_Fragment_Item_Btn_Back);
         testWayMetalBtnTitle=rootView.findViewById(R.id.test_Way_Fragment_Metal_Btn_Title);
         testWayMetalBtnSelectedTip=rootView.findViewById(R.id.test_Way_Fragment_Metal_Btn_Selected_Tip);
         testWayGroundBtnTitle=rootView.findViewById(R.id.test_Way_Fragment_Ground_Btn_Title);
         testWayGroundBtnSelectedTip=rootView.findViewById(R.id.test_Way_Fragment_Ground_Btn_Selected_Tip);
+
+        TestWaySwitchBtnClickListener testWaySwitchBtnClickListener=new TestWaySwitchBtnClickListener();
+        itemOneBtn=rootView.findViewById(R.id.test_Way_Fragment_Item_One_Btn);
+        itemOneBtn.setOnClickListener(testWaySwitchBtnClickListener);
+        itemTwoBtn=rootView.findViewById(R.id.test_Way_Fragment_Item_Two_Btn);
+        itemTwoBtn.setOnClickListener(testWaySwitchBtnClickListener);
 
         if(SharedPreferenceUtil.getString(TEST_WAY_KEY,TEST_WAY_VALUE_METAL).equals(TEST_WAY_VALUE_METAL)){
             ConstraintLayout.LayoutParams lp=(ConstraintLayout.LayoutParams)testWayItemBack.getLayoutParams();
@@ -77,7 +88,7 @@ public class TestWayFragment extends Fragment {
         intent.putExtra("MaterialType",SharedPreferenceUtil.getString(TEST_WAY_KEY,TEST_WAY_VALUE_METAL));//金属  Mental 土壤Soil
         intent.setAction("xray.information");
         intent.setComponent(new ComponentName("com.example.androidjnitest","com.example.androidjnitest.BroadcastReceiver1"));
-        getContext().sendBroadcast(intent);
+        //getContext().sendBroadcast(intent);
 
         return rootView;
     }
@@ -85,35 +96,64 @@ public class TestWayFragment extends Fragment {
     class TestWaySwitchBtnClickListener implements View.OnClickListener{
         @Override
         public void onClick(View view) {
-            if(SharedPreferenceUtil.getString(TEST_WAY_KEY,TEST_WAY_VALUE_METAL).equals(TEST_WAY_VALUE_METAL)){
-                SharedPreferenceUtil.putString(TEST_WAY_KEY,TEST_WAY_VALUE_GROUND);
-                ConstraintLayout.LayoutParams lp=(ConstraintLayout.LayoutParams)testWayItemBack.getLayoutParams();
-                lp.rightToRight= ConstraintLayout.LayoutParams.PARENT_ID;
-                lp.leftToLeft=ConstraintLayout.LayoutParams.UNSET;
-                testWayItemBack.setLayoutParams(lp);
-                testWayMetalBtnTitle.setTextColor(getResources().getColor(R.color.result_text_white,null));
-                testWayMetalBtnSelectedTip.setVisibility(View.GONE);
-                testWayGroundBtnTitle.setTextColor(getResources().getColor(R.color.result_text_black,null));
-                testWayGroundBtnSelectedTip.setVisibility(View.VISIBLE);
-            }else{
-                SharedPreferenceUtil.putString(TEST_WAY_KEY,TEST_WAY_VALUE_METAL);
-                ConstraintLayout.LayoutParams lp=(ConstraintLayout.LayoutParams)testWayItemBack.getLayoutParams();
-                lp.leftToLeft= ConstraintLayout.LayoutParams.PARENT_ID;
-                lp.rightToRight=ConstraintLayout.LayoutParams.UNSET;
-                testWayItemBack.setLayoutParams(lp);
-                testWayMetalBtnTitle.setTextColor(getResources().getColor(R.color.result_text_black,null));
-                testWayMetalBtnSelectedTip.setVisibility(View.VISIBLE);
-                testWayGroundBtnTitle.setTextColor(getResources().getColor(R.color.result_text_white,null));
-                testWayGroundBtnSelectedTip.setVisibility(View.GONE);
+
+            if(ready){
+                ready=false;
+                if(view.equals(itemTwoBtn)&& !SharedPreferenceUtil.getString(TEST_WAY_KEY).equals(TEST_WAY_VALUE_GROUND)){
+                    SharedPreferenceUtil.putString(TEST_WAY_KEY,TEST_WAY_VALUE_GROUND);
+                    ConstraintLayout.LayoutParams lp=(ConstraintLayout.LayoutParams)testWayItemBack.getLayoutParams();
+                    lp.rightToRight= ConstraintLayout.LayoutParams.PARENT_ID;
+                    lp.leftToLeft=ConstraintLayout.LayoutParams.UNSET;
+                    testWayItemBack.setLayoutParams(lp);
+                    testWayMetalBtnTitle.setTextColor(getResources().getColor(R.color.result_text_white,null));
+                    testWayMetalBtnSelectedTip.setVisibility(View.GONE);
+                    testWayGroundBtnTitle.setTextColor(getResources().getColor(R.color.result_text_black,null));
+                    testWayGroundBtnSelectedTip.setVisibility(View.VISIBLE);
+
+                    Intent intent = new Intent();
+                    intent.putExtra("TrigMode",SharedPreferenceUtil.getString(PullTimeFragment.PULL_TIME_KEY,PullTimeFragment.PULL_TIME_VALUE_SHORT));//短按Short   长按Long
+                    intent.putExtra("period",SharedPreferenceUtil.getInt(TestTimeFragment.TEST_TIME_KEY,15));
+                    intent.putExtra("MaterialType",SharedPreferenceUtil.getString(TEST_WAY_KEY,TEST_WAY_VALUE_METAL));//金属  Mental 土壤Soil
+                    intent.setAction("xray.information");
+                    intent.setComponent(new ComponentName("com.example.androidjnitest","com.example.androidjnitest.BroadcastReceiver1"));
+                    getContext().sendBroadcast(intent);
+                }else if(view.equals(itemOneBtn)&& !SharedPreferenceUtil.getString(TEST_WAY_KEY).equals(TEST_WAY_VALUE_METAL)){
+                    SharedPreferenceUtil.putString(TEST_WAY_KEY,TEST_WAY_VALUE_METAL);
+                    ConstraintLayout.LayoutParams lp=(ConstraintLayout.LayoutParams)testWayItemBack.getLayoutParams();
+                    lp.leftToLeft= ConstraintLayout.LayoutParams.PARENT_ID;
+                    lp.rightToRight=ConstraintLayout.LayoutParams.UNSET;
+                    testWayItemBack.setLayoutParams(lp);
+                    testWayMetalBtnTitle.setTextColor(getResources().getColor(R.color.result_text_black,null));
+                    testWayMetalBtnSelectedTip.setVisibility(View.VISIBLE);
+                    testWayGroundBtnTitle.setTextColor(getResources().getColor(R.color.result_text_white,null));
+                    testWayGroundBtnSelectedTip.setVisibility(View.GONE);
+
+                    Intent intent = new Intent();
+                    intent.putExtra("TrigMode",SharedPreferenceUtil.getString(PullTimeFragment.PULL_TIME_KEY,PullTimeFragment.PULL_TIME_VALUE_SHORT));//短按Short   长按Long
+                    intent.putExtra("period",SharedPreferenceUtil.getInt(TestTimeFragment.TEST_TIME_KEY,15));
+                    intent.putExtra("MaterialType",SharedPreferenceUtil.getString(TEST_WAY_KEY,TEST_WAY_VALUE_METAL));//金属  Mental 土壤Soil
+                    intent.setAction("xray.information");
+                    intent.setComponent(new ComponentName("com.example.androidjnitest","com.example.androidjnitest.BroadcastReceiver1"));
+                    getContext().sendBroadcast(intent);
+                }
+
+                new Thread(SetValueThread).start();
             }
-            Intent intent = new Intent();
-            intent.putExtra("TrigMode",SharedPreferenceUtil.getString(PullTimeFragment.PULL_TIME_KEY,PullTimeFragment.PULL_TIME_VALUE_SHORT));//短按Short   长按Long
-            intent.putExtra("period",SharedPreferenceUtil.getInt(TestTimeFragment.TEST_TIME_KEY,15));
-            intent.putExtra("MaterialType",SharedPreferenceUtil.getString(TEST_WAY_KEY,TEST_WAY_VALUE_METAL));//金属  Mental 土壤Soil
-            intent.setAction("xray.information");
-            intent.setComponent(new ComponentName("com.example.androidjnitest","com.example.androidjnitest.BroadcastReceiver1"));
-            getContext().sendBroadcast(intent);
         }
     }
+
+    Thread SetValueThread =new Thread(){
+
+        @Override
+        public void run() {
+            super.run();
+            try{
+                Thread.sleep(1000);
+                ready=true;
+            }catch (Exception e){
+                System.out.println(e.toString());
+            }
+        }
+    };
 
 }

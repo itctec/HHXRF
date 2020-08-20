@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Message;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -41,20 +42,24 @@ public class OnTestingActivity extends BaseActivity {
         //StatusBar Text And Icon Style
         StatusBarUtil.setAndroidNativeLightStatusBar(this, false);
 
+        Message msg=MainActivity.mHandler.obtainMessage();
+        msg.what=0x02;
+        MainActivity.mHandler.dispatchMessage(msg);
+
         setContentView(R.layout.activity_on_testing);
 
         on_Testing_Tip_Sub_Text=findViewById(R.id.on_Testing_Tip_Sub_Text);
         String timeStrRes=getResources().getString(R.string.home_on_testing_waiting_time_tip);
-        String timeStr=String.format(timeStrRes,SharedPreferenceUtil.getInt(TestTimeFragment.TEST_TIME_KEY,15)+7);
+        String timeStr=String.format(timeStrRes,SharedPreferenceUtil.getInt(TestTimeFragment.TEST_TIME_KEY,15)+3);
         on_Testing_Tip_Sub_Text.setText(timeStr);
         on_Testing_Progress_View=findViewById(R.id.on_Testing_Progress_View);
-        on_Testing_Progress_View.setTotalTime(SharedPreferenceUtil.getInt(TestTimeFragment.TEST_TIME_KEY, 15) * 1000 + 7 * 1000, new TestingProgressView.ProgressCallBack() {
+        on_Testing_Progress_View.setTotalTime(SharedPreferenceUtil.getInt(TestTimeFragment.TEST_TIME_KEY, 15) * 1000 + 3 * 1000, new TestingProgressView.ProgressCallBack() {
             @Override
             public void progressEnd() {
-                finish();
+                t_NativeRoutineAnalysis.start();
             }
         });
-        t_NativeRoutineAnalysis.start();
+
     }
 
 
@@ -64,7 +69,14 @@ public class OnTestingActivity extends BaseActivity {
             super.run();
             HardwareControl.nativeRoutineAnalysis();
             readSummaryDataFromCsv();
-            setResult(MainActivity.TESTING_ACTIVITY_RESULT_CODE_OK);
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    setResult(MainActivity.TESTING_ACTIVITY_RESULT_CODE_OK);
+                    finish();
+                }
+            });
+
         }
     };
 
@@ -72,14 +84,19 @@ public class OnTestingActivity extends BaseActivity {
         try {
             SQLiteDBHelper sqLiteDBHelper = new SQLiteDBHelper(OnTestingActivity.this, SQLiteDBHelper.DATABASE_FILE_NAME, SQLiteDBHelper.DATABASE_VERSION);
             SQLiteDatabase sqLiteDatabase = sqLiteDBHelper.getReadableDatabase();
-            String checkSampleNameSqlStr = "select sample_name from tb_history_data where sample_name like 'Sample%' order by sample_name desc LIMIT 1";
+            String checkSampleNameSqlStr = "select sample_name from tb_history_data";
             Cursor cursor = sqLiteDatabase.rawQuery(checkSampleNameSqlStr, null);
+            int maxNum=0;
             String tempSampleName="Sample";
-            if(cursor.moveToNext()){
-                tempSampleName+=(Integer.parseInt(cursor.getString(cursor.getColumnIndex("sample_name")).substring(6))+1);
-            }else{
-                tempSampleName+=1;
+            while(cursor.moveToNext()){
+                if(Integer.parseInt(cursor.getString(cursor.getColumnIndex("sample_name")).substring(6))>maxNum){
+                    maxNum=Integer.parseInt(cursor.getString(cursor.getColumnIndex("sample_name")).substring(6));
+                }
             }
+            maxNum+=1;
+            tempSampleName+=maxNum;
+
+            System.out.println("样品名称---->"+tempSampleName);
 
             ContentValues newSampleDbValues = new ContentValues();
             newSampleDbValues.put("sample_name", tempSampleName);
@@ -110,12 +127,12 @@ public class OnTestingActivity extends BaseActivity {
                     int elementNum=Integer.parseInt(compoundName.substring(compoundName.toUpperCase().indexOf(buffer[0].toUpperCase().trim())+buffer[0].trim().length()+0,compoundName.toUpperCase().indexOf(buffer[0].toUpperCase().trim())+buffer[0].trim().length()+1));
                     System.out.println("化合物中的元素个数---->"+elementNum);
                     if (SharedPreferenceUtil.getString(TypeCalibrationActivity.CA_KEY,TypeCalibrationActivity.CA_NONE_VALUE).equals(TypeCalibrationActivity.CA_NONE_VALUE)){
-                        historyDataContentDbValues.put("element_concentration", Float.parseFloat(buffer[4])/elementNum+"");
+                        historyDataContentDbValues.put("element_concentration", Float.parseFloat(buffer[4])/elementNum);
                     }else{
                         String checkParametersStr="select * from tb_type_calibration_content where type_name=? and element_name=? and element_id<>?";
                         Cursor checkParametersResultCursor = sqLiteDatabase.rawQuery(checkParametersStr, new String[]{SharedPreferenceUtil.getString(TypeCalibrationActivity.CA_KEY,TypeCalibrationActivity.CA_NONE_VALUE),buffer[0].trim(),"-1"});
                         if(checkParametersResultCursor.moveToNext()){
-                            historyDataContentDbValues.put("element_concentration", (Float.parseFloat(buffer[4])*Integer.parseInt(checkParametersResultCursor.getString(checkParametersResultCursor.getColumnIndex("value_multiplication")))+Integer.parseInt(checkParametersResultCursor.getString(checkParametersResultCursor.getColumnIndex("value_plus"))))/elementNum+"");
+                            historyDataContentDbValues.put("element_concentration", (Float.parseFloat(buffer[4])*Integer.parseInt(checkParametersResultCursor.getString(checkParametersResultCursor.getColumnIndex("value_multiplication")))+Integer.parseInt(checkParametersResultCursor.getString(checkParametersResultCursor.getColumnIndex("value_plus"))))/elementNum);
                         }
                     }
                 }else{

@@ -65,7 +65,7 @@
     <string name="element_add_activity_multi_choice_btn_text">多选</string>
     <string name="element_add_activity_cancel_multi_choice_btn_text">取消多选</string>
     <string name="compound_fragment_title">显示化合物</string>
-    <string name="unit_fragment_title">元素含量单位选择</string>
+    <string name="unit_fragment_title">单位选择</string>
     <string name="unit_fragment_sel_label">(已选择单位)</string>
     <string name="decimal_point_fragment_title">小数点位数选择</string>
     <string name="decimal_point_fragment_sel_label">(已选择位数)</string>
@@ -97,7 +97,7 @@
     <string name="energy_calibration_start_tip">扣扳机开始校准</string>
     <string name="energy_calibration_start_tip_detail">直接扣动扳机</string>
     <string name="on_energy_calibration_tip">能量校准中...</string>
-    <string name="on_energy_calibration_waiting_time_tip">等待时间约2s</string>
+    <string name="on_energy_calibration_waiting_time_tip">等待时间约60秒</string>
     <string name="on_energy_calibration_waiting_time_finish_tip">完成</string>
     <string name="energy_calibration_result_title">结果页</string>
     <string name="calibration_fragment_type_calibration">类型校准</string>
@@ -136,7 +136,7 @@
     <string name="dialog_positive_save_btn_text">保存</string>
     <string name="dialog_negative_btn_text">取消</string>
 
-    <string name="device_settings">设备设置</string>
+    <string name="device_settings">仪器设置</string>
     <string name="link">连接</string>
     <string name="link_fragment_title">蓝牙连接</string>
     <string name="language">语言</string>

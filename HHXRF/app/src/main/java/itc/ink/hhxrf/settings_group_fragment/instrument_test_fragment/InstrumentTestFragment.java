@@ -96,7 +96,7 @@ public class InstrumentTestFragment extends Fragment {
             imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
 
-        MainActivity.hardwareBroadCastReceiver.removeCallBack();
+        //MainActivity.hardwareBroadCastReceiver.removeCallBack();
     }
 
     class PasswordTextWatcher implements TextWatcher {
@@ -159,7 +159,7 @@ public class InstrumentTestFragment extends Fragment {
                         hardwareDataLayout.setVisibility(View.VISIBLE);
 
                         //Check Data
-                        MainActivity.hardwareBroadCastReceiver.addCallBack(new DataCallBack() {
+                        MainActivity.hardwareBroadCastReceiver.addDefCalBack(new DataCallBack() {
                             @Override
                             public void onDataChanged(String s) {
                                 System.out.println("状态数据-》"+s);

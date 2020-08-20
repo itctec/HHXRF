@@ -118,6 +118,16 @@
             app:layout_constraintRight_toRightOf="@id/unit_Fragment_MGCM_Item_Btn_Back"
             app:layout_constraintTop_toTopOf="@id/unit_Fragment_Layout_Bg" />
         <TextView
+            android:id="@+id/unit_Fragment_MGCM_Btn_Title_Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2"
+            android:textColor="@color/unit_text_light"
+            android:textSize="12sp"
+            android:layout_marginTop="-5dp"
+            app:layout_constraintLeft_toRightOf="@id/unit_Fragment_MGCM_Btn_Title"
+            app:layout_constraintTop_toTopOf="@id/unit_Fragment_MGCM_Btn_Title" />
+        <TextView
             android:id="@+id/unit_Fragment_MGCM_Select_Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -141,7 +151,7 @@
             android:id="@+id/unit_Fragment_UM_Btn_Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="um"
+            android:text="\u03bcm"
             android:textColor="@color/unit_text_light"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@id/unit_Fragment_Layout_Bg"
@@ -233,6 +243,16 @@
             app:layout_constraintLeft_toLeftOf="@id/unit_Fragment_Vertical_Line_Three"
             app:layout_constraintRight_toRightOf="@id/unit_Fragment_Vertical_Line_Three"
             app:layout_constraintTop_toBottomOf="@id/unit_Fragment_Horizontal_Line" />
+        <TextView
+            android:id="@+id/unit_Fragment_MGCM_Label_Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-5dp"
+            android:text="2"
+            android:textColor="@color/unit_text_gray"
+            android:textSize="10sp"
+            app:layout_constraintLeft_toRightOf="@id/unit_Fragment_MGCM_Label"
+            app:layout_constraintTop_toTopOf="@id/unit_Fragment_MGCM_Label" />
         <View
             android:id="@+id/unit_Fragment_Vertical_Line_Four"
             android:layout_width="1px"
@@ -248,7 +268,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="um"
+            android:text="\u03bcm"
             android:textColor="@color/unit_text_gray"
             android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="@id/unit_Fragment_Vertical_Line_Four"

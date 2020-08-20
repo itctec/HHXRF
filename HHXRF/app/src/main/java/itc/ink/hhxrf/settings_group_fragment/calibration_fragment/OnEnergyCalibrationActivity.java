@@ -19,14 +19,16 @@ import itc.ink.hhxrf.BaseActivity;
 import itc.ink.hhxrf.MainActivity;
 import itc.ink.hhxrf.R;
 import itc.ink.hhxrf.hardware.HardwareControl;
+import itc.ink.hhxrf.settings_group_fragment.test_time_fragment.TestTimeFragment;
 import itc.ink.hhxrf.settings_group_fragment.test_way_fragment.TestWayFragment;
 import itc.ink.hhxrf.utils.SQLiteDBHelper;
 import itc.ink.hhxrf.utils.SharedPreferenceUtil;
 import itc.ink.hhxrf.utils.StatusBarUtil;
+import itc.ink.hhxrf.view.TestingProgressView;
 
 public class OnEnergyCalibrationActivity extends BaseActivity {
 
-    private ImageView on_Energy_Calibration_Progress;
+    private TestingProgressView on_Energy_Calibration_Progress_View;
     private TextView waitingTimeTip;
 
     @Override
@@ -39,10 +41,15 @@ public class OnEnergyCalibrationActivity extends BaseActivity {
 
         setContentView(R.layout.activity_on_energy_calibration);
 
-        on_Energy_Calibration_Progress=findViewById(R.id.on_Energy_Calibration_Progress);
-        waitingTimeTip=findViewById(R.id.on_Energy_Calibration_Tip_Sub_Text);
+        on_Energy_Calibration_Progress_View=findViewById(R.id.on_Energy_Calibration_Progress_View);
+        on_Energy_Calibration_Progress_View.setTotalTime(60 * 1000, new TestingProgressView.ProgressCallBack() {
+            @Override
+            public void progressEnd() {
+                t_NativeEnergyCalibration.start();
+            }
+        });
 
-        t_NativeEnergyCalibration.start();
+        waitingTimeTip=findViewById(R.id.on_Energy_Calibration_Tip_Sub_Text);
     }
 
 
@@ -52,30 +59,12 @@ public class OnEnergyCalibrationActivity extends BaseActivity {
             super.run();
             HardwareControl.nativeEnergyCalibration();
 
-            try{
-                sleep(200);
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        on_Energy_Calibration_Progress.setImageResource(R.drawable.progress_on_testing_state_two);
-                    }
-                });
-
-                sleep(300);
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        on_Energy_Calibration_Progress.setImageResource(R.drawable.progress_on_testing_state_three);
-                        waitingTimeTip.setText(R.string.on_energy_calibration_waiting_time_finish_tip);
-                    }
-                });
-                sleep(300);
-            }catch (Exception e){
-                System.out.println(e.toString());
-            }
-
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    waitingTimeTip.setText(R.string.on_energy_calibration_waiting_time_finish_tip);
+                }
+            });
             Intent intent=new Intent();
             intent.setClass(OnEnergyCalibrationActivity.this,EnergyCalibrationResultActivity.class);
             startActivity(intent);
