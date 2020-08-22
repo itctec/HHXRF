@@ -62,6 +62,7 @@ public class LastReportFragment extends Fragment {
     private EditText topNavigationSampleName;
     private String sampleOlderName="";
     private TextView gradeName;
+    private TextView conformity_Value;
     private ImageView reportShowType;
     private ImageView reportChangeColumnBtn;
     private TextView elementNameLabel;
@@ -117,7 +118,25 @@ public class LastReportFragment extends Fragment {
 
         TextView testType=rootView.findViewById(R.id.last_Report_Fragment_Test_Type);
 
+        ReportShowTypeClickListener reportShowTypeClickListener= new ReportShowTypeClickListener();
+        gradeName=rootView.findViewById(R.id.last_Report_Fragment_Grade_Name);
+        gradeName.setOnClickListener(reportShowTypeClickListener);
+
+        reportShowType=rootView.findViewById(R.id.last_Report_Fragment_Report_Show_Type);
+        reportShowType.setOnClickListener(reportShowTypeClickListener);
+
+        conformity_Value=rootView.findViewById(R.id.last_Report_Fragment_Conformity_Value);
+
         if(cursor.moveToNext()){
+            gradeName.setText(cursor.getString(cursor.getColumnIndex("mark_name")));
+            if(cursor.getString(cursor.getColumnIndex("mark_suit_value")).equals("SUIT_FULL")){
+                conformity_Value.setText("匹配");
+            }else if(cursor.getString(cursor.getColumnIndex("mark_suit_value")).equals("SUIT_PART")){
+                conformity_Value.setText("部分匹配");
+            }
+            else if(cursor.getString(cursor.getColumnIndex("mark_suit_value")).equals("SUIT_NULL")){
+                conformity_Value.setText("不匹配");
+            }
             topNavigationSampleName.setText(cursor.getString(cursor.getColumnIndex("sample_name")));
             sampleOlderName=cursor.getString(cursor.getColumnIndex("sample_name"));
             reportDateTime=cursor.getString(cursor.getColumnIndex("test_datetime"));
@@ -142,12 +161,7 @@ public class LastReportFragment extends Fragment {
             testType.setText("--");
         }
 
-        ReportShowTypeClickListener reportShowTypeClickListener= new ReportShowTypeClickListener();
-        gradeName=rootView.findViewById(R.id.last_Report_Fragment_Grade_Name);
-        gradeName.setOnClickListener(reportShowTypeClickListener);
 
-        reportShowType=rootView.findViewById(R.id.last_Report_Fragment_Report_Show_Type);
-        reportShowType.setOnClickListener(reportShowTypeClickListener);
 
         ReportChangeColumnRightBtnClickListener reportChangeColumnRightBtnClickListener=new ReportChangeColumnRightBtnClickListener();
         reportChangeColumnBtn=rootView.findViewById(R.id.last_Report_Fragment_Report_Change_Column_Btn);
@@ -197,10 +211,11 @@ public class LastReportFragment extends Fragment {
         Cursor cursor = sqLiteDatabase.rawQuery(sqlStr, null);
         DecimalFormat decimalFormat=new DecimalFormat(SharedPreferenceUtil.getString(DecimalPointFragment.DECIMAL_POINT_KEY,"0.00"));
         while(cursor.moveToNext()){
+            System.out.println("结论->"+cursor.getString(cursor.getColumnIndex("element_range")));
             LastReportDataMode reportItem=new LastReportDataMode(cursor.getString(cursor.getColumnIndex("element_name")),
-                    decimalFormat.format(Float.parseFloat(cursor.getString(cursor.getColumnIndex("element_concentration")))),
+                    decimalFormat.format(cursor.getFloat(cursor.getColumnIndex("element_concentration"))),
                     cursor.getString(cursor.getColumnIndex("element_range")),
-                    cursor.getString(cursor.getColumnIndex("element_average")));
+                    decimalFormat.format(cursor.getFloat(cursor.getColumnIndex("element_average"))));
             lastReportDataArray.add(reportItem);
         }
 

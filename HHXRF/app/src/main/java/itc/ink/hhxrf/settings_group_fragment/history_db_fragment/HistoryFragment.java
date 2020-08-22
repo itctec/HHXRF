@@ -78,7 +78,10 @@ public class HistoryFragment extends Fragment{
         SQLiteDatabase sqLiteDatabase = sqLiteDBHelper.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery(sqlStr, null);
         while(cursor.moveToNext()){
-            HistoryDBDataMode historyShowDataItem=new HistoryDBDataMode(cursor.getString(0),cursor.getString(1),cursor.getString(2),false);
+            HistoryDBDataMode historyShowDataItem=new HistoryDBDataMode(cursor.getString(cursor.getColumnIndex("sample_name")),
+                    cursor.getString(cursor.getColumnIndex("test_datetime")),
+                    cursor.getString(cursor.getColumnIndex("test_way")),
+                    false);
             historyItemArray.add(historyShowDataItem);
         }
 

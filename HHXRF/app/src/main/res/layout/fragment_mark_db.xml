@@ -94,6 +94,21 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent">
             <TextView
+                android:id="@+id/mark_db_Fragment_Float_Menu_Item_Select"
+                android:text="@string/mark_db_fragment_float_menu_select"
+                android:textColor="#222222"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:drawableRight="@drawable/vector_drawable_select_icon"
+                android:drawablePadding="20dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/mark_db_Fragment_Float_Menu_Item_Copy"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+            <TextView
                 android:id="@+id/mark_db_Fragment_Float_Menu_Item_Copy"
                 android:text="@string/mark_db_fragment_float_menu_copy"
                 android:textColor="#222222"
@@ -104,8 +119,8 @@
                 android:paddingRight="10dp"
                 android:drawableRight="@drawable/vector_drawable_copy_icon"
                 android:drawablePadding="20dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/mark_db_Fragment_Float_Menu_Item_Del"
+                app:layout_constraintTop_toBottomOf="@id/mark_db_Fragment_Float_Menu_Item_Select"
+                app:layout_constraintBottom_toTopOf="@+id/mark_db_Fragment_Float_Menu_Item_Del"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"/>
             <TextView

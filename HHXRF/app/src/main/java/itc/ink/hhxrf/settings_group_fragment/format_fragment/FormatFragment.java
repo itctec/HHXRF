@@ -17,6 +17,8 @@ import android.widget.Toast;
 import java.lang.reflect.Field;
 
 import itc.ink.hhxrf.R;
+import itc.ink.hhxrf.home_fragment.OnTestingActivity;
+import itc.ink.hhxrf.utils.SharedPreferenceUtil;
 
 /**
  * Created by yangwenjiang on 2018/9/19.
@@ -26,13 +28,18 @@ public class FormatFragment extends Fragment {
     private ConstraintLayout formatOneLayoutBtn;
     private TextView formatOneLayoutBtnTitle;
     private TextView formatOneLayoutBtnSelTip;
-    private NumberPicker formatOneNumPicker;
     private ConstraintLayout formatTwoLayoutBtn;
     private TextView formatTwoLayoutBtnTitle;
     private TextView formatTwoLayoutBtnSelTip;
     private ConstraintLayout formatThreeLayoutBtn;
     private TextView formatThreeLayoutBtnTitle;
     private TextView formatThreeLayoutBtnSelTip;
+    private NumberPicker formatThreeNumPicker;
+
+    public static final String FORMAT_KEY="format";
+    public static final String FORMAT_VALUE_HANLINAG="FORMAT_HANLIANG";
+    public static final String FORMAT_VALUE_HANLIANG_PAIHAO="FORMAT_HANLIANG_PAIHAO";
+    public static final String FORMAT_VALUE_AVE_PAIHAO="FORMAT_AVE_PAIHAO";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,12 +55,6 @@ public class FormatFragment extends Fragment {
         formatOneLayoutBtn.setOnClickListener(new FormatOneLayoutBtnClickListener());
         formatOneLayoutBtnTitle=rootView.findViewById(R.id.format_Fragment_Format_One_Title);
         formatOneLayoutBtnSelTip=rootView.findViewById(R.id.format_Fragment_Format_One_Selected_Tip);
-        formatOneNumPicker=rootView.findViewById(R.id.format_Fragment_Format_One_Number_Picker);
-        formatOneNumPicker.setOnValueChangedListener(new FormatOneNumPickerValueChangeListener());
-        formatOneNumPicker.setMinValue(0);
-        formatOneNumPicker.setMaxValue(99);
-        formatOneNumPicker.setValue(0);
-        setNumberPickerDividerColor(formatOneNumPicker, Color.TRANSPARENT);
 
         formatTwoLayoutBtn=rootView.findViewById(R.id.format_Fragment_Format_Two_Layout_Btn);
         formatTwoLayoutBtn.setOnClickListener(new FormatTwoLayoutBtnClickListener());
@@ -64,8 +65,61 @@ public class FormatFragment extends Fragment {
         formatThreeLayoutBtn.setOnClickListener(new FormatThreeLayoutBtnClickListener());
         formatThreeLayoutBtnTitle=rootView.findViewById(R.id.format_Fragment_Format_Three_Title);
         formatThreeLayoutBtnSelTip=rootView.findViewById(R.id.format_Fragment_Format_Three_Selected_Tip);
+        formatThreeNumPicker=rootView.findViewById(R.id.format_Fragment_Format_Three_Number_Picker);
+        formatThreeNumPicker.setOnValueChangedListener(new FormatThreeNumPickerValueChangeListener());
+        formatThreeNumPicker.setMinValue(0);
+        formatThreeNumPicker.setMaxValue(99);
+        formatThreeNumPicker.setValue(0);
+        setNumberPickerDividerColor(formatThreeNumPicker, Color.TRANSPARENT);
+
+        if(SharedPreferenceUtil.getString(FORMAT_KEY,FORMAT_VALUE_HANLINAG).equals(FORMAT_VALUE_HANLINAG)){
+            selectFormat(1);
+        }else if(SharedPreferenceUtil.getString(FORMAT_KEY,FORMAT_VALUE_HANLINAG).equals(FORMAT_VALUE_HANLIANG_PAIHAO)){
+            selectFormat(2);
+        }else if(SharedPreferenceUtil.getString(FORMAT_KEY,FORMAT_VALUE_HANLINAG).equals(FORMAT_VALUE_AVE_PAIHAO)){
+            selectFormat(3);
+        }
+
+        formatThreeNumPicker.setValue(SharedPreferenceUtil.getInt(FORMAT_VALUE_AVE_PAIHAO,0));
         
         return rootView;
+    }
+
+    private void selectFormat(int formatNum){
+        formatOneLayoutBtn.setBackgroundResource(R.drawable.round_rectangle_bg_light);
+        formatOneLayoutBtnTitle.setTextColor(getResources().getColor(R.color.edit_report_text_gray,null));
+        formatOneLayoutBtnSelTip.setVisibility(View.GONE);
+
+        formatTwoLayoutBtn.setBackgroundResource(R.drawable.round_rectangle_bg_light);
+        formatTwoLayoutBtnTitle.setTextColor(getResources().getColor(R.color.edit_report_text_gray,null));
+        formatTwoLayoutBtnSelTip.setVisibility(View.GONE);
+
+        formatThreeLayoutBtn.setBackgroundResource(R.drawable.round_rectangle_bg_light);
+        formatThreeLayoutBtnTitle.setTextColor(getResources().getColor(R.color.edit_report_text_gray,null));
+        formatThreeLayoutBtnSelTip.setVisibility(View.GONE);
+        switch (formatNum){
+            case 1:
+                formatOneLayoutBtn.setBackgroundResource(R.drawable.round_rectangle_bg_orange);
+                formatOneLayoutBtnTitle.setTextColor(getResources().getColor(R.color.edit_report_text_white,null));
+                formatOneLayoutBtnSelTip.setVisibility(View.VISIBLE);
+                SharedPreferenceUtil.putString(FORMAT_KEY,FORMAT_VALUE_HANLINAG);
+                OnTestingActivity.currentTestNum=-1;
+                break;
+            case 2:
+                formatTwoLayoutBtn.setBackgroundResource(R.drawable.round_rectangle_bg_orange);
+                formatTwoLayoutBtnTitle.setTextColor(getResources().getColor(R.color.edit_report_text_white,null));
+                formatTwoLayoutBtnSelTip.setVisibility(View.VISIBLE);
+                SharedPreferenceUtil.putString(FORMAT_KEY,FORMAT_VALUE_HANLIANG_PAIHAO);
+                OnTestingActivity.currentTestNum=-1;
+                break;
+            case 3:
+                formatThreeLayoutBtn.setBackgroundResource(R.drawable.round_rectangle_bg_orange);
+                formatThreeLayoutBtnTitle.setTextColor(getResources().getColor(R.color.edit_report_text_white,null));
+                formatThreeLayoutBtnSelTip.setVisibility(View.VISIBLE);
+                SharedPreferenceUtil.putString(FORMAT_KEY,FORMAT_VALUE_AVE_PAIHAO);
+                OnTestingActivity.currentTestNum=0;
+                break;
+        }
     }
 
     public void setNumberPickerDividerColor(NumberPicker numberPicker, int color) {
@@ -86,58 +140,28 @@ public class FormatFragment extends Fragment {
     class FormatOneLayoutBtnClickListener implements View.OnClickListener{
         @Override
         public void onClick(View view) {
-            formatOneLayoutBtn.setBackgroundResource(R.drawable.round_rectangle_bg_orange);
-            formatOneLayoutBtnTitle.setTextColor(getResources().getColor(R.color.edit_report_text_white,null));
-            formatOneLayoutBtnSelTip.setVisibility(View.VISIBLE);
-
-            formatTwoLayoutBtn.setBackgroundResource(R.drawable.round_rectangle_bg_light);
-            formatTwoLayoutBtnTitle.setTextColor(getResources().getColor(R.color.edit_report_text_gray,null));
-            formatTwoLayoutBtnSelTip.setVisibility(View.GONE);
-
-            formatThreeLayoutBtn.setBackgroundResource(R.drawable.round_rectangle_bg_light);
-            formatThreeLayoutBtnTitle.setTextColor(getResources().getColor(R.color.edit_report_text_gray,null));
-            formatThreeLayoutBtnSelTip.setVisibility(View.GONE);
+            selectFormat(1);
         }
     }
 
     class FormatTwoLayoutBtnClickListener implements View.OnClickListener{
         @Override
         public void onClick(View view) {
-            formatOneLayoutBtn.setBackgroundResource(R.drawable.round_rectangle_bg_light);
-            formatOneLayoutBtnTitle.setTextColor(getResources().getColor(R.color.edit_report_text_gray,null));
-            formatOneLayoutBtnSelTip.setVisibility(View.GONE);
-
-            formatTwoLayoutBtn.setBackgroundResource(R.drawable.round_rectangle_bg_orange);
-            formatTwoLayoutBtnTitle.setTextColor(getResources().getColor(R.color.edit_report_text_white,null));
-            formatTwoLayoutBtnSelTip.setVisibility(View.VISIBLE);
-
-            formatThreeLayoutBtn.setBackgroundResource(R.drawable.round_rectangle_bg_light);
-            formatThreeLayoutBtnTitle.setTextColor(getResources().getColor(R.color.edit_report_text_gray,null));
-            formatThreeLayoutBtnSelTip.setVisibility(View.GONE);
+            selectFormat(2);
         }
     }
 
     class FormatThreeLayoutBtnClickListener implements View.OnClickListener{
         @Override
         public void onClick(View view) {
-            formatOneLayoutBtn.setBackgroundResource(R.drawable.round_rectangle_bg_light);
-            formatOneLayoutBtnTitle.setTextColor(getResources().getColor(R.color.edit_report_text_gray,null));
-            formatOneLayoutBtnSelTip.setVisibility(View.GONE);
-
-            formatTwoLayoutBtn.setBackgroundResource(R.drawable.round_rectangle_bg_light);
-            formatTwoLayoutBtnTitle.setTextColor(getResources().getColor(R.color.edit_report_text_gray,null));
-            formatTwoLayoutBtnSelTip.setVisibility(View.GONE);
-
-            formatThreeLayoutBtn.setBackgroundResource(R.drawable.round_rectangle_bg_orange);
-            formatThreeLayoutBtnTitle.setTextColor(getResources().getColor(R.color.edit_report_text_white,null));
-            formatThreeLayoutBtnSelTip.setVisibility(View.VISIBLE);
+            selectFormat(3);
         }
     }
 
-    class FormatOneNumPickerValueChangeListener implements NumberPicker.OnValueChangeListener{
+    class FormatThreeNumPickerValueChangeListener implements NumberPicker.OnValueChangeListener{
         @Override
         public void onValueChange(NumberPicker numberPicker, int i, int i1) {
-            System.out.println("值->"+i1);
+            SharedPreferenceUtil.putInt(FORMAT_VALUE_AVE_PAIHAO,i1);
         }
     }
 

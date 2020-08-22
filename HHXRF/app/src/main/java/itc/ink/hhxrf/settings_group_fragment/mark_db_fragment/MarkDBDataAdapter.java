@@ -49,7 +49,12 @@ public class MarkDBDataAdapter extends RecyclerView.Adapter<MarkDBDataAdapter.VH
     public void onBindViewHolder(VH holder, final int position) {
         MarkDBDataMode markDBDataItem=mData.get(position);
 
-        holder.markDBIcon.setImageResource(R.drawable.mark_db_icon_normal);
+        if(markDBDataItem.isMark_lib_selected()){
+            holder.markDBIcon.setImageResource(R.drawable.mark_db_icon_normal_sel);
+        }else{
+            holder.markDBIcon.setImageResource(R.drawable.mark_db_icon_normal);
+        }
+
         if (holder.markDBNameLabel.getTag() != null && holder.markDBNameLabel.getTag() instanceof TextWatcher) {
             holder.markDBNameLabel.removeTextChangedListener((TextWatcher) holder.markDBNameLabel.getTag());
         }
@@ -91,7 +96,11 @@ public class MarkDBDataAdapter extends RecyclerView.Adapter<MarkDBDataAdapter.VH
                 holder.markDBIcon.setImageResource(R.drawable.mark_db_icon_add);
                 holder.markDBIcon.setOnClickListener(new AddItemClickListener());
             }else {
-                holder.markDBIcon.setImageResource(R.drawable.mark_db_icon_normal);
+                if(markDBDataItem.isMark_lib_selected()){
+                    holder.markDBIcon.setImageResource(R.drawable.mark_db_icon_normal_sel);
+                }else{
+                    holder.markDBIcon.setImageResource(R.drawable.mark_db_icon_normal);
+                }
                 holder.markDBIcon.setOnClickListener(new ItemClickListener(markDBDataItem.getMark_lib_id(),markDBDataItem.getMark_lib_name()));
                 holder.markDBIcon.setOnLongClickListener(new ItemLongClickListener(markDBDataItem));
             }

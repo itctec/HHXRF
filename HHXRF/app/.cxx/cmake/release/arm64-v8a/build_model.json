@@ -49,7 +49,7 @@
     "buildTargetSet": []
   },
   "abi": "ARM64_V8A",
-  "abiPlatformVersion": 23,
+  "abiPlatformVersion": 16,
   "cxxBuildFolder": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx/cmake/release/arm64-v8a",
   "jsonFile": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx/cmake/release/arm64-v8a/android_gradle_build.json",
   "gradleBuildOutputFolder": "/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx/cxx/release/arm64-v8a",

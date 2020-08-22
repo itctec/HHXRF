@@ -115,6 +115,8 @@
     <string name="mark_db_fragment_add_db">ADD LIBRARY</string>
     <string name="mark_db_fragment_import_mark_db">IMPORT LIBRARY</string>
     <string name="mark_db_fragment_edit_mark_db">EDIT LIBRARY</string>
+    <string name="mark_db_fragment_float_menu_select">Select</string>
+    <string name="mark_db_fragment_float_menu_cancel">Cancel</string>
     <string name="mark_db_fragment_float_menu_copy">Copy</string>
     <string name="mark_db_fragment_float_menu_del">Del</string>
     <string name="mark_db_fragment_float_menu_transport">Transport</string>

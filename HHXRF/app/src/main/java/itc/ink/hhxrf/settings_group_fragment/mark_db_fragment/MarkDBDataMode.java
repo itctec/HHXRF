@@ -3,14 +3,16 @@ package itc.ink.hhxrf.settings_group_fragment.mark_db_fragment;
 public class MarkDBDataMode {
     private long mark_lib_id;
     private String mark_lib_name;
+    private boolean mark_lib_selected;
     private boolean edit_selected=false;
 
     public MarkDBDataMode() {
     }
 
-    public MarkDBDataMode(long mark_lib_id, String mark_lib_name, boolean edit_selected) {
+    public MarkDBDataMode(long mark_lib_id, String mark_lib_name, boolean mark_lib_selected, boolean edit_selected) {
         this.mark_lib_id = mark_lib_id;
         this.mark_lib_name = mark_lib_name;
+        this.mark_lib_selected = mark_lib_selected;
         this.edit_selected = edit_selected;
     }
 
@@ -28,6 +30,14 @@ public class MarkDBDataMode {
 
     public void setMark_lib_name(String mark_lib_name) {
         this.mark_lib_name = mark_lib_name;
+    }
+
+    public boolean isMark_lib_selected() {
+        return mark_lib_selected;
+    }
+
+    public void setMark_lib_selected(boolean mark_lib_selected) {
+        this.mark_lib_selected = mark_lib_selected;
     }
 
     public boolean isEdit_selected() {

@@ -59,6 +59,8 @@ public class HistoryDbDataAdapter extends RecyclerView.Adapter<HistoryDbDataAdap
         holder.historyItemIcon.setText(historyDataItem.getSample_name());
         holder.historyOrdinal.setText(historyDataItem.getTest_datetime());
 
+        System.out.println("测试->"+historyDataItem);
+        System.out.println("测试->"+historyDataItem.getTest_way());
         if(historyDataItem.getTest_way().equals(TestWayFragment.TEST_WAY_VALUE_METAL)){
             holder.historyWay.setText(R.string.test_way_fragment_metal);
         }else{

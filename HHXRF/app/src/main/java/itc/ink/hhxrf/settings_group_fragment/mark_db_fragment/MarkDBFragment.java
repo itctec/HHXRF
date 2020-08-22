@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -37,6 +38,7 @@ public class MarkDBFragment extends Fragment {
     private List<MarkDBDataMode> mMarkDBDataArray = new ArrayList<>();
     private ConstraintLayout floatMenuOuterLayout;
     private ConstraintLayout floatMenuInnerLayout;
+    private TextView menuItemSelectBtn;
     private TextView menuItemCopyBtn;
     private TextView menuItemDelBtn;
     private TextView menuItemTransportBtn;
@@ -76,6 +78,8 @@ public class MarkDBFragment extends Fragment {
         floatMenuOuterLayout = rootView.findViewById(R.id.mark_db_Fragment_Float_Menu_Outer_Layout);
         floatMenuOuterLayout.setOnClickListener(new FloatMenuOuterLayoutClickListener());
         floatMenuInnerLayout = rootView.findViewById(R.id.mark_db_Fragment_Float_Menu_Inner_Layout);
+        menuItemSelectBtn=rootView.findViewById(R.id.mark_db_Fragment_Float_Menu_Item_Select);
+        menuItemSelectBtn.setOnClickListener(new MenuItemSelectBtnClickListener());
         menuItemCopyBtn = rootView.findViewById(R.id.mark_db_Fragment_Float_Menu_Item_Copy);
         menuItemCopyBtn.setOnClickListener(new MenuItemCopyBtnClickListener());
         menuItemDelBtn = rootView.findViewById(R.id.mark_db_Fragment_Float_Menu_Item_Del);
@@ -93,11 +97,11 @@ public class MarkDBFragment extends Fragment {
         SQLiteDatabase sqLiteDatabase = sqLiteDBHelper.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery(sqlStr, null);
         while (cursor.moveToNext()) {
-            MarkDBDataMode markDBDataItem = new MarkDBDataMode(cursor.getLong(0), cursor.getString(1), false);
+            MarkDBDataMode markDBDataItem = new MarkDBDataMode(cursor.getLong(0), cursor.getString(1),Boolean.valueOf(cursor.getString(2)), false);
             mMarkDBDataArray.add(markDBDataItem);
         }
 
-        MarkDBDataMode item_Add_Btn = new MarkDBDataMode(-1, getString(R.string.mark_db_fragment_add_db), false);
+        MarkDBDataMode item_Add_Btn = new MarkDBDataMode(-1, getString(R.string.mark_db_fragment_add_db), false,false);
         mMarkDBDataArray.add(item_Add_Btn);
     }
 
@@ -120,6 +124,16 @@ public class MarkDBFragment extends Fragment {
         public void onItemLongClick(int x, int y, MarkDBDataMode markDBDataItem) {
             currentLongClickMarkDBDataItem = markDBDataItem;
             floatMenuOuterLayout.setVisibility(View.VISIBLE);
+            Drawable drawable;
+            if(currentLongClickMarkDBDataItem.isMark_lib_selected()){
+                menuItemSelectBtn.setText(R.string.mark_db_fragment_float_menu_cancel);
+                drawable=getResources().getDrawable(R.drawable.vector_drawable_cancel_icon,null);
+            }else{
+                menuItemSelectBtn.setText(R.string.mark_db_fragment_float_menu_select);
+                drawable=getResources().getDrawable(R.drawable.vector_drawable_select_icon,null);
+            }
+            drawable.setBounds(0,0,drawable.getMinimumWidth(),drawable.getMinimumHeight());
+            menuItemSelectBtn.setCompoundDrawables(null,null,drawable,null);
             if (x < 420) {
                 floatMenuInnerLayout.setTranslationX(120);
             } else if (x < 780) {
@@ -214,6 +228,23 @@ public class MarkDBFragment extends Fragment {
         }
     }
 
+    class MenuItemSelectBtnClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            floatMenuOuterLayout.setVisibility(View.GONE);
+
+            SQLiteDBHelper sqLiteDBHelper = new SQLiteDBHelper(getContext(), SQLiteDBHelper.DATABASE_FILE_NAME, SQLiteDBHelper.DATABASE_VERSION);
+            SQLiteDatabase sqLiteDatabase = sqLiteDBHelper.getReadableDatabase();
+
+            String updateStr="update tb_mark_db set mark_db_selected='"+!currentLongClickMarkDBDataItem.isMark_lib_selected()+"' where mark_db_id="+currentLongClickMarkDBDataItem.getMark_lib_id();
+            sqLiteDatabase.execSQL(updateStr);
+
+            mMarkDBDataArray.clear();
+            initMarkDBData(mMarkDBDataArray);
+            mMarkDBDataAdapter.notifyDataSetChanged();
+        }
+    }
+
     class MenuItemCopyBtnClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
@@ -230,7 +261,7 @@ public class MarkDBFragment extends Fragment {
             Cursor markCursor = sqLiteDatabase.rawQuery(markCheckStr, null);
             while (markCursor.moveToNext()) {
                 ContentValues markValues = new ContentValues();
-                markValues.put("mark_id", System.currentTimeMillis());
+                markValues.put("mark_id", System.currentTimeMillis()+"");
                 markValues.put("mark_name", markCursor.getString(markCursor.getColumnIndex("mark_name")));
                 markValues.put("mark_num", markCursor.getString(markCursor.getColumnIndex("mark_num")));
                 markValues.put("mark_db_id", Long.parseLong(markDbValues.getAsString("mark_db_id")));

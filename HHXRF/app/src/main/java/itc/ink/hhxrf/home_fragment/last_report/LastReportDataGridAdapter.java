@@ -48,9 +48,10 @@ public class LastReportDataGridAdapter extends RecyclerView.Adapter<LastReportDa
 
         holder.elementName.setText(lastReportDataItem.getElement_name());
         holder.percentLabel.setText(lastReportDataItem.getElement_percent()+"%");
-        if(Float.parseFloat(lastReportDataItem.getElement_percent())<Integer.parseInt(lastReportDataItem.getElement_range().split("~")[0])){
+
+        if(lastReportDataItem.getElement_range()!=null&&Float.parseFloat(lastReportDataItem.getElement_percent())<Float.parseFloat(lastReportDataItem.getElement_range().split("~")[0])){
             holder.percentIndicator.setImageResource(R.drawable.concentration_indicator_less);
-        }else if(Float.parseFloat(lastReportDataItem.getElement_percent())>Integer.parseInt(lastReportDataItem.getElement_range().split("~")[1])){
+        }else if(lastReportDataItem.getElement_range()!=null&&Float.parseFloat(lastReportDataItem.getElement_percent())>Float.parseFloat(lastReportDataItem.getElement_range().split("~")[1])){
             holder.percentIndicator.setImageResource(R.drawable.concentration_indicator_more);
         }else{
             holder.percentIndicator.setImageResource(R.drawable.concentration_indicator_middle);

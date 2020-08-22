@@ -3,7 +3,7 @@ arguments :
 -H/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/src/main/cpp
 -B/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/.cxx/cmake/debug/x86
 -DANDROID_ABI=x86
--DANDROID_PLATFORM=android-23
+-DANDROID_PLATFORM=android-16
 -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/build/intermediates/cmake/debug/obj/x86
 -DCMAKE_BUILD_TYPE=Debug
 -DANDROID_NDK=/Users/yangwenjiang/Library/Android/sdk/ndk-bundle

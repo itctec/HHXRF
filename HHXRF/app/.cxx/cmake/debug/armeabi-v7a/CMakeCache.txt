@@ -21,7 +21,7 @@ ANDROID_ABI:UNINITIALIZED=armeabi-v7a
 ANDROID_NDK:UNINITIALIZED=/Users/yangwenjiang/Library/Android/sdk/ndk-bundle
 
 //No help, variable specified on the command line.
-ANDROID_PLATFORM:UNINITIALIZED=android-23
+ANDROID_PLATFORM:UNINITIALIZED=android-16
 
 //Archiver
 CMAKE_AR:FILEPATH=/Users/yangwenjiang/Library/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/bin/arm-linux-androideabi-ar
@@ -193,10 +193,10 @@ Project_BINARY_DIR:STATIC=/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app
 Project_SOURCE_DIR:STATIC=/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/src/main/cpp
 
 //Path to a library.
-log-lib:FILEPATH=/Users/yangwenjiang/Library/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/arm-linux-androideabi/23/liblog.so
+log-lib:FILEPATH=/Users/yangwenjiang/Library/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/arm-linux-androideabi/16/liblog.so
 
 //Dependencies for the target
-native-lib_LIB_DEPENDS:STATIC=general;/Users/yangwenjiang/Library/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/arm-linux-androideabi/23/liblog.so;
+native-lib_LIB_DEPENDS:STATIC=general;/Users/yangwenjiang/Library/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/arm-linux-androideabi/16/liblog.so;
 
 
 ########################
