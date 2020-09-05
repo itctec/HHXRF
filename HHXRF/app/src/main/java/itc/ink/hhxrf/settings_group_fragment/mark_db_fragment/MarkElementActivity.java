@@ -12,6 +12,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -53,6 +54,8 @@ public class MarkElementActivity extends BaseActivity {
         Intent intent=getIntent();
         markID=intent.getLongExtra("MARK_ID",0);
         markNum=intent.getStringExtra("MARK_NUM");
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         setContentView(R.layout.activity_mark_element);
 

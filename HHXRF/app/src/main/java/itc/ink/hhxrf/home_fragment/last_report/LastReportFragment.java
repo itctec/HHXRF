@@ -129,12 +129,15 @@ public class LastReportFragment extends Fragment {
 
         if(cursor.moveToNext()){
             gradeName.setText(cursor.getString(cursor.getColumnIndex("mark_name")));
-            if(cursor.getString(cursor.getColumnIndex("mark_suit_value")).equals("SUIT_FULL")){
+            if(cursor.getString(cursor.getColumnIndex("mark_suit_value"))!=null&&
+                    cursor.getString(cursor.getColumnIndex("mark_suit_value")).equals("SUIT_FULL")){
                 conformity_Value.setText("匹配");
-            }else if(cursor.getString(cursor.getColumnIndex("mark_suit_value")).equals("SUIT_PART")){
+            }else if(cursor.getString(cursor.getColumnIndex("mark_suit_value"))!=null&&
+                    cursor.getString(cursor.getColumnIndex("mark_suit_value")).equals("SUIT_PART")){
                 conformity_Value.setText("部分匹配");
             }
-            else if(cursor.getString(cursor.getColumnIndex("mark_suit_value")).equals("SUIT_NULL")){
+            else if(cursor.getString(cursor.getColumnIndex("mark_suit_value"))!=null&&
+                    cursor.getString(cursor.getColumnIndex("mark_suit_value")).equals("SUIT_NULL")){
                 conformity_Value.setText("不匹配");
             }
             topNavigationSampleName.setText(cursor.getString(cursor.getColumnIndex("sample_name")));

@@ -129,6 +129,7 @@ public class MarkElementDataAdapter extends RecyclerView.Adapter<MarkElementData
             holder.itemView.setTag(position);
             holder.itemView.setOnClickListener(new ItemEditClickListener());
             holder.markSelBtn.setVisibility(View.VISIBLE);
+            holder.markElementNameLabel.setCompoundDrawablesWithIntrinsicBounds(null,null,null,null);
             if(position==mData.size()-1){
                 holder.itemView.setVisibility(View.GONE);
             }

@@ -1,3 +1,7 @@
 # ninja log v5
 0	642	0	CMakeFiles/native-lib.dir/native-lib.cpp.o	3cfaa33d4085c93d
 642	932	0	/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/build/intermediates/cmake/debug/obj/arm64-v8a/libnative-lib.so	9a01fbd6ae3777f5
+4	791	0	CMakeFiles/native-lib.dir/native-lib.cpp.o	3cfaa33d4085c93d
+791	1167	0	/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/build/intermediates/cmake/debug/obj/arm64-v8a/libnative-lib.so	9a01fbd6ae3777f5
+2	713	0	CMakeFiles/native-lib.dir/native-lib.cpp.o	3cfaa33d4085c93d
+713	1040	0	/Users/yangwenjiang/WorkSpace/AndroidProject/HHXRF/app/build/intermediates/cmake/debug/obj/arm64-v8a/libnative-lib.so	9a01fbd6ae3777f5
